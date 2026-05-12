@@ -133,7 +133,7 @@ export default function QualityPage() {
 
       <section className="pt-16">
         <div className="container-x">
-          {STEPS.map((s, i) => (
+          {STEPS.map((s) => (
             <Reveal
               key={s.n}
               className={`border-line grid grid-cols-1 items-center gap-12 border-b py-16 last:border-b-0 lg:gap-16 ${s.reverse ? "lg:grid-cols-[5fr_6fr]" : "lg:grid-cols-[6fr_5fr]"}`}

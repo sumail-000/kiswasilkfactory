@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { SITE } from "@/lib/site";
 
@@ -20,11 +20,9 @@ export default function SampleForm() {
   const params = useSearchParams();
   const preselect = params.get("fabric");
   const [submitted, setSubmitted] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (preselect) setSelected([preselect]);
-  }, [preselect]);
+  const [selected, setSelected] = useState<string[]>(() =>
+    preselect ? [preselect] : []
+  );
 
   const toggle = (slug: string) =>
     setSelected((prev) =>

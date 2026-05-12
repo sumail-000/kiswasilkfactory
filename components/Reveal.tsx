@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode, createElement } from "react";
+import { useCallback, useState, type ReactNode, createElement } from "react";
 
 type RevealProps = {
   children: ReactNode;
@@ -15,35 +15,35 @@ export default function Reveal({
   as = "div",
   delay = 0,
 }: RevealProps) {
-  const ref = useRef<HTMLElement | null>(null);
   const [shown, setShown] = useState(false);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (!("IntersectionObserver" in window)) {
-      setShown(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            const t = setTimeout(() => setShown(true), delay);
-            io.disconnect();
-            return () => clearTimeout(t);
+  const setRef = useCallback(
+    (el: HTMLElement | null) => {
+      if (!el || shown) return;
+      if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
+        setShown(true);
+        return;
+      }
+      const io = new IntersectionObserver(
+        (entries, observer) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              window.setTimeout(() => setShown(true), delay);
+              observer.disconnect();
+              break;
+            }
           }
-        });
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.05 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [delay]);
+        },
+        { rootMargin: "0px 0px -8% 0px", threshold: 0.05 }
+      );
+      io.observe(el);
+    },
+    [delay, shown]
+  );
 
   return createElement(
     as,
-    { ref, className: `reveal ${shown ? "in" : ""} ${className}` },
+    { ref: setRef, className: `reveal ${shown ? "in" : ""} ${className}` },
     children
   );
 }

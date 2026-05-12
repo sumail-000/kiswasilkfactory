@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { SITE } from "@/lib/site";
 
@@ -29,12 +29,10 @@ export default function BulkForm() {
   const params = useSearchParams();
   const preselect = params.get("fabric");
   const [submitted, setSubmitted] = useState(false);
-  const [fabrics, setFabrics] = useState<string[]>([]);
+  const [fabrics, setFabrics] = useState<string[]>(() =>
+    preselect ? [preselect] : []
+  );
   const [finishes, setFinishes] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (preselect) setFabrics([preselect]);
-  }, [preselect]);
 
   const toggle = (val: string, list: string[], set: (v: string[]) => void) =>
     set(list.includes(val) ? list.filter((x) => x !== val) : [...list, val]);
@@ -233,7 +231,7 @@ export default function BulkForm() {
           <input type="checkbox" name="agree" required />
           <span className="text-ivory/85">
             I confirm I have authority to submit this RFQ and consent to be
-            contacted by Kiswa Silk's trade desk.
+            contacted by Kiswa Silk&rsquo;s trade desk.
           </span>
         </label>
 

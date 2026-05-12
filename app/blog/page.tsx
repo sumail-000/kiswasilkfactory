@@ -108,7 +108,7 @@ export default function BlogPage() {
                 Featured · Buyer Guide
               </div>
               <h2 className="mb-4 text-[clamp(1.8rem,3.5vw,2.8rem)]">
-                Reading momme weight: a wholesale buyer's quick reference.
+                Reading momme weight: a wholesale buyer&rsquo;s quick reference.
               </h2>
               <p className="text-muted mb-6">
                 Why 16 mm charmeuse drapes differently from 22 mm — and which
@@ -161,7 +161,7 @@ export default function BlogPage() {
           <Reveal>
             <p className="lede text-ivory/78 mb-6">
               Quarterly newsletter from the trade desk: new shades on the
-              loom, what's running, and any regulatory changes that affect
+              loom, what&rsquo;s running, and any regulatory changes that affect
               imports of pure silk.
             </p>
             <form className="flex flex-wrap gap-3">
