@@ -3,20 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { MessageCircle } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/site";
-import BrandMark from "./BrandMark";
 
 export default function Header() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
@@ -24,122 +16,125 @@ export default function Header() {
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    if (href === "/fabrics") return pathname.startsWith("/fabrics");
-    return pathname === href;
+    return pathname.startsWith(href);
   };
 
   return (
-    <header
-      className={`bg-ivory/92 sticky top-0 z-50 backdrop-blur-md backdrop-saturate-150 transition ${scrolled ? "border-line border-b" : "border-b border-transparent"}`}
-    >
-      <div className="bg-charcoal text-ivory-soft px-4 py-2 text-center text-[0.78rem] tracking-[0.12em] uppercase">
-        Premium silks crafted in Pakistan —{" "}
-        <span className="text-gold-soft">now shipping worldwide for B2B</span>
+    <header className="w-full bg-background sticky top-0 z-50 border-b border-border/40">
+      <div className="max-w-[1440px] mx-auto px-10 py-5 flex items-center justify-between">
+
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-4">
+          <div className="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center bg-cream shrink-0">
+            <div className="text-center leading-none">
+              <div className="font-display font-bold text-navy text-xl">KSF</div>
+              <div className="text-[6px] text-gold font-semibold tracking-wider mt-0.5">PREMIUM QUALITY</div>
+              <div className="text-[6px] text-gold font-semibold tracking-wider">SILK FABRIC</div>
+            </div>
+          </div>
+          <div>
+            <h1 className="font-display font-bold text-navy text-2xl tracking-wide">KISWA SILK FACTORY</h1>
+            <p className="text-sm text-foreground/70">{SITE.brandSubtitle}</p>
+          </div>
+        </Link>
+
+        {/* Desktop Nav */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {NAV_LINKS.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`text-sm font-medium transition-colors relative pb-2 ${
+                isActive(l.href) ? "text-gold" : "text-navy hover:text-gold"
+              }`}
+            >
+              {l.label}
+              {isActive(l.href) && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold rounded-full" />
+              )}
+            </Link>
+          ))}
+          <a
+            href={`https://wa.me/${SITE.phoneIntl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 bg-navy text-primary-foreground px-5 py-3 rounded-md hover:bg-navy/90 transition-colors"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span className="text-sm font-medium">WhatsApp Inquiry</span>
+          </a>
+        </nav>
+
+        {/* Mobile hamburger */}
+        <button
+          type="button"
+          aria-label="Open menu"
+          onClick={() => setDrawerOpen(true)}
+          className="lg:hidden flex flex-col gap-1.5 w-9 h-9 items-center justify-center rounded border border-border"
+        >
+          <span className="block h-px w-5 bg-navy" />
+          <span className="block h-px w-5 bg-navy" />
+          <span className="block h-px w-5 bg-navy" />
+        </button>
       </div>
 
-      <nav
-        className="container-x flex items-center justify-between gap-6 py-4"
-        aria-label="Primary"
-      >
-        <BrandMark />
-
-        <ul className="hidden items-center gap-8 xl:flex">
-          {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className={`group relative inline-block py-2 text-[0.85rem] font-medium tracking-[0.05em] transition ${isActive(l.href) ? "text-charcoal" : "text-charcoal-soft hover:text-charcoal"}`}
-              >
-                {l.label}
-                <span
-                  className={`bg-gold absolute bottom-0 left-0 h-px transition-all duration-500 ${isActive(l.href) ? "w-full" : "w-0 group-hover:w-full"}`}
-                />
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex items-center gap-3">
-          <Link href="/bulk-inquiry" className="btn btn-outline hidden xl:inline-flex">
-            Request Quote
-          </Link>
-          <button
-            type="button"
-            aria-label="Open menu"
-            onClick={() => setDrawerOpen(true)}
-            className="border-line grid h-11 w-11 place-items-center border xl:hidden"
-          >
-            <span className="relative block h-px w-[18px] bg-current">
-              <span className="absolute -top-[6px] left-0 block h-px w-[18px] bg-current" />
-              <span className="absolute top-[6px] left-0 block h-px w-[18px] bg-current" />
-            </span>
-          </button>
-        </div>
-      </nav>
-
+      {/* Mobile drawer */}
       <div
-        className={`bg-ivory fixed inset-0 z-[200] flex flex-col px-6 py-8 transition-transform duration-500 ${drawerOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed inset-0 z-[200] bg-background flex flex-col px-6 py-6 transition-transform duration-500 ${
+          drawerOpen ? "translate-x-0" : "translate-x-full"
+        }`}
         aria-hidden={!drawerOpen}
       >
-        <div className="mb-10 flex items-center justify-between">
-          <BrandMark />
+        <div className="flex items-center justify-between mb-8">
+          <Link href="/" onClick={() => setDrawerOpen(false)} className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full border-2 border-gold flex items-center justify-center bg-cream">
+              <div className="text-center leading-none">
+                <div className="font-display font-bold text-navy text-base">KSF</div>
+                <div className="text-[5px] text-gold font-semibold tracking-wider">PREMIUM QUALITY</div>
+              </div>
+            </div>
+            <span className="font-display font-bold text-navy text-lg">KISWA SILK FACTORY</span>
+          </Link>
           <button
             type="button"
             aria-label="Close menu"
             onClick={() => setDrawerOpen(false)}
-            className="border-line grid h-11 w-11 place-items-center border"
+            className="text-2xl text-navy w-9 h-9 flex items-center justify-center rounded border border-border"
           >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4">
-              <path d="M4 4 L16 16 M16 4 L4 16" />
-            </svg>
+            ×
           </button>
         </div>
-        <ul className="space-y-0">
-          {NAV_LINKS.map((l, i) => (
-            <li key={l.href} className="border-line border-b">
-              <Link
-                href={l.href}
-                onClick={() => setDrawerOpen(false)}
-                className="font-display flex items-center justify-between py-4 text-[1.6rem]"
-              >
-                {l.label}
-                <span className="text-gold text-[0.8rem]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </Link>
-            </li>
+        <nav className="flex flex-col">
+          {NAV_LINKS.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setDrawerOpen(false)}
+              className={`border-b border-border/50 py-4 text-base font-medium ${
+                isActive(l.href) ? "text-gold" : "text-navy"
+              }`}
+            >
+              {l.label}
+            </Link>
           ))}
-          <li className="border-line border-b">
-            <Link
-              href="/sample-request"
-              onClick={() => setDrawerOpen(false)}
-              className="font-display flex items-center justify-between py-4 text-[1.6rem]"
-            >
-              Sample Request<span className="text-gold text-[0.8rem]">08</span>
-            </Link>
-          </li>
-          <li className="border-line border-b">
-            <Link
-              href="/bulk-inquiry"
-              onClick={() => setDrawerOpen(false)}
-              className="font-display flex items-center justify-between py-4 text-[1.6rem]"
-            >
-              Bulk Inquiry<span className="text-gold text-[0.8rem]">09</span>
-            </Link>
-          </li>
-        </ul>
-        <div className="mt-auto pt-8">
+        </nav>
+        <div className="mt-auto pt-8 space-y-3">
           <Link
-            href="/bulk-inquiry"
+            href="/bulk-supply"
             onClick={() => setDrawerOpen(false)}
-            className="btn"
+            className="flex w-full items-center justify-center rounded-md bg-navy text-primary-foreground py-3 text-sm font-semibold"
           >
-            Request Quote <span className="arrow">→</span>
+            Get Bulk Quote
           </Link>
-          <p className="text-muted mt-4 text-sm">
-            <a href={`tel:${SITE.phone.replace(/\s/g, "")}`}>{SITE.phone}</a> ·{" "}
-            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-          </p>
+          <a
+            href={`https://wa.me/${SITE.phoneIntl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-center gap-2 rounded-md bg-whatsapp text-white py-3 text-sm font-semibold"
+          >
+            <MessageCircle className="w-4 h-4" />
+            WhatsApp Inquiry
+          </a>
         </div>
       </div>
     </header>

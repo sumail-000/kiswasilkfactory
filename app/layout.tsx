@@ -1,37 +1,36 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
 
-const display = Cormorant_Garamond({
-  variable: "--font-display-var",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
 const sans = Inter({
   variable: "--font-sans-var",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const serif = Playfair_Display({
+  variable: "--font-serif-var",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Kiswa Silk — Premium Silk Fabric Mill in Pakistan",
-    template: "%s · Kiswa Silk",
+    default: "Kiswa Silk Factory — Premium White-Base Silk Fabric Manufacturer",
+    template: "%s | Kiswa Silk Factory",
   },
   description:
-    "Kiswa Silk is a fully integrated silk textile mill in Pakistan — producing pure mulberry, raw, chiffon, organza, crepe and jacquard silks for global fashion brands and wholesale buyers.",
-  metadataBase: new URL("https://kiswasilk.com"),
+    "Kiswa Silk Factory is a trusted B2B manufacturer of premium white-base silk fabrics for dyeing, printing, embroidery and heavy work. Consistent quality. Reliable supply. Global trust.",
+  metadataBase: new URL("https://kiswasilkfactory.com"),
   openGraph: {
-    title: "Kiswa Silk — Premium Silk Fabric Mill in Pakistan",
+    title: "Kiswa Silk Factory — Premium White-Base Silk Fabric Manufacturer",
     description:
-      "Integrated silk textile mill: spinning, weaving, dyeing & finishing — finished silk fabric for designers and wholesale buyers.",
+      "B2B manufacturer of premium white-base silk fabrics. Dyeing, printing, embroidery & heavy work ready. Wholesale factory prices.",
     type: "website",
   },
 };
@@ -40,11 +39,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${sans.variable} antialiased`}
-    >
-      <body className="bg-ivory text-charcoal flex min-h-screen flex-col">
+    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
+      <body className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -1,278 +1,144 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import PageHead from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
+import { PROCESS_SECTIONS, ALL_STEPS } from "@/lib/factory-process";
 
 export const metadata: Metadata = {
-  title: "Quality & Production",
-  description:
-    "Inside the Kiswa Silk mill: spinning, weaving, dyeing, finishing and quality control — all under one roof, with OEKO-TEX, ISO 9001 and SEDEX compliance.",
+  title: "Quality & Production Process",
+  description: "Inside the Kiswa Silk Factory: 12 steps across 5 production stages — yarn preparation, weaving, checking, finishing, packing and dispatch.",
 };
 
-const STEPS = [
-  {
-    n: "i.",
-    eyebrow: "Reeling & Throwing",
-    title: (
-      <>
-        From cocoon to <span className="italic-accent">prepared yarn</span>.
-      </>
-    ),
-    body: "Bivoltine A-grade mulberry cocoons are sourced from selected farms and arrive at our reeling floor in 50 kg lots. Filaments are unwound, combined into multi-cocoon strands, and twisted (\"thrown\") to the denier and TPI required by each fabric programme.",
-    extra:
-      "Yarn for chiffon and crepe receives the highest twist (1,800–2,400 TPI). Charmeuse takes a softer 600–800 TPI. Each yarn batch is tagged, denier-tested and stored by recipe.",
-    bullets: [
-      "20 reeling stations, 9 throwing machines",
-      "Daily yarn output: ~480 kg",
-      "Tested at the loop: denier, breaking strength, elongation",
-    ],
-    img: "https://images.unsplash.com/photo-1605518215584-32d6f5662d77?auto=format&fit=crop&w=900&q=80",
-    alt: "Spool of pure silk thread",
-  },
-  {
-    n: "ii.",
-    eyebrow: "Weaving",
-    title: (
-      <>
-        Forty-six looms, <span className="italic-accent">three weaving floors</span>.
-      </>
-    ),
-    body: "Plain, satin, twill and crepe weaves are produced on Vamatex and Picanol rapier looms. Custom motifs are woven on our 12-jack jacquard floor. Each loom is paired with a senior weaver responsible for tension, pick-density and on-loom inspection.",
-    extra:
-      "Greige cloth is checked at the loom before it leaves the floor — defects flagged in the weave are corrected before the batch enters the dye-house.",
-    bullets: [
-      "32 rapier · 8 dobby · 6 jacquard looms",
-      "Production capacity: 3,400 m/day at peak",
-      "On-loom inspection by trained weavers",
-    ],
-    img: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=900&q=80",
-    alt: "Power loom weaving silk fabric",
-    reverse: true,
-  },
-  {
-    n: "iii.",
-    eyebrow: "Degumming & Dyeing",
-    title: (
-      <>
-        Reactive &amp; acid bath, <span className="italic-accent">colour-matched</span> in-house.
-      </>
-    ),
-    body: "Greige cloth is degummed to remove sericin (the natural gum that coats silk fibres), then dyed in 50–200 kg lots in our reactive and acid dye-house. Dye recipes are kept on file by Pantone reference; repeat orders are matched against retained yardage to keep shade consistent across seasons.",
-    extra:
-      "Our dye-house is OEKO-TEX Standard 100 certified — no AZO dyes, no banned amines, no heavy metals above the regulated limit. Effluent passes through a three-stage treatment plant before discharge.",
-    bullets: [
-      "12 winch dyeing machines, 4 jet dyers",
-      "Pantone shade-matching laboratory on site",
-      "OEKO-TEX Standard 100 certified",
-      "Effluent treatment plant (3-stage, on site)",
-    ],
-    img: "https://images.unsplash.com/photo-1582242335394-6f2db9be6cc1?auto=format&fit=crop&w=900&q=80",
-    alt: "Dyed silk fabric drying",
-  },
-  {
-    n: "iv.",
-    eyebrow: "Finishing & QC",
-    title: (
-      <>
-        Calendering, decatising, <span className="italic-accent">four-point inspection</span>.
-      </>
-    ),
-    body: "Dyed cloth is finished according to the buyer brief — soft hand, calendered shine, sand-wash, stiffened (organza), or print-prepared. Width, weight and skew are corrected on a stenter frame before final inspection.",
-    extra:
-      "Every roll is graded on the four-point system. Rolls scoring above 28 points per 100 m² are pulled, re-graded as second quality, and never shipped against an order. The pass-rate for first-quality cloth runs at 96%.",
-    bullets: [
-      "Stenter frame, calender, decatising drum",
-      "Four-point inspection, every roll",
-      "Width, weight and shrinkage verified before pack",
-      "First-quality pass rate: 96% rolling 12-month",
-    ],
-    img: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=80",
-    alt: "Finished silk fabric ready for packing",
-    reverse: true,
-  },
-];
-
-const QC_CARDS = [
-  {
-    title: "Width & Weight",
-    body: "Each roll is measured against the spec sheet. Tolerance is ±2% width, ±5% weight.",
-  },
-  {
-    title: "Pick & End Density",
-    body: "Verified against the loom record. Out-of-tolerance ends trigger a re-weave at our cost.",
-  },
-  {
-    title: "Shade Match",
-    body: "Spectrophotometer-verified against retained reference; ΔE ≤ 1.0 for repeat shades.",
-  },
-  {
-    title: "Defect Grading",
-    body: "Slubs, holes, oil marks, weft bars — graded 1–4 points by length, summed per 100 m².",
-  },
-];
+const NAVY = "#1a2340";
+const GOLD = "#c9a84c";
 
 export default function QualityPage() {
   return (
     <>
-      <PageHead
-        eyebrow="Inside the Mill"
-        title={
-          <>
-            Four steps. <em className="italic-accent text-gold-soft font-light">One floor.</em>
-            <br />
-            One quiet standard.
-          </>
-        }
-        lede="Every metre we ship has passed our hands four times. Each station — spinning, weaving, dyeing, finishing — sits within walking distance of the next. No third-party finishing. No vendor handoff. No quality drift."
-        breadcrumb={[
-          { label: "Home", href: "/" },
-          { label: "Quality & Production" },
-        ]}
-      />
+      <section style={{ background: NAVY }} className="py-20 text-white">
+        <div className="mx-auto max-w-[1280px] px-4 md:px-6">
+          <span className="mb-3 block text-[0.72rem] font-bold uppercase tracking-[0.22em]" style={{ color: GOLD }}>
+            Quality & Production
+          </span>
+          <h1 className="mb-4 text-[2.5rem] font-bold">
+            Our Production Process
+          </h1>
+          <p className="max-w-[55ch] text-white/75">
+            12 carefully monitored steps across 5 production stages — every metre of fabric
+            is produced and checked under one roof.
+          </p>
+        </div>
+      </section>
 
-      <section className="pt-16">
-        <div className="container-x">
-          {STEPS.map((s) => (
-            <Reveal
-              key={s.n}
-              className={`border-line grid grid-cols-1 items-center gap-12 border-b py-16 last:border-b-0 lg:gap-16 ${s.reverse ? "lg:grid-cols-[5fr_6fr]" : "lg:grid-cols-[6fr_5fr]"}`}
-            >
-              <div className={s.reverse ? "lg:order-2" : ""}>
-                <span className="font-display text-gold mb-4 block text-6xl leading-none italic">
-                  {s.n}
-                </span>
-                <p className="eyebrow mb-5">{s.eyebrow}</p>
-                <h2 className="mb-6">{s.title}</h2>
-                <p className="text-charcoal-soft mb-4">{s.body}</p>
-                <p className="text-charcoal-soft mb-6">{s.extra}</p>
-                <ul className="list-disc space-y-1 pl-5">
-                  {s.bullets.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
+      {/* Step overview strip */}
+      <section className="bg-[#f8f6f1] py-10">
+        <div className="mx-auto max-w-[1280px] px-4 md:px-6">
+          <div className="flex flex-wrap items-center gap-3">
+            {ALL_STEPS.map((s, i) => (
+              <div key={s.step} className="flex items-center gap-2">
+                <div
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[0.75rem] font-bold text-white"
+                  style={{ background: NAVY }}
+                >
+                  {s.step}
+                </div>
+                <span className="text-[0.8rem] font-medium text-gray-700">{s.title}</span>
+                {i < ALL_STEPS.length - 1 && (
+                  <span className="text-gray-300 hidden md:inline">→</span>
+                )}
               </div>
-              <div
-                className={`bg-cream relative aspect-[4/5] overflow-hidden ${s.reverse ? "lg:order-1" : ""}`}
-              >
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sections */}
+      {PROCESS_SECTIONS.map((section, si) => (
+        <section key={section.id} className={`py-16 ${si % 2 === 1 ? "bg-[#f8f6f1]" : "bg-white"}`}>
+          <div className="mx-auto max-w-[1280px] px-4 md:px-6">
+            <Reveal className="mb-10">
+              <span className="mb-2 block text-[0.72rem] font-bold uppercase tracking-[0.22em]" style={{ color: GOLD }}>
+                Stage {si + 1}
+              </span>
+              <h2 className="text-[1.8rem] font-bold" style={{ color: NAVY }}>{section.title}</h2>
+            </Reveal>
+
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+              <Reveal className="relative aspect-[4/3] overflow-hidden rounded-sm bg-gray-100">
                 <Image
-                  src={s.img}
-                  alt={s.alt}
+                  src={section.heroImage}
+                  alt={section.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                 />
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+              </Reveal>
 
-      {/* QC */}
-      <section className="bg-cream section-y">
-        <div className="container-x">
-          <Reveal className="mb-14 grid grid-cols-1 items-end gap-6 lg:grid-cols-[5fr_7fr]">
-            <div>
-              <p className="eyebrow mb-5">Quality Control</p>
-              <h2>
-                What we test for, <span className="italic-accent">every roll</span>.
-              </h2>
+              <div className="space-y-6">
+                {section.steps.map((step) => (
+                  <Reveal key={step.step} className="flex gap-4">
+                    <div
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+                      style={{ background: GOLD }}
+                    >
+                      {step.step}
+                    </div>
+                    <div>
+                      <h3 className="mb-1 text-[1rem] font-bold" style={{ color: NAVY }}>{step.title}</h3>
+                      <p className="text-[0.9rem] leading-relaxed text-gray-600">{step.description}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
             </div>
-            <p className="lede">
-              Quality is what we will not let pass. The four-point system is
-              the international wholesale standard; we apply it to every roll,
-              regardless of order size.
-            </p>
-          </Reveal>
+          </div>
+        </section>
+      ))}
 
-          <Reveal className="border-line bg-line grid grid-cols-1 gap-px border sm:grid-cols-2 lg:grid-cols-4">
-            {QC_CARDS.map((q) => (
-              <div key={q.title} className="bg-ivory p-8">
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  stroke="#8E6C3E"
-                  strokeWidth="1.2"
-                >
-                  <circle cx="16" cy="16" r="12" />
-                  <path d="M11 16l4 4 7-8" />
-                </svg>
-                <h4 className="mt-4 mb-2">{q.title}</h4>
-                <p className="text-muted m-0 text-[0.9rem]">{q.body}</p>
-              </div>
+      {/* Quality checkpoints */}
+      <section className="py-16" style={{ background: NAVY }}>
+        <div className="mx-auto max-w-[1280px] px-4 md:px-6">
+          <Reveal className="mb-10 text-center">
+            <span className="mb-2 block text-[0.72rem] font-bold uppercase tracking-[0.22em]" style={{ color: GOLD }}>
+              Our Standards
+            </span>
+            <h2 className="text-[1.8rem] font-bold text-white">Quality at Every Step</h2>
+          </Reveal>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Uniform Whiteness", body: "Every roll maintained at consistent high whiteness for reliable dyeing results." },
+              { title: "Smooth Surface Finish", body: "Calendering ensures smooth, even surface for printing, embroidery and dyeing." },
+              { title: "Accurate Dimensions", body: "Width and length measured before packing to match exact customer specifications." },
+              { title: "Zero Contamination", body: "Washing and cleaning process removes all dust, oil marks and processing particles." },
+            ].map((q) => (
+              <Reveal key={q.title} className="rounded-sm border border-white/15 p-6">
+                <div className="mb-3 text-2xl">✓</div>
+                <h4 className="mb-2 font-bold text-white">{q.title}</h4>
+                <p className="text-[0.85rem] text-white/65">{q.body}</p>
+              </Reveal>
             ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Compliance */}
-      <section className="section-y">
-        <div className="container-x grid grid-cols-1 gap-12 lg:grid-cols-2">
-          <Reveal>
-            <p className="eyebrow mb-5">Compliance & Certification</p>
-            <h2 className="mb-6">
-              Independent <span className="italic-accent">verification.</span>
-            </h2>
-            <p className="text-charcoal-soft mb-4">
-              We hold ourselves to international standards because our buyers
-              require evidence — not assurances. All certificates are available
-              on request for buyer due-diligence files.
-            </p>
-            <ul className="list-disc space-y-2 pl-5">
-              <li>
-                <strong>OEKO-TEX Standard 100</strong> — finished cloth tested
-                for harmful substances.
-              </li>
-              <li>
-                <strong>ISO 9001</strong> — quality management system.
-              </li>
-              <li>
-                <strong>SEDEX SMETA-4</strong> — labour and ethical audit.
-              </li>
-              <li>
-                <strong>PCSIR</strong> — independent textile testing certification.
-              </li>
-              <li>
-                <strong>TDAP membership</strong> — Trade Development Authority
-                of Pakistan, registered exporter.
-              </li>
-            </ul>
-          </Reveal>
-          <Reveal className="bg-cream p-10">
-            <h3 className="mt-0 mb-4">Request a Mill Audit Pack</h3>
-            <p className="text-charcoal-soft mb-6">
-              For ESG, due-diligence or compliance teams: we can prepare a
-              single-PDF mill pack including current certifications, the latest
-              SEDEX audit summary, factory layout, and supplier-of-record
-              letters.
-            </p>
-            <Link href="/contact" className="btn btn-outline">
-              Request Audit Pack <span className="arrow">→</span>
-            </Link>
-          </Reveal>
+          </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-charcoal text-ivory py-20">
-        <div className="container-x grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <Reveal>
-            <p className="eyebrow text-gold-soft mb-5">Visit the Mill</p>
-            <h2 className="text-ivory">See it for yourself.</h2>
-          </Reveal>
-          <Reveal>
-            <p className="lede text-ivory/78 mb-6">
-              Verified buyers can schedule a mill walkthrough. Lahore and
-              Sialkot international airports are both within a 90-minute drive
-              of the mill in Aroop Morr.
-            </p>
-            <Link href="/contact" className="btn btn-gold">
-              Schedule a Visit <span className="arrow">→</span>
+      <section className="bg-[#f8f6f1] py-14">
+        <Reveal className="mx-auto max-w-[640px] px-4 text-center">
+          <h2 className="mb-4 text-[1.8rem] font-bold" style={{ color: NAVY }}>
+            See Quality for Yourself
+          </h2>
+          <p className="mb-8 text-gray-600">
+            Request free fabric samples to check whiteness, finish and feel before placing a bulk order.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link href="/sample-request" className="rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ background: NAVY }}>
+              Request Samples
             </Link>
-          </Reveal>
-        </div>
+            <Link href="/contact" className="rounded-sm border px-6 py-3 text-sm font-semibold" style={{ borderColor: NAVY, color: NAVY }}>
+              Contact Us
+            </Link>
+          </div>
+        </Reveal>
       </section>
     </>
   );

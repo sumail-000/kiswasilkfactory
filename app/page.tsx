@@ -1,426 +1,390 @@
 import Image from "next/image";
 import Link from "next/link";
+import {
+  MessageCircle, Mail, FileText, Settings, Package, Factory, Globe,
+  Check, ArrowRight, Palette, Printer, Scissors, Dumbbell, Crown,
+  Store, PenTool, Users, Phone, MapPin,
+} from "lucide-react";
+import { SITE } from "@/lib/site";
 import Reveal from "@/components/Reveal";
-import Marquee from "@/components/Marquee";
-import FabricCard from "@/components/FabricCard";
-import TrustBand from "@/components/TrustBand";
-import { FABRICS } from "@/lib/fabrics";
 
+/* ─── data ───────────────────────────────────────── */
+const ABOUT_BULLETS = [
+  "Carefully selected yarns & advanced weaving",
+  "Uniform finish, high whiteness & smooth texture",
+  "Custom specifications & private label options",
+  "Bulk production capacity with timely delivery",
+];
+
+const FABRICS = [
+  { img: "/assets/fabric-dull-raw.jpg",     name: "Dull Raw Silk",       desc: "Natural matt finish smooth & soft feel",     slug: "special-dull-raw-silk" },
+  { img: "/assets/fabric-bright-raw.jpg",   name: "Bright Raw Silk",     desc: "Bright luster with silky smooth finish",     slug: "raw-silk-shine" },
+  { img: "/assets/fabric-dull-resham.jpg",  name: "Dull Resham Cotton",  desc: "Silk-cotton blend for soft & breathable feel",slug: "dull-resham-cotton" },
+  { img: "/assets/fabric-bright-resham.jpg",name: "Bright Resham Cotton",desc: "Silky sheen with comfortable texture",        slug: "bright-resham-cotton" },
+  { img: "/assets/fabric-bemberg.jpg",      name: "30D Bemberg",         desc: "Lightweight, smooth & premium drape",        slug: "30d-bemberg-crinkle" },
+  { img: "/assets/fabric-crinkle.jpg",      name: "40D Crinkle",         desc: "Soft crinkle texture with rich look",         slug: "40d-red-stone-crinkle" },
+  { img: "/assets/fabric-korean.jpg",       name: "Korean Raw Silk",     desc: "Premium quality sturdy & durable",            slug: "korean-raw-silk" },
+  { img: "/assets/fabric-sheesha.jpg",      name: "Sheesha Silk",        desc: "Shiny texture for luxury heavy work",         slug: "sheesha-silk" },
+];
+
+const APPLICATIONS = [
+  { icon: Palette, label: "Dyeing" },
+  { icon: Printer,      label: "Printing" },
+  { icon: Scissors,     label: "Embroidery" },
+  { icon: Dumbbell,      label: "Heavy Work" },
+];
+
+const WHO_WE_SERVE = [
+  { icon: Crown,   label: "Fashion Brands" },
+  { icon: Store,   label: "Boutiques" },
+  { icon: PenTool, label: "Designers" },
+  { icon: Users,   label: "Wholesalers & Traders" },
+];
+
+const WHY_CHOOSE = [
+  "Premium quality white-base silk fabrics",
+  "Advanced weaving & finishing technology",
+  "Consistent quality & competitive pricing",
+  "Bulk supply & on-time global delivery",
+];
+
+const OUR_PROCESS = [
+  "Yarn Selection",
+  "Weaving & Finishing",
+  "Quality Checking",
+  "Packing & Labeling",
+  "Dispatch & Delivery",
+];
+
+const GALLERY = [
+  { img: "/assets/gallery-rolls.jpg",   label: "Fabric Rolls" },
+  { img: "/assets/gallery-yarn.jpg",    label: "Yarn Preparation" },
+  { img: "/assets/gallery-weaving.jpg", label: "Weaving Section" },
+  { img: "/assets/gallery-quality.jpg", label: "Quality Checking" },
+  { img: "/assets/gallery-packing.jpg", label: "Packing" },
+  { img: "/assets/gallery-dispatch.jpg",label: "Bulk Dispatch" },
+];
+
+const HERO_IMAGES = [
+  { src: "/assets/silk-rolls.jpg",     alt: "Silk fabric rolls" },
+  { src: "/assets/silk-swirl.jpg",     alt: "Cream silk swirl" },
+  { src: "/assets/silk-drape.jpg",     alt: "Draped silk fabric" },
+  { src: "/assets/silk-warehouse.jpg", alt: "Silk warehouse rolls" },
+];
+
+const CONTACT_ITEMS = [
+  { icon: Phone,  t1: SITE.phone,         t2: "(WhatsApp Available)" },
+  { icon: Mail,   t1: SITE.email,         t2: "Email Us" },
+  { icon: MapPin, t1: SITE.instagram,     t2: "Follow Us" },
+  { icon: MapPin, t1: SITE.address.line1, t2: SITE.address.line2 },
+];
+
+/* ─── page ───────────────────────────────────────── */
 export default function Home() {
   return (
-    <>
-      {/* HERO */}
-      <section className="bg-charcoal text-ivory relative grid min-h-[92vh] items-center overflow-hidden">
-        <div className="absolute inset-0 -z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1920&q=85"
-            alt="Folds of pure silk fabric in soft light"
-            fill
-            priority
-            sizes="100vw"
-            className="hero-zoom object-cover"
-          />
-          <div className="from-charcoal/65 via-charcoal/30 to-charcoal/10 absolute inset-0 bg-gradient-to-r" />
-        </div>
+    <div className="min-h-screen bg-background">
 
-        <div className="container-x relative z-10 py-32">
-          <p className="eyebrow text-gold-soft mb-6">
-            Kiswa Silk · Textile Mills
-          </p>
-          <h1 className="text-ivory mb-6 max-w-[14ch]">
-            The quiet language of <em className="italic-accent text-gold-soft font-light">pure silk,</em>
-            <br />
-            woven in Pakistan.
-          </h1>
-          <p className="lede text-ivory/78 mb-10 max-w-[48ch]">
-            A vertically integrated silk mill — spinning thread, weaving cloth,
-            dyeing and finishing every yard under one roof. We supply finished
-            silk fabric to fashion houses, ateliers and wholesale buyers worldwide.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/fabrics" className="btn">
-              Explore Fabrics <span className="arrow">→</span>
-            </Link>
-            <Link href="/bulk-inquiry" className="btn btn-ghost">
-              Request a Bulk Quote
-            </Link>
-          </div>
-        </div>
+      {/* ══════════════ HERO ══════════════ */}
+      <section className="relative bg-cream overflow-hidden">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[700px]">
 
-        <div className="container-x text-ivory/72 absolute right-0 bottom-8 left-0 z-10 flex justify-between text-[0.74rem] tracking-[0.18em] uppercase">
-          <HeroMeta label="Established" value="1998" />
-          <HeroMeta label="Production" value="3,400 m / day" />
-          <HeroMeta label="Export to" value="Europe · GCC · USA" />
-        </div>
-      </section>
-
-      <Marquee
-        items={[
-          "Pure Mulberry Silk",
-          "Hand-Loomed Tradition",
-          "Reactive Dyed",
-          "OEKO-TEX Compliant",
-          "Finished In-House",
-          "Wholesale & Bespoke",
-        ]}
-      />
-
-      {/* STORY */}
-      <section className="section-y">
-        <div className="container-x grid grid-cols-1 items-center gap-12 lg:grid-cols-[5fr_7fr]">
-          <Reveal>
-            <p className="eyebrow mb-6">A Family Mill Since 1998</p>
-            <h2 className="mb-6">
-              Three generations of{" "}
-              <span className="italic-accent">silk-making</span>, one quiet
-              promise: hand-judged quality, every metre.
+          {/* Left */}
+          <div className="flex flex-col justify-center px-6 lg:px-10 py-16 lg:pr-20 relative z-10">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-8 h-px bg-gold" />
+              <span className="text-gold text-sm font-semibold tracking-widest">PREMIUM WHITE-BASE SILK FABRICS</span>
+            </div>
+            <h2 className="font-display font-bold text-navy text-[clamp(2.2rem,4vw,56px)] leading-[1.1] mb-8">
+              Crafting Excellence in White-Base Silk Fabrics for Every Application
             </h2>
-            <p className="lede mb-6">
-              From the first reeling of cocoon thread to the final pressing of
-              finished cloth, Kiswa Silk runs every step of production
-              in-house. That control is why design houses across Europe, the
-              Gulf and the United States have trusted us for over twenty-five
-              years.
+            <p className="text-foreground/80 text-base leading-relaxed mb-10 max-w-md">
+              Kiswa Silk Factory is a trusted B2B manufacturer of premium white-base silk fabrics for dyeing, printing, embroidery and heavy work. Consistent quality. Reliable supply. Global trust.
             </p>
-            <Link href="/about" className="btn-text mt-2">
-              Read Our Story <span>→</span>
-            </Link>
-            <div className="mt-10 flex flex-wrap gap-2.5">
-              {["Vertically Integrated", "In-House Dyeing", "Custom Weaves", "Low-MOQ Sampling"].map((c) => (
-                <span key={c} className="chip">
-                  {c}
-                </span>
+            <div className="flex flex-wrap items-center gap-4 mb-14">
+              <Link href="/bulk-supply" className="flex items-center gap-2 bg-navy text-primary-foreground px-6 py-4 rounded-md hover:bg-navy/90 transition-colors">
+                <FileText className="w-4 h-4" />
+                <span className="text-sm font-semibold">Get Bulk Quote</span>
+              </Link>
+              <Link href="/sample-request" className="flex items-center gap-2 border-2 border-gold text-navy px-6 py-[14px] rounded-md hover:bg-gold/10 transition-colors">
+                <Mail className="w-4 h-4 text-gold" />
+                <span className="text-sm font-semibold">Request Sample</span>
+              </Link>
+              <a
+                href={`https://wa.me/${SITE.phoneIntl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 border-2 border-whatsapp text-navy px-6 py-[14px] rounded-md hover:bg-whatsapp/10 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4 text-whatsapp" />
+                <span className="text-sm font-semibold">WhatsApp Inquiry</span>
+              </a>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              {[
+                { icon: Settings, t1: "Premium Quality", t2: "Assured" },
+                { icon: Package,  t1: "Bulk Supply",     t2: "Ready" },
+                { icon: Factory, t1: "Custom Weaves",   t2: "Available" },
+                { icon: Globe,    t1: "Global Shipping", t2: "Reliable & On-Time" },
+              ].map(({ icon: Icon, t1, t2 }) => (
+                <div key={t1} className="flex items-center gap-3">
+                  <Icon className="w-7 h-7 text-gold shrink-0" strokeWidth={1.2} />
+                  <div>
+                    <div className="text-sm font-semibold text-navy leading-tight">{t1}</div>
+                    <div className="text-sm text-foreground/70 leading-tight">{t2}</div>
+                  </div>
+                </div>
               ))}
             </div>
+          </div>
+
+          {/* Right — 2×2 image grid with S-curve cream overlay */}
+          <div className="relative hidden lg:block">
+            <div className="grid grid-cols-2 grid-rows-2 h-full gap-1">
+              {HERO_IMAGES.map((img) => (
+                <div key={img.src} className="relative overflow-hidden">
+                  <Image src={img.src} alt={img.alt} fill sizes="50vw" className="object-cover" priority />
+                </div>
+              ))}
+            </div>
+            {/* S-curve cream divider — exact match from Pixel Perfect UI */}
+            <svg
+              className="absolute left-0 top-0 h-full w-[220px] -translate-x-[1px] z-10 pointer-events-none"
+              viewBox="0 0 220 700"
+              preserveAspectRatio="none"
+              fill="none"
+            >
+              <path
+                d="M 0 0 L 150 0 C 20 90 -10 240 60 350 C 130 460 170 600 120 700 L 0 700 Z"
+                fill="oklch(0.97 0.015 85)"
+              />
+              <path
+                d="M 150 0 C 20 90 -10 240 60 350 C 130 460 170 600 120 700"
+                stroke="oklch(0.72 0.15 55)"
+                strokeWidth="2"
+                fill="none"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════ ABOUT US ══════════════ */}
+      <section className="bg-background">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <Reveal>
+            <div className="relative w-full h-[460px] overflow-hidden rounded-sm bg-cream">
+              <Image src="/assets/about-silk.jpg" alt="Kiswa silk fabric in warehouse" fill sizes="50vw" className="object-cover" />
+            </div>
           </Reveal>
-          <Reveal className="relative">
-            <div className="bg-cream relative aspect-[3/4] w-[78%] overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=900&q=80"
-                alt="Industrial loom weaving silk"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-              />
+          <Reveal>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="w-8 h-px bg-gold" />
+              <span className="text-gold text-sm font-semibold tracking-widest">ABOUT US</span>
             </div>
-            <div className="border-ivory absolute -bottom-12 right-0 aspect-[3/4] w-1/2 overflow-hidden border-8 bg-cream">
-              <Image
-                src="https://images.unsplash.com/photo-1605518215584-32d6f5662d77?auto=format&fit=crop&w=600&q=80"
-                alt="Spool of natural silk thread"
-                fill
-                sizes="33vw"
-                className="object-cover"
-              />
-            </div>
+            <h2 className="font-display font-bold text-navy text-[clamp(2rem,3.5vw,44px)] leading-tight mb-6">Kiswa Silk Factory</h2>
+            <p className="text-foreground/80 text-base leading-relaxed mb-8 max-w-lg">
+              With years of expertise in white-base silk fabrics, we cater to fashion brands, boutiques, designers, printers, embroiderers and industrial buyers worldwide.
+            </p>
+            <ul className="space-y-4 mb-10">
+              {ABOUT_BULLETS.map((b) => (
+                <li key={b} className="flex items-center gap-4">
+                  <span className="w-6 h-6 rounded-full bg-gold flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                  </span>
+                  <span className="text-navy text-base">{b}</span>
+                </li>
+              ))}
+            </ul>
+            <Link href="/about" className="inline-flex items-center gap-3 bg-navy text-primary-foreground px-7 py-4 rounded-md hover:bg-navy/90 transition-colors">
+              <span className="text-sm font-semibold">Know More About Us</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </Reveal>
         </div>
       </section>
 
-      {/* FABRIC GRID */}
-      <section className="bg-cream section-y">
-        <div className="container-x">
-          <Reveal className="grid grid-cols-1 items-end gap-6 mb-14 lg:grid-cols-[5fr_7fr]">
-            <div>
-              <p className="eyebrow mb-5">Our Fabrics</p>
-              <h2>
-                A library of silk, woven for every{" "}
-                <span className="italic-accent">drape and weight.</span>
-              </h2>
+      {/* ══════════════ FABRIC COLLECTION ══════════════ */}
+      <section className="bg-cream">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-20">
+          <Reveal className="text-center mb-12">
+            <div className="text-gold text-sm font-semibold tracking-widest mb-3">OUR FABRIC COLLECTION</div>
+            <h2 className="font-display font-bold text-navy text-[clamp(2rem,3.5vw,44px)] leading-tight">Premium White-Base Silk Fabrics</h2>
+            <div className="flex items-center justify-center gap-2 mt-3">
+              <span className="w-16 h-px bg-gold" />
+              <span className="text-gold text-xs">❖</span>
+              <span className="w-16 h-px bg-gold" />
             </div>
-            <p className="lede">
-              Browse the eight signature silks we produce in-house. Each fabric
-              is available in stock colours, custom dye-to-match and bespoke
-              weaves on request.
-            </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-4">
             {FABRICS.map((f) => (
-              <Reveal key={f.slug}>
-                <FabricCard
-                  href={`/fabrics/${f.slug}`}
-                  src={f.heroImg.replace("w=1600", "w=900")}
-                  alt={f.name}
-                  number={f.number}
-                  meta={f.subtitle.split("—")[0].trim()}
-                  title={f.name}
-                />
+              <Reveal key={f.name} className="bg-background rounded-sm overflow-hidden flex flex-col">
+                <div className="relative aspect-square w-full overflow-hidden bg-cream">
+                  <Image src={f.img} alt={f.name} fill sizes="(max-width: 640px) 50vw, (max-width: 1280px) 25vw, 12.5vw" className="object-cover" />
+                </div>
+                <div className="p-4 flex flex-col items-center text-center flex-1">
+                  <h3 className="font-display font-bold text-navy text-base mb-2">{f.name}</h3>
+                  <p className="text-foreground/70 text-xs leading-snug mb-4">{f.desc}</p>
+                  <p className="text-navy text-xs font-semibold mb-4 mt-auto">Width: 44&quot; – 54&quot;</p>
+                  <Link
+                    href={`/fabrics/${f.slug}`}
+                    className="w-full bg-navy text-primary-foreground text-xs font-semibold py-2.5 rounded-sm hover:bg-navy/90 transition-colors text-center block"
+                  >
+                    View Details
+                  </Link>
+                </div>
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-12 text-center">
-            <Link href="/fabrics" className="btn btn-outline">
-              View Full Catalogue <span className="arrow">→</span>
+      {/* ══════════════ INFO STRIP ══════════════ */}
+      <section className="bg-background">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-16 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+
+          {/* Applications */}
+          <Reveal className="border border-gold/30 rounded-sm p-6 flex flex-col">
+            <div className="text-center text-gold text-xs font-semibold tracking-widest mb-6">APPLICATIONS</div>
+            <div className="grid grid-cols-4 gap-2 mb-6 flex-1">
+              {APPLICATIONS.map(({ icon: Icon, label }) => (
+                <div key={label} className="flex flex-col items-center gap-2 text-center">
+                  <Icon className="w-8 h-8 text-navy" strokeWidth={1.2} />
+                  <div className="text-[11px] text-navy font-medium leading-tight">{label}</div>
+                </div>
+              ))}
+            </div>
+            <Link href="/applications" className="mx-auto border border-gold text-navy text-xs font-semibold px-4 py-2 rounded-sm hover:bg-gold/10 transition-colors">
+              Explore All Applications
             </Link>
+          </Reveal>
+
+          {/* Who We Serve */}
+          <Reveal className="border border-gold/30 rounded-sm p-6 flex flex-col">
+            <div className="text-center text-gold text-xs font-semibold tracking-widest mb-6">WHO WE SERVE</div>
+            <div className="grid grid-cols-4 gap-2 mb-6 flex-1">
+              {WHO_WE_SERVE.map(({ icon: Icon, label }) => (
+                <div key={label} className="flex flex-col items-center gap-2 text-center">
+                  <Icon className="w-8 h-8 text-navy" strokeWidth={1.2} />
+                  <div className="text-[11px] text-navy font-medium leading-tight">{label}</div>
+                </div>
+              ))}
+            </div>
+            <Link href="/about" className="mx-auto border border-gold text-navy text-xs font-semibold px-4 py-2 rounded-sm hover:bg-gold/10 transition-colors">
+              View All Industries
+            </Link>
+          </Reveal>
+
+          {/* Why Choose */}
+          <Reveal className="border border-gold/30 rounded-sm p-6 flex flex-col">
+            <div className="text-center text-gold text-xs font-semibold tracking-widest mb-6">WHY CHOOSE KISWA SILK FACTORY</div>
+            <ul className="space-y-3 mb-6 flex-1">
+              {WHY_CHOOSE.map((b) => (
+                <li key={b} className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-gold flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
+                  </span>
+                  <span className="text-navy text-xs leading-snug">{b}</span>
+                </li>
+              ))}
+            </ul>
+            <Link href="/bulk-supply" className="mx-auto border border-gold text-navy text-xs font-semibold px-4 py-2 rounded-sm hover:bg-gold/10 transition-colors">
+              More Reasons to Choose Us
+            </Link>
+          </Reveal>
+
+          {/* Our Process */}
+          <Reveal className="border border-gold/30 rounded-sm p-6 flex flex-col">
+            <div className="text-center text-gold text-xs font-semibold tracking-widest mb-6">OUR PROCESS</div>
+            <div className="flex items-start justify-between mb-6 flex-1 relative">
+              {OUR_PROCESS.map((step, i) => (
+                <div key={step} className="flex flex-col items-center text-center flex-1 relative z-10">
+                  <div className="w-7 h-7 rounded-full border border-gold bg-background flex items-center justify-center text-gold text-xs font-bold mb-2">{i + 1}</div>
+                  <div className="text-[10px] text-navy font-medium leading-tight px-1">{step}</div>
+                </div>
+              ))}
+              <div className="absolute top-3.5 left-[10%] right-[10%] h-px bg-gold/40 -z-0" />
+            </div>
+            <Link href="/quality" className="mx-auto border border-gold text-navy text-xs font-semibold px-4 py-2 rounded-sm hover:bg-gold/10 transition-colors">
+              Explore Our Process
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ══════════════ GALLERY PREVIEW ══════════════ */}
+      <section className="bg-background">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 pb-16">
+          <Reveal className="flex items-center justify-center gap-3 mb-10">
+            <span className="w-12 h-px bg-gold" />
+            <span className="text-gold text-sm font-semibold tracking-widest">GALLERY PREVIEW</span>
+            <span className="w-12 h-px bg-gold" />
+          </Reveal>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {GALLERY.map((g) => (
+              <Reveal key={g.label} className="flex flex-col">
+                <Link href="/gallery" className="block">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-cream">
+                    <Image src={g.img} alt={g.label} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 17vw" className="object-cover hover:scale-105 transition-transform duration-700" />
+                  </div>
+                  <div className="text-center text-navy text-xs font-semibold mt-3">{g.label}</div>
+                </Link>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* PROCESS */}
-      <section className="bg-charcoal text-ivory">
-        <div className="container-x section-y grid grid-cols-1 items-end gap-8 lg:grid-cols-[5fr_7fr] lg:pb-12">
-          <Reveal>
-            <p className="eyebrow text-gold-soft mb-6">From Cocoon to Cloth</p>
-            <h2 className="text-ivory">
-              Every metre we ship has
-              <br />
-              <span className="italic-accent">passed our hands four times.</span>
-            </h2>
-          </Reveal>
-          <Reveal>
-            <p className="lede text-ivory/78">
-              A vertically integrated mill means we own each step. No
-              third-party finishing. No quality loss between handoffs. Just one
-              team, accountable to one standard.
-            </p>
-          </Reveal>
-        </div>
-        <div className="container-x grid grid-cols-1 border-t border-white/12 sm:grid-cols-2 xl:grid-cols-4">
-          <ProcessStep
-            num="step 01"
-            title="Reeling & Throwing"
-            body="Raw silk filament is reeled from cocoon, twisted and prepared into yarn at our spinning floor."
-          />
-          <ProcessStep
-            num="step 02"
-            title="Weaving"
-            body="Power and jacquard looms produce plain, satin, twill and patterned weaves to spec."
-          />
-          <ProcessStep
-            num="step 03"
-            title="Dyeing"
-            body="Reactive and acid dyeing baths, OEKO-TEX certified processes, custom shade matching."
-          />
-          <ProcessStep
-            num="step 04"
-            title="Finishing & QC"
-            body="Calendering, decatising, four-point inspection — every roll graded before it leaves the mill."
-            last
-          />
-        </div>
-        <div className="container-x section-y pt-12 grid grid-cols-1 items-end gap-8 lg:grid-cols-[5fr_7fr]">
-          <div />
-          <div>
-            <Link href="/quality" className="btn btn-ghost">
-              See Our Quality Standards <span className="arrow">→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* STATS */}
-      <section className="container-x py-12">
-        <Reveal className="border-line bg-line grid grid-cols-2 gap-px border md:grid-cols-4">
-          <Stat num="25+" label="Years of mill operation" />
-          <Stat num="3,400m" label="Daily output capacity" />
-          <Stat num="42" label="Active export buyers" />
-          <Stat num="14" label="Countries served" />
-        </Reveal>
-      </section>
-
-      {/* SAMPLES & RFQ */}
-      <section className="bg-cream section-y">
-        <div className="container-x grid grid-cols-1 gap-12 lg:grid-cols-2">
-          <Reveal>
-            <p className="eyebrow mb-5">Sample Service</p>
-            <h2 className="mb-6">
-              Order a swatch <span className="italic-accent">box</span>.
-            </h2>
-            <p className="lede mb-8">
-              A curated set of our eight signature silks — actual mill-cut
-              swatches, labelled with weight, weave and dye reference. Free for
-              verified design studios; modest courier fee for individual buyers.
-            </p>
-            <Link href="/sample-request" className="btn">
-              Request Swatches <span className="arrow">→</span>
-            </Link>
-          </Reveal>
-          <Reveal>
-            <p className="eyebrow mb-5">Wholesale & Bulk</p>
-            <h2 className="mb-6">
-              Open an <span className="italic-accent">RFQ</span>.
-            </h2>
-            <p className="lede mb-8">
-              For orders over 200 m we open a dedicated quotation file: shade
-              matching, custom widths, finishing options, lead times and
-              freight to your nearest port — all in one document.
-            </p>
-            <Link href="/bulk-inquiry" className="btn btn-outline">
-              Start a Quote <span className="arrow">→</span>
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* TESTIMONIAL */}
-      <section className="bg-cream py-24">
-        <Reveal className="container-narrow text-center">
-          <p className="eyebrow mb-8 justify-center">A Word From Our Buyers</p>
-          <blockquote className="font-display text-charcoal mx-auto mb-8 max-w-[30ch] text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.32]">
-            <span className="text-gold mr-2 text-5xl leading-none">“</span>
-            The silks we receive from Kiswa are remarkably consistent. Twenty-six
-            rolls in, the chiffon still hits the same hand, the same drape. That
-            is rare.
-          </blockquote>
-          <cite className="text-muted text-[0.78rem] tracking-[0.18em] uppercase not-italic">
-            <span className="text-charcoal mb-1 block text-[0.92rem] font-semibold tracking-[0.08em] normal-case">
-              Aisha Tahir
+      {/* ══════════════ BULK CTA BAR ══════════════ */}
+      <section className="bg-navy text-primary-foreground">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-10 flex flex-wrap items-center justify-between gap-6">
+          <div className="flex items-center gap-5">
+            <span className="w-12 h-12 rounded-full border border-gold flex items-center justify-center shrink-0">
+              <MapPin className="w-5 h-5 text-gold" />
             </span>
-            Head of Sourcing — Maison Levant, Dubai
-          </cite>
-        </Reveal>
-      </section>
-
-      <TrustBand />
-
-      {/* JOURNAL */}
-      <section className="section-y">
-        <div className="container-x">
-          <Reveal className="mb-14 grid grid-cols-1 items-end gap-6 lg:grid-cols-[5fr_7fr]">
             <div>
-              <p className="eyebrow mb-5">Fabric Guide · Journal</p>
-              <h2>Notes from the loom floor.</h2>
+              <h3 className="font-display font-bold text-2xl mb-1">Looking for White-Base Silk Fabric in Bulk?</h3>
+              <p className="text-primary-foreground/70 text-sm">Get competitive pricing, consistent quality and on-time delivery for your business.</p>
             </div>
-            <p className="lede">
-              Working notes on silk selection, weight charts, dye care and the
-              practical knowledge our buyers ask for most often.
-            </p>
-          </Reveal>
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-            <BlogCard
-              img="https://images.unsplash.com/photo-1605518215584-32d6f5662d77?auto=format&fit=crop&w=900&q=80"
-              meta="Guide · 6 min"
-              title="Reading Momme Weight: a buyer's quick reference"
-              body="Why 16 mm charmeuse drapes differently from 22 mm — and which weights suit which garments."
-            />
-            <BlogCard
-              img="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=900&q=80"
-              meta="Process · 8 min"
-              title="Inside our jacquard floor: how custom motifs come to life"
-              body="From CAD card-cutting to woven sample, the four-week journey of a custom jacquard."
-            />
-            <BlogCard
-              img="https://images.unsplash.com/photo-1582242335394-6f2db9be6cc1?auto=format&fit=crop&w=900&q=80"
-              meta="Care · 4 min"
-              title="Caring for pure silk: a wholesaler's checklist"
-              body="Storage humidity, fold direction, and the small habits that keep finished bolts shop-ready."
-            />
+          </div>
+          <div className="flex items-center gap-4 shrink-0">
+            <Link href="/bulk-supply" className="flex items-center gap-2 bg-gold text-navy px-6 py-3 rounded-sm hover:bg-gold/90 transition-colors">
+              <FileText className="w-4 h-4" />
+              <span className="text-sm font-semibold">Get Bulk Quote</span>
+            </Link>
+            <Link href="/sample-request" className="flex items-center gap-2 border border-primary-foreground/50 text-primary-foreground px-6 py-3 rounded-sm hover:bg-primary-foreground/10 transition-colors">
+              <Mail className="w-4 h-4" />
+              <span className="text-sm font-semibold">Request Sample</span>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-charcoal text-ivory py-16">
-        <div className="container-x grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <Reveal>
-            <p className="eyebrow text-gold-soft mb-5">Speak With the Mill</p>
-            <h2 className="text-ivory">
-              Have a programme
-              <br />
-              in mind?
-            </h2>
+      {/* ══════════════ GET IN TOUCH ══════════════ */}
+      <section className="bg-background">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-14">
+          <Reveal className="flex items-center justify-center gap-3 mb-10">
+            <span className="w-10 h-px bg-gold" />
+            <span className="text-gold text-sm font-semibold tracking-widest">GET IN TOUCH</span>
+            <span className="w-10 h-px bg-gold" />
           </Reveal>
-          <Reveal>
-            <p className="lede text-ivory/78 mb-6">
-              Our trade desk replies within one working day. Share your spec —
-              weave, weight, finish, MOQ and ship-by date — and we will return
-              a costed proposal.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/bulk-inquiry" className="btn btn-gold">
-                Open RFQ <span className="arrow">→</span>
-              </Link>
-              <Link href="/contact" className="btn btn-ghost">
-                Contact
-              </Link>
-            </div>
-          </Reveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
+            {CONTACT_ITEMS.map(({ icon: Icon, t1, t2 }, i) => (
+              <Reveal key={i} className="flex items-center gap-4 justify-center lg:border-r last:border-r-0 border-gold/30 py-4">
+                <span className="w-12 h-12 rounded-full border border-gold flex items-center justify-center shrink-0">
+                  <Icon className="w-5 h-5 text-gold" />
+                </span>
+                <div>
+                  <div className="text-navy font-semibold text-sm">{t1}</div>
+                  <div className="text-foreground/60 text-xs">{t2}</div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
-    </>
-  );
-}
 
-function HeroMeta({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="hidden sm:block">
-      {label}
-      <span className="text-gold-soft font-display mt-1 block text-base normal-case tracking-normal">
-        {value}
-      </span>
     </div>
-  );
-}
-
-function ProcessStep({
-  num,
-  title,
-  body,
-  last,
-}: {
-  num: string;
-  title: string;
-  body: string;
-  last?: boolean;
-}) {
-  return (
-    <div
-      className={`px-6 py-10 sm:border-r sm:border-white/12 ${last ? "" : "border-b border-white/12 sm:border-b-0"} ${last ? "sm:border-r-0 xl:border-r-0" : ""}`}
-    >
-      <div className="font-display text-gold text-[0.9rem] italic tracking-[0.15em]">
-        {num}
-      </div>
-      <h3 className="text-ivory mt-5 mb-3 text-[1.6rem]">{title}</h3>
-      <p className="text-ivory/70 m-0 text-[0.95rem]">{body}</p>
-    </div>
-  );
-}
-
-function Stat({ num, label }: { num: string; label: string }) {
-  return (
-    <div className="bg-ivory px-6 py-8 text-center">
-      <span className="font-display text-charcoal block text-[clamp(2.4rem,4vw,3.6rem)] leading-none">
-        {num}
-      </span>
-      <span className="text-muted mt-3 block text-[0.74rem] tracking-[0.18em] uppercase">
-        {label}
-      </span>
-    </div>
-  );
-}
-
-function BlogCard({
-  img,
-  meta,
-  title,
-  body,
-}: {
-  img: string;
-  meta: string;
-  title: string;
-  body: string;
-}) {
-  return (
-    <Reveal>
-      <Link href="/blog" className="group block">
-        <div className="bg-cream relative mb-5 aspect-[4/3] overflow-hidden">
-          <Image
-            src={img}
-            alt=""
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="ease-silk object-cover transition-transform duration-1000 group-hover:scale-105"
-          />
-        </div>
-        <div className="text-gold-deep mb-2 text-[0.72rem] tracking-[0.18em] uppercase">
-          {meta}
-        </div>
-        <h3 className="group-hover:text-gold-deep mb-2 text-[1.6rem] transition">
-          {title}
-        </h3>
-        <p className="text-muted text-[0.95rem]">{body}</p>
-      </Link>
-    </Reveal>
   );
 }

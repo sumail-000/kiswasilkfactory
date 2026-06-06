@@ -1,249 +1,324 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import PageHead from "@/components/PageHead";
-import Reveal from "@/components/Reveal";
-import TrustBand from "@/components/TrustBand";
+import {
+  MessageCircle, FileText, Factory, Users, Settings2,
+  ShieldCheck, Package, Check, Shirt, BookOpen,
+  Scissors, Home, Store, Truck, Globe,
+} from "lucide-react";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About Kiswa Silk — A Family Mill in Pakistan",
+  title: "About Us — Kiswa Silk Factory",
   description:
-    "Kiswa Silk is a family-run silk textile mill near Gujranwala, Pakistan. Three generations of weaving, dyeing and finishing silk fabric for global buyers.",
+    "Kiswa Silk Factory manufactures premium white-base silk fabrics using advanced looms, skilled craftsmanship and strict quality control.",
 };
 
-const TIMELINE = [
-  {
-    year: "1998",
-    title: "First loom in Aroop Morr",
-    body: "Kiswa Silk opens with two power looms and a small team of weavers from the surrounding villages of Gujranwala.",
-  },
-  {
-    year: "2004",
-    title: "In-house dye-house commissioned",
-    body: "A reactive and acid dye line installed on-site, ending reliance on commercial dye-houses for colour matching and shade consistency.",
-  },
-  {
-    year: "2011",
-    title: "First export — Dubai & Riyadh",
-    body: "Kiswa begins shipping finished bolts to ateliers in the Gulf, the start of a now-fourteen-country export programme.",
-  },
-  {
-    year: "2017",
-    title: "Jacquard floor opens",
-    body: "Twelve-jack jacquard looms are added, opening custom-motif weaving for designer programmes and wedding-house buyers.",
-  },
-  {
-    year: "2021",
-    title: "OEKO-TEX Standard 100 certification",
-    body: "Independent testing confirms the dye-house and finishing line meet OEKO-TEX limits for harmful substances.",
-  },
-  {
-    year: "2026",
-    title: "Today",
-    body: "Three-shift production, eight active silk lines, 3,400 metres a day at peak — and a younger generation now running the floor alongside their father.",
-  },
+/* ── data ── */
+const WHO_WE_ARE_ICONS = [
+  { icon: Factory,    label: "In-House Manufacturing" },
+  { icon: Users,      label: "Skilled Workforce" },
+  { icon: Settings2,  label: "Advanced Looms" },
+  { icon: ShieldCheck,label: "Quality First Approach" },
+  { icon: Package,    label: "Consistent Supply" },
 ];
 
-const VALUES = [
-  {
-    n: "i.",
-    title: "Hand-judged quality.",
-    body: "Every roll is inspected by an experienced weaver before the four-point machine sees it. Numbers confirm what hands already know.",
-  },
-  {
-    n: "ii.",
-    title: "One team, one floor.",
-    body: "Spinning, weaving, dyeing, finishing — all under one roof. No handoffs means no quality loss between vendors.",
-  },
-  {
-    n: "iii.",
-    title: "Honest with weight.",
-    body: "When we say 22-momme charmeuse, you receive 22-momme charmeuse. Stated weight, stated weave, stated width — every time.",
-  },
+const WHAT_WE_MAKE = [
+  { name: "Dull Raw Silk",      img: "/products/special-dull-raw-silk/img1.jpeg" },
+  { name: "Bright Raw Silk",    img: "/products/raw-silk-shine/img1.jpeg" },
+  { name: "Resham Cotton",      img: "/products/dull-resham-cotton/img1.jpeg" },
+  { name: "Bright Resham",      img: "/products/bright-resham-cotton/img1.jpeg" },
+  { name: "30D Bemberg",        img: "/products/30d-bemberg-crinkle/img1.jpeg" },
+  { name: "Korean Raw Silk",    img: "/products/korean-raw-silk/img1.jpeg" },
+  { name: "Sheesha Silk",       img: "/products/sheesha-silk/img1.jpeg" },
+  { name: "Poly Organza",       img: "/products/poly-organza/img1.jpeg" },
 ];
 
-const TEAM = [
-  {
-    name: "Khalid Mahmood",
-    role: "Founder & Master Weaver",
-    img: "https://images.unsplash.com/photo-1612833609248-1ea2c0b3b1b9?auto=format&fit=crop&w=700&q=80",
-  },
-  {
-    name: "Hassan Mahmood",
-    role: "Director, Operations",
-    img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=700&q=80",
-  },
-  {
-    name: "Ayesha Khan",
-    role: "Lead, Quality & Dye-House",
-    img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=80",
-  },
+const APPLICATIONS = [
+  { icon: Shirt,   label: "Apparel & Ethnic Wear" },
+  { icon: Home,    label: "Home Textiles & Furnishings" },
+  { icon: Scissors,label: "Scarves, Stoles & Dupattas" },
+  { icon: BookOpen,label: "Decor & Event Draping" },
+  { icon: Package, label: "Lining, Interlining & More" },
+];
+
+const QUALITY_CHECKS = [
+  "Fabric construction & weave check",
+  "GSM (Weight) verification",
+  "Width & shrinkage control",
+  "Shade & surface inspection",
+  "Defect checking (holes, slubs, stains)",
+  "Final rolling & packing check",
+];
+
+const PROCESS_STEPS = [
+  { n: 1, icon: Package,    title: "Yarn Preparation",      body: "Carefully selected yarns are prepared for strength and evenness.", img: "/factory/step1/img1.jpeg" },
+  { n: 2, icon: Settings2,  title: "Weaving Setup",          body: "Looms are set with precision for the desired fabric construction.", img: "/factory/step4/img1.jpeg" },
+  { n: 3, icon: Factory,    title: "Power Loom Weaving",     body: "Advanced power looms weave fabric with consistency and speed.", img: "/factory/step6/img1.jpeg" },
+  { n: 4, icon: ShieldCheck,title: "Fabric Checking",        body: "Grey fabric is checked on-screen and manually for defects.", img: "/factory/step7/img1.jpeg" },
+  { n: 5, icon: Scissors,   title: "Washing & Calendering",  body: "Fabric is washed for cleanliness and finished for better texture.", img: "/factory/step8/img1.jpeg" },
+  { n: 6, icon: Truck,      title: "Measuring",              body: "Width, length and weight are measured as per requirement.", img: "/factory/step10/img1.jpeg" },
+  { n: 7, icon: Package,    title: "Packing & Dispatch",     body: "Fabric is rolled, packed carefully and dispatched on time.", img: "/factory/step12/img1.jpeg" },
+];
+
+const WHO_WE_SERVE = [
+  { icon: Factory, label: "Garment & Apparel Manufacturers" },
+  { icon: Truck,   label: "Textile Wholesalers & Distributors" },
+  { icon: Globe,   label: "Export Oriented Buyers" },
+  { icon: Home,    label: "Home Textile Producers" },
+  { icon: Store,   label: "Boutique & Private Label Brands" },
+  { icon: Scissors,label: "Tailoring & Stitching Units" },
+];
+
+const GALLERY_IMAGES = [
+  "/gallery/img1.jpeg",
+  "/gallery/img5.jpeg",
+  "/gallery/img30.jpeg",
+  "/gallery/img50.jpeg",
+  "/gallery/img70.jpeg",
 ];
 
 export default function AboutPage() {
   return (
-    <>
-      <PageHead
-        eyebrow="Our Story"
-        title={
-          <>
-            A quiet mill on the <em className="italic-accent text-gold-soft font-light">old textile road,</em> still
-            weaving by hand-judged eye.
-          </>
-        }
-        lede="Founded in 1998 by Mr Khalid Mahmood and now run with his two sons, Kiswa Silk is one of the few remaining vertically integrated silk mills in Pakistan — taking raw filament through to finished, packed cloth without ever leaving our gate."
-        breadcrumb={[{ label: "Home", href: "/" }, { label: "About" }]}
-      />
+    <div className="min-h-screen bg-background">
 
-      {/* Founder narrative */}
-      <section className="section-y">
-        <div className="container-x grid grid-cols-1 items-center gap-12 lg:grid-cols-[7fr_5fr]">
-          <Reveal>
-            <p className="eyebrow mb-5">The Founding Idea</p>
-            <h2 className="mb-6">
-              Trade silks were leaving the country{" "}
-              <span className="italic-accent">cheap</span>. We wanted them to
-              leave finished.
-            </h2>
-            <p className="lede mb-5">
-              In the late 1990s most Pakistani silk thread was being sold raw —
-              exported to mills abroad that did the weaving, dyeing and
-              finishing. The value was leaving with the yarn. Kiswa Silk was
-              started to keep all four steps inside one building.
+      {/* ── HERO ──────────────────────────────────── */}
+      <section className="bg-cream overflow-hidden">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[440px]">
+          {/* Left */}
+          <div className="flex flex-col justify-center px-8 lg:px-16 py-14">
+            <h1 className="font-display font-bold text-navy text-[clamp(2.4rem,5vw,58px)] leading-tight mb-3">
+              About<br />Kiswa Silk Factory
+            </h1>
+            <p className="text-gold font-display font-semibold text-[1.1rem] leading-snug mb-5">
+              Premium White-Base Silk Fabrics,<br />Crafted with Precision
             </p>
-            <p className="text-charcoal-soft">
-              Twenty-five years later, that single decision is the reason every
-              Kiswa fabric carries the same hand from the first metre of an
-              order to the last. There are no third-party finishers. No
-              outsourced dye-houses. Just one team and one standard.
+            <p className="text-foreground/70 text-[0.9rem] leading-relaxed mb-8 max-w-md">
+              At Kiswa Silk Factory, we manufacture high-quality white-base silk fabrics using advanced looms, skilled craftsmanship, and strict quality control—delivering consistency you can rely on, every time.
             </p>
-          </Reveal>
-          <Reveal className="bg-cream relative aspect-[4/5] overflow-hidden">
-            <Image
-              src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1000&q=80"
-              alt="Loom on the Kiswa Silk weaving floor"
-              fill
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover"
-            />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="bg-cream section-y">
-        <div className="container-x">
-          <Reveal className="mb-14 grid grid-cols-1 items-end gap-6 lg:grid-cols-[5fr_7fr]">
-            <div>
-              <p className="eyebrow mb-5">Twenty-Five Years</p>
-              <h2>A short timeline of the mill.</h2>
-            </div>
-            <p className="lede">
-              From a single power loom to a fully integrated production floor
-              exporting to fourteen countries.
-            </p>
-          </Reveal>
-
-          <div className="border-line bg-line grid grid-cols-1 gap-px border">
-            {TIMELINE.map((t) => (
-              <Reveal
-                key={t.year}
-                className="bg-ivory grid grid-cols-1 gap-6 px-8 py-10 sm:grid-cols-[120px_1fr] sm:items-baseline"
+            <div className="flex flex-wrap gap-3">
+              <Link href="/fabrics" className="flex items-center gap-2 bg-navy text-primary-foreground px-6 py-3 rounded-md hover:bg-navy/90 transition-colors text-sm font-semibold">
+                <FileText className="w-4 h-4" strokeWidth={1.2} />
+                View Fabrics
+              </Link>
+              <a
+                href={`https://wa.me/${SITE.phoneIntl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 border-2 border-navy/25 text-navy bg-white px-6 py-3 rounded-md hover:bg-navy/5 transition-colors text-sm font-semibold"
               >
-                <span className="italic-accent text-[1.6rem]">{t.year}</span>
-                <div>
-                  <h3 className="mb-2">{t.title}</h3>
-                  <p className="text-muted m-0">{t.body}</p>
+                <MessageCircle className="w-4 h-4" strokeWidth={1.2} />
+                WhatsApp Inquiry
+              </a>
+            </div>
+          </div>
+          {/* Right */}
+          <div className="relative hidden lg:block">
+            <Image src="/assets/silk-rolls.jpg" alt="Kiswa Silk Factory — silk fabric rolls" fill sizes="50vw" className="object-cover" priority />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, oklch(0.97 0.015 85) 0%, transparent 40%)" }} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHO WE ARE ────────────────────────────── */}
+      <section className="py-14">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-cream">
+            <Image src="/gallery/img1.jpeg" alt="Kiswa Silk Factory power loom floor" fill sizes="50vw" className="object-cover" />
+          </div>
+          <div>
+            <p className="text-gold text-[0.72rem] font-bold tracking-[0.22em] uppercase mb-2">WHO WE ARE</p>
+            <h2 className="font-display font-bold text-navy text-[clamp(1.7rem,3vw,36px)] leading-tight mb-5">
+              Manufacturers of Reliable,<br />Consistent &amp; Quality Silk Fabrics
+            </h2>
+            <p className="text-foreground/70 text-[0.9rem] leading-relaxed mb-8">
+              We are a dedicated silk fabric manufacturer focused on white-base woven silk fabrics. From yarn to finished roll, every stage is managed in-house to ensure strength, smooth finish, precise width, and uniform quality.
+            </p>
+            <div className="flex flex-wrap gap-x-8 gap-y-5 mb-8">
+              {WHO_WE_ARE_ICONS.map(({ icon: Icon, label }) => (
+                <div key={label} className="flex flex-col items-center gap-2 text-center w-[80px]">
+                  <span className="w-12 h-12 rounded-full border border-gold/30 bg-cream flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-gold" strokeWidth={1.2} />
+                  </span>
+                  <span className="text-[0.68rem] font-semibold text-navy leading-tight">{label}</span>
                 </div>
-              </Reveal>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/fabrics" className="flex items-center gap-2 bg-navy text-primary-foreground px-6 py-3 rounded-md hover:bg-navy/90 transition-colors text-sm font-semibold">
+                View Fabric Collection
+              </Link>
+              <Link href="/sample-request" className="flex items-center gap-2 border-2 border-navy/25 text-navy bg-white px-6 py-3 rounded-md hover:bg-navy/5 transition-colors text-sm font-semibold">
+                Request Sample
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHAT WE MAKE ──────────────────────────── */}
+      <section className="bg-cream py-14">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
+          <div className="flex items-center justify-center gap-4 mb-10">
+            <span className="w-12 h-px bg-gold" />
+            <h2 className="font-display font-bold text-navy text-[clamp(1.4rem,2.5vw,28px)] tracking-wide uppercase">What We Make</h2>
+            <span className="w-12 h-px bg-gold" />
+          </div>
+          <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+            {WHAT_WE_MAKE.map((f) => (
+              <Link href="/fabrics" key={f.name} className="group flex flex-col gap-2">
+                <div className="relative aspect-square overflow-hidden rounded-sm bg-background">
+                  <Image src={f.img} alt={f.name} fill sizes="12.5vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+                <span className="text-center text-navy text-[0.72rem] font-semibold">{f.name}</span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Values */}
-      <section className="section-y">
-        <div className="container-x">
-          <Reveal className="mb-12 text-center">
-            <p className="eyebrow mb-5 justify-center">What We Hold To</p>
-            <h2>Three quiet rules.</h2>
-          </Reveal>
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-            {VALUES.map((v) => (
-              <Reveal key={v.n} className="border-gold border-t pt-6">
-                <div className="text-gold-deep mb-3 text-[0.85rem] font-semibold tracking-[0.18em] uppercase">
-                  {v.n}
-                </div>
-                <h3 className="mb-3">{v.title}</h3>
-                <p className="text-muted">{v.body}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── APPLICATIONS + QUALITY CHECK ──────────── */}
+      <section className="py-14">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
-      {/* Team */}
-      <section className="bg-cream section-y">
-        <div className="container-x">
-          <Reveal className="mb-14 grid grid-cols-1 items-end gap-6 lg:grid-cols-[5fr_7fr]">
+          {/* Left — Multiple Applications */}
+          <div>
+            <p className="text-gold text-[0.7rem] font-bold tracking-[0.22em] uppercase mb-2">PREPARED FOR</p>
+            <h2 className="font-display font-bold text-navy text-[clamp(1.7rem,3vw,34px)] leading-tight mb-7">Multiple Applications</h2>
+            <div className="flex flex-wrap gap-6 mb-7">
+              {APPLICATIONS.map(({ icon: Icon, label }) => (
+                <div key={label} className="flex flex-col items-center gap-2 text-center w-[90px]">
+                  <span className="w-12 h-12 rounded-full border border-gold/30 bg-cream flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-navy" strokeWidth={1.2} />
+                  </span>
+                  <span className="text-[0.68rem] font-semibold text-navy leading-tight">{label}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-foreground/65 text-[0.85rem] leading-relaxed">
+              Our white-base silk fabrics are widely used by manufacturers, converters, and brands who value quality, consistency, and long-term reliability.
+            </p>
+          </div>
+
+          {/* Right — Quality Checked Before Packing */}
+          <div className="grid grid-cols-1 sm:grid-cols-[1fr_160px] gap-5 items-start">
             <div>
-              <p className="eyebrow mb-5">The Team</p>
-              <h2>
-                The people behind <span className="italic-accent">every metre</span>.
-              </h2>
+              <p className="text-gold text-[0.7rem] font-bold tracking-[0.22em] uppercase mb-2">QUALITY CHECKED</p>
+              <h2 className="font-display font-bold text-navy text-[clamp(1.7rem,3vw,34px)] leading-tight mb-6">Before Packing</h2>
+              <ul className="space-y-3">
+                {QUALITY_CHECKS.map((q) => (
+                  <li key={q} className="flex items-start gap-3 text-[0.85rem] text-foreground/75">
+                    <span className="w-5 h-5 rounded-full bg-gold flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                    </span>
+                    {q}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <p className="lede">
-              A senior team of forty-two, including weavers who have been with
-              the mill since its first year. Continuity is part of the product.
-            </p>
-          </Reveal>
+            <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-cream hidden sm:block">
+              <Image src="/factory/step7/img1.jpeg" alt="Quality checking" fill sizes="160px" className="object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {TEAM.map((p) => (
-              <Reveal key={p.name}>
-                <div className="bg-ivory relative mb-5 aspect-[4/5] overflow-hidden">
-                  <Image
-                    src={p.img}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover grayscale-[0.15]"
-                  />
+      {/* ── HOW WE PREPARE YOUR FABRIC (Process) ──── */}
+      <section className="bg-cream py-14">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
+          <div className="flex items-center justify-center gap-4 mb-12">
+            <span className="w-12 h-px bg-gold" />
+            <h2 className="font-display font-bold text-navy text-[clamp(1.3rem,2vw,24px)] tracking-wide uppercase text-center">How We Prepare Your Fabric</h2>
+            <span className="w-12 h-px bg-gold" />
+          </div>
+
+          {/* Steps — numbered with connecting line */}
+          <div className="relative">
+            {/* Connecting dots line */}
+            <div className="absolute top-[26px] left-[6%] right-[6%] h-px border-t-2 border-dashed border-gold/30 hidden lg:block" />
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-6 relative z-10">
+              {PROCESS_STEPS.map((s) => (
+                <div key={s.n} className="flex flex-col items-center text-center gap-3">
+                  <span className="w-12 h-12 rounded-full border-2 border-gold bg-white flex items-center justify-center shrink-0 shadow-sm relative">
+                    <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-navy text-primary-foreground text-[0.62rem] font-bold flex items-center justify-center">{s.n}</span>
+                    <s.icon className="w-5 h-5 text-gold" strokeWidth={1.2} />
+                  </span>
+                  <h4 className="font-display font-bold text-navy text-[0.82rem] leading-tight">{s.title}</h4>
+                  <p className="text-foreground/60 text-[0.7rem] leading-snug">{s.body}</p>
                 </div>
-                <h4>{p.name}</h4>
-                <p className="text-gold-deep m-0 italic">{p.role}</p>
-              </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHO WE SERVE ──────────────────────────── */}
+      <section className="py-12">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
+          <div className="flex items-center justify-center gap-4 mb-10">
+            <span className="w-12 h-px bg-gold" />
+            <h2 className="font-display font-bold text-navy text-[clamp(1.3rem,2vw,24px)] tracking-wide uppercase">Who We Serve</h2>
+            <span className="w-12 h-px bg-gold" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 text-center">
+            {WHO_WE_SERVE.map(({ icon: Icon, label }) => (
+              <div key={label} className="flex flex-col items-center gap-3 px-2">
+                <span className="w-14 h-14 rounded-full border border-gold/30 bg-cream flex items-center justify-center">
+                  <Icon className="w-6 h-6 text-navy" strokeWidth={1.2} />
+                </span>
+                <span className="text-[0.75rem] font-semibold text-navy leading-tight">{label}</span>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <TrustBand />
-
-      {/* CTA */}
-      <section className="bg-charcoal text-ivory py-20">
-        <div className="container-x grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <Reveal>
-            <p className="eyebrow text-gold-soft mb-5">Visit the Mill</p>
-            <h2 className="text-ivory">Buyers are welcome on the floor.</h2>
-          </Reveal>
-          <Reveal>
-            <p className="lede text-ivory/78 mb-6">
-              Verified buyers can schedule a mill visit — see the spinning,
-              weaving and dye-house first hand. We can arrange a driver from
-              Lahore or Sialkot international airport.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/contact" className="btn btn-gold">
-                Book a Mill Visit <span className="arrow">→</span>
-              </Link>
-              <Link href="/quality" className="btn btn-ghost">
-                Quality Process
-              </Link>
-            </div>
-          </Reveal>
+      {/* ── GALLERY STRIP ─────────────────────────── */}
+      <section className="pb-0">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 pb-0">
+          <div className="grid grid-cols-5 gap-1">
+            {GALLERY_IMAGES.map((src, i) => (
+              <div key={src} className="relative aspect-[4/3] overflow-hidden bg-cream">
+                <Image src={src} alt={`Factory ${i + 1}`} fill sizes="20vw" className="object-cover hover:scale-105 transition-transform duration-700" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-    </>
+
+      {/* ── CTA BANNER ────────────────────────────── */}
+      <section className="bg-navy py-14">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-[auto_1fr_auto] items-center gap-8">
+          {/* KSF logo badge */}
+          <div className="w-20 h-20 rounded-full border-2 border-gold/60 flex items-center justify-center bg-navy shrink-0 hidden lg:flex">
+            <div className="text-center leading-none">
+              <div className="font-display font-bold text-white text-lg">KSF</div>
+              <div className="text-[5px] text-gold font-semibold tracking-wider mt-0.5">PREMIUM QUALITY</div>
+              <div className="text-[5px] text-gold font-semibold tracking-wider">SILK FABRIC</div>
+            </div>
+          </div>
+          <div>
+            <h3 className="font-display font-bold text-primary-foreground text-[1.6rem] mb-2">Let&apos;s Build Quality Together</h3>
+            <p className="text-primary-foreground/65 text-sm">
+              Looking for a reliable silk fabric manufacturing partner?<br />We are ready to support your business with quality and consistency.
+            </p>
+          </div>
+          <a
+            href={`https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent("Hi, I want to partner with Kiswa Silk Factory for fabric supply.")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col items-center gap-1 bg-gold text-navy px-8 py-4 rounded-md hover:bg-gold/90 transition-colors shrink-0"
+          >
+            <div className="flex items-center gap-2">
+              <MessageCircle className="w-5 h-5" strokeWidth={1.2} />
+              <span className="font-bold text-sm">WhatsApp Inquiry</span>
+            </div>
+            <span className="text-[0.7rem] text-navy/75">Get a quick response on your requirements.</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
   );
 }
