@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ChevronRight, MessageCircle } from "lucide-react";
 import { PROCESS_SECTIONS, getSection } from "@/lib/factory-process";
 import { SITE } from "@/lib/site";
+import Reveal from "@/components/Reveal";
+import StepImageViewer from "@/components/StepImageViewer";
 
 export const dynamicParams = false;
 
@@ -43,239 +45,252 @@ export default async function SectionDetailPage({
     <div className="min-h-screen bg-background">
 
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="relative bg-navy text-white overflow-hidden min-h-[420px] flex items-end">
-        <div className="absolute inset-0">
-          <Image
-            src={sec.heroImage}
-            alt={sec.title}
-            fill
-            sizes="100vw"
-            className="object-cover opacity-35"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-navy/20" />
-        </div>
-        <div className="relative z-10 max-w-[1440px] mx-auto w-full px-6 lg:px-10 py-14">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-[0.75rem] text-white/50 mb-6">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3" />
-            <Link href="/process" className="hover:text-white transition-colors">Process</Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-white/80">{sec.title}</span>
-          </nav>
-          <p className="text-gold text-[0.7rem] font-bold tracking-[0.28em] uppercase mb-3">
-            Stage {sec.sectionNumber} of {PROCESS_SECTIONS.length} — {sec.steps.length} Step{sec.steps.length > 1 ? "s" : ""}
-          </p>
-          <h1 className="font-display font-bold text-[clamp(2.4rem,5vw,56px)] leading-tight mb-3 max-w-[20ch]">
-            {sec.title}
-          </h1>
-          <p className="text-gold/80 font-display italic text-[1.1rem] mb-5">{sec.tagline}</p>
-          <p className="text-white/70 text-[0.9rem] leading-relaxed max-w-[55ch]">
-            {sec.description}
-          </p>
+      <section className="bg-cream overflow-hidden border-b border-border/40">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[380px]">
+          {/* Left Side Content */}
+          <div className="flex flex-col justify-center px-6 sm:px-8 lg:px-16 py-12">
+            <Reveal>
+              {/* Breadcrumb */}
+              <nav className="flex items-center gap-1.5 text-[0.75rem] text-foreground/50 mb-6">
+                <Link href="/" className="hover:text-navy transition-colors">Home</Link>
+                <ChevronRight className="w-3 h-3" />
+                <Link href="/process" className="hover:text-navy transition-colors">Process</Link>
+                <ChevronRight className="w-3 h-3" />
+                <span className="text-foreground/85 font-medium">{sec.title}</span>
+              </nav>
+            </Reveal>
+
+            <Reveal delay={100}>
+              <p className="text-gold-deep text-[0.7rem] font-bold tracking-[0.25em] uppercase mb-3">
+                Stage {sec.sectionNumber} of {PROCESS_SECTIONS.length} — {sec.steps.length} Step{sec.steps.length > 1 ? "s" : ""}
+              </p>
+            </Reveal>
+            
+            <Reveal delay={150}>
+              <h1 className="font-display font-bold text-navy text-[clamp(2.2rem,5vw,50px)] leading-tight mb-3">
+                {sec.title}
+              </h1>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <p className="text-gold-deep font-display italic text-[1.1rem] mb-4">{sec.tagline}</p>
+            </Reveal>
+
+            <Reveal delay={250}>
+              <p className="text-foreground/70 text-[0.9rem] leading-relaxed max-w-xl">
+                {sec.description}
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Right Side — Dynamic section hero image fading out */}
+          <div className="relative hidden lg:block">
+            <Image
+              src={sec.heroImage}
+              alt={sec.title}
+              fill
+              sizes="50vw"
+              className="object-cover"
+              priority
+            />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "linear-gradient(to right, oklch(0.97 0.015 85) 0%, transparent 40%)",
+              }}
+            />
+          </div>
         </div>
       </section>
 
       {/* ── STEP PROGRESS BAR ───────────────────────────── */}
       <section className="bg-cream border-b border-border/40 py-5">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[0.72rem] text-muted font-medium tracking-wide mr-2">STEPS IN THIS STAGE:</span>
-            {sec.steps.map((s, i) => (
-              <div key={s.step} className="flex items-center gap-1.5">
-                <a href={`#step-${s.step}`} className="flex items-center gap-2 group">
-                  <span className="w-7 h-7 rounded-full bg-gold flex items-center justify-center text-navy text-[0.68rem] font-bold">
-                    {s.step}
-                  </span>
-                  <span className="text-[0.78rem] font-medium text-navy group-hover:text-gold transition-colors">{s.title}</span>
-                </a>
-                {i < sec.steps.length - 1 && <ChevronRight className="w-3.5 h-3.5 text-gold/40" />}
-              </div>
-            ))}
-          </div>
+          <Reveal>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-[0.72rem] text-navy/40 font-bold tracking-wider mr-2 uppercase">Steps in this Stage:</span>
+              {sec.steps.map((s, i) => (
+                <div key={s.step} className="flex items-center gap-1.5">
+                  <a href={`#step-${s.step}`} className="flex items-center gap-2 group">
+                    <span className="w-7 h-7 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center text-gold-deep text-[0.68rem] font-bold group-hover:bg-gold group-hover:text-navy transition-all">
+                      {s.step}
+                    </span>
+                    <span className="text-[0.78rem] font-medium text-navy group-hover:text-gold-deep transition-colors">{s.title}</span>
+                  </a>
+                  {i < sec.steps.length - 1 && <ChevronRight className="w-3.5 h-3.5 text-gold/30" />}
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ── STEPS ────────────────────────────────────────── */}
       {sec.steps.map((step, stepIdx) => {
         const isEven = stepIdx % 2 === 0;
-        const hasMultipleImages = step.images.length > 1;
-        const extraImages = step.images.slice(1);
 
         return (
           <section
             key={step.step}
             id={`step-${step.step}`}
-            className={`py-16 scroll-mt-20 ${isEven ? "bg-background" : "bg-cream"}`}
+            className={`py-20 scroll-mt-20 border-b border-border/10 ${isEven ? "bg-background" : "bg-cream"}`}
           >
             <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
-
-              {/* Step header */}
-              <div className="flex items-baseline gap-4 mb-10">
-                <span className="font-display font-bold text-[4rem] leading-none text-gold/20 select-none">
-                  {String(step.step).padStart(2, "0")}
-                </span>
-                <div>
-                  <p className="text-gold text-[0.7rem] font-bold tracking-[0.22em] uppercase mb-1">
-                    Step {step.step}
-                  </p>
-                  <h2 className="font-display font-bold text-navy text-[clamp(1.6rem,3vw,34px)] leading-tight">
-                    {step.title}
-                  </h2>
-                </div>
-              </div>
-
-              {/* Main step layout: image + content */}
-              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 items-start mb-10 ${!isEven ? "lg:grid-flow-dense" : ""}`}>
-
-                {/* Primary image */}
-                <div className={`relative aspect-[4/3] overflow-hidden rounded-sm bg-cream ${!isEven ? "lg:col-start-2" : ""}`}>
-                  <Image
-                    src={step.image}
-                    alt={step.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
-                  />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                {/* Visuals Side (StepImageViewer) */}
+                <div className={`lg:col-span-6 w-full ${!isEven ? "lg:order-2" : "lg:order-1"}`}>
+                  <Reveal>
+                    <StepImageViewer
+                      images={step.images}
+                      title={step.title}
+                      stepNumber={step.step}
+                    />
+                  </Reveal>
                 </div>
 
-                {/* Content */}
-                <div className={!isEven ? "lg:col-start-1 lg:row-start-1" : ""}>
-                  <p className="text-foreground/75 text-[0.95rem] leading-relaxed mb-5">
-                    {step.description}
-                  </p>
-                  <div className="border-l-2 border-gold pl-5 mb-6">
-                    <p className="text-foreground/65 text-[0.88rem] leading-relaxed italic">
-                      {step.detail}
+                {/* Content Side */}
+                <div className={`lg:col-span-6 w-full flex flex-col justify-center ${!isEven ? "lg:order-1 lg:pr-6" : "lg:order-2 lg:pl-6"}`}>
+                  <Reveal delay={100}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="w-8 h-8 rounded-full bg-gold/10 border border-gold/40 flex items-center justify-center font-display font-bold text-xs text-gold-deep">
+                        {step.step}
+                      </span>
+                      <span className="text-gold-deep text-[0.65rem] font-bold tracking-[0.2em] uppercase">
+                        STEP {step.step} OF 12
+                      </span>
+                    </div>
+                  </Reveal>
+                  
+                  <Reveal delay={150}>
+                    <h2 className="font-display font-bold text-navy text-[clamp(1.6rem,2.8vw,30px)] leading-tight mb-4">
+                      {step.title}
+                    </h2>
+                  </Reveal>
+
+                  <Reveal delay={200}>
+                    <p className="text-foreground/75 text-[0.92rem] leading-relaxed mb-6">
+                      {step.description}
                     </p>
-                  </div>
-                  {/* Key info chips */}
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-navy/6 border border-navy/15 text-navy text-[0.72rem] font-semibold px-3 py-1.5 rounded-sm">
-                      Stage {sec.sectionNumber} / Step {step.step}
-                    </span>
-                    <span className="bg-gold/10 border border-gold/30 text-gold text-[0.72rem] font-semibold px-3 py-1.5 rounded-sm">
-                      {step.images.length} image{step.images.length > 1 ? "s" : ""} from this step
-                    </span>
-                  </div>
+                  </Reveal>
+                  
+                  {/* Detailed technical callout */}
+                  <Reveal delay={250}>
+                    <div className="bg-white/60 border-l-4 border-gold p-5 rounded-r-sm shadow-xs mb-6">
+                      <p className="text-[0.65rem] font-bold tracking-wider text-navy/40 uppercase mb-2">
+                        Technical Execution
+                      </p>
+                      <p className="text-navy/90 text-[0.88rem] leading-relaxed italic font-serif">
+                        {step.detail}
+                      </p>
+                    </div>
+                  </Reveal>
+
+                  {/* Quality & Info Badges */}
+                  <Reveal delay={300}>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      <span className="bg-navy/5 border border-navy/15 text-navy text-[0.68rem] font-semibold px-3 py-1 rounded-sm">
+                        Stage: {sec.title}
+                      </span>
+                      <span className="bg-gold/10 border border-gold/25 text-gold-deep text-[0.68rem] font-semibold px-3 py-1 rounded-sm">
+                        Images: {step.images.length} available
+                      </span>
+                    </div>
+                  </Reveal>
                 </div>
+
               </div>
-
-              {/* Extra images grid */}
-              {hasMultipleImages && (
-                <div>
-                  <p className="text-[0.72rem] font-bold tracking-[0.18em] uppercase text-foreground/40 mb-4">
-                    More from this step
-                  </p>
-                  <div className={`grid gap-2 ${
-                    extraImages.length === 1 ? "grid-cols-1 max-w-[480px]" :
-                    extraImages.length === 2 ? "grid-cols-2 max-w-[680px]" :
-                    extraImages.length <= 4 ? "grid-cols-2 sm:grid-cols-4" :
-                    "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
-                  }`}>
-                    {extraImages.map((img, i) => (
-                      <div key={img} className="relative aspect-[4/3] overflow-hidden rounded-sm bg-cream group">
-                        <Image
-                          src={img}
-                          alt={`${step.title} — view ${i + 2}`}
-                          fill
-                          sizes="(max-width: 640px) 50vw, 25vw"
-                          className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
             </div>
           </section>
         );
       })}
 
       {/* ── CTA + NAVIGATION ─────────────────────────────── */}
-      <section className="bg-cream border-t border-border/40 py-12">
+      <section className="bg-cream border-t border-border/40 py-16">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
 
           {/* Section nav */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-12 pb-12 border-b border-border/40">
-            <div>
-              {prev ? (
-                <Link href={`/process/${prev.slug}`} className="group flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-gold group-hover:text-gold transition-colors">
-                    <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
-                  </span>
-                  <div>
-                    <div className="text-[0.65rem] uppercase tracking-widest text-foreground/45 font-medium">Previous Stage</div>
-                    <div className="font-semibold text-navy text-[0.9rem] group-hover:text-gold transition-colors">{prev.title}</div>
-                  </div>
-                </Link>
-              ) : (
-                <Link href="/process" className="group flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-gold group-hover:text-gold transition-colors">
-                    <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
-                  </span>
-                  <div>
-                    <div className="text-[0.65rem] uppercase tracking-widest text-foreground/45 font-medium">Back to</div>
-                    <div className="font-semibold text-navy text-[0.9rem] group-hover:text-gold transition-colors">All Process Stages</div>
-                  </div>
-                </Link>
-              )}
+          <Reveal>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-12 pb-12 border-b border-border/40">
+              <div>
+                {prev ? (
+                  <Link href={`/process/${prev.slug}`} className="group flex items-center gap-3">
+                    <span className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-gold group-hover:text-gold-deep transition-colors bg-white shadow-xs">
+                      <ArrowLeft className="w-4 h-4 text-navy group-hover:text-gold-deep" strokeWidth={1.5} />
+                    </span>
+                    <div>
+                      <div className="text-[0.65rem] uppercase tracking-widest text-foreground/45 font-medium">Previous Stage</div>
+                      <div className="font-semibold text-navy text-[0.9rem] group-hover:text-gold-deep transition-colors">{prev.title}</div>
+                    </div>
+                  </Link>
+                ) : (
+                  <Link href="/process" className="group flex items-center gap-3">
+                    <span className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-gold group-hover:text-gold-deep transition-colors bg-white shadow-xs">
+                      <ArrowLeft className="w-4 h-4 text-navy group-hover:text-gold-deep" strokeWidth={1.5} />
+                    </span>
+                    <div>
+                      <div className="text-[0.65rem] uppercase tracking-widest text-foreground/45 font-medium">Back to</div>
+                      <div className="font-semibold text-navy text-[0.9rem] group-hover:text-gold-deep transition-colors">All Process Stages</div>
+                    </div>
+                  </Link>
+                )}
+              </div>
+              <div>
+                {next ? (
+                  <Link href={`/process/${next.slug}`} className="group flex items-center gap-3 sm:text-right">
+                    <div>
+                      <div className="text-[0.65rem] uppercase tracking-widest text-foreground/45 font-medium">Next Stage</div>
+                      <div className="font-semibold text-navy text-[0.9rem] group-hover:text-gold-deep transition-colors">{next.title}</div>
+                    </div>
+                    <span className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-gold group-hover:text-gold-deep transition-colors bg-white shadow-xs">
+                      <ArrowRight className="w-4 h-4 text-navy group-hover:text-gold-deep" strokeWidth={1.5} />
+                    </span>
+                  </Link>
+                ) : (
+                  <Link href="/process" className="group flex items-center gap-3">
+                    <div>
+                      <div className="text-[0.65rem] uppercase tracking-widest text-foreground/45 font-medium">View all</div>
+                      <div className="font-semibold text-navy text-[0.9rem] group-hover:text-gold-deep transition-colors">Process Stages</div>
+                    </div>
+                    <span className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-gold group-hover:text-gold-deep transition-colors bg-white shadow-xs">
+                      <ArrowRight className="w-4 h-4 text-navy group-hover:text-gold-deep" strokeWidth={1.5} />
+                    </span>
+                  </Link>
+                )}
+              </div>
             </div>
-            <div>
-              {next ? (
-                <Link href={`/process/${next.slug}`} className="group flex items-center gap-3 sm:text-right">
-                  <div>
-                    <div className="text-[0.65rem] uppercase tracking-widest text-foreground/45 font-medium">Next Stage</div>
-                    <div className="font-semibold text-navy text-[0.9rem] group-hover:text-gold transition-colors">{next.title}</div>
-                  </div>
-                  <span className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-gold group-hover:text-gold transition-colors">
-                    <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
-                  </span>
-                </Link>
-              ) : (
-                <Link href="/process" className="group flex items-center gap-3">
-                  <div>
-                    <div className="text-[0.65rem] uppercase tracking-widest text-foreground/45 font-medium">View all</div>
-                    <div className="font-semibold text-navy text-[0.9rem] group-hover:text-gold transition-colors">Process Stages</div>
-                  </div>
-                  <span className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-gold group-hover:text-gold transition-colors">
-                    <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
-                  </span>
-                </Link>
-              )}
-            </div>
-          </div>
+          </Reveal>
 
           {/* WhatsApp inquiry */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-6 border border-gold/25 rounded-sm bg-white px-8 py-7 shadow-sm">
-            <div>
-              <h3 className="font-display font-bold text-navy text-[1.2rem] mb-1">
-                Have questions about our production process?
-              </h3>
-              <p className="text-foreground/65 text-[0.85rem]">
-                Our team can walk you through any stage and share samples from that step.
-              </p>
+          <Reveal>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-6 border border-gold/25 rounded-sm bg-white px-8 py-7 shadow-xs">
+              <div>
+                <h3 className="font-display font-bold text-navy text-[1.2rem] mb-1">
+                  Have questions about our production process?
+                </h3>
+                <p className="text-foreground/65 text-[0.85rem]">
+                  Our team can walk you through any stage and share samples from that step.
+                </p>
+              </div>
+              <div className="flex items-center gap-3 shrink-0">
+                <Link
+                  href="/sample-request"
+                  className="flex items-center gap-2 bg-navy text-primary-foreground px-6 py-3 rounded-sm hover:bg-navy/90 transition-colors text-sm font-semibold whitespace-nowrap shadow-xs"
+                >
+                  Request Sample
+                </Link>
+                <a
+                  href={`https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent(`Hi, I have a question about your ${sec.title} process.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 border-2 border-navy/25 text-navy bg-white px-6 py-3 rounded-sm hover:bg-navy/5 transition-colors text-sm font-semibold whitespace-nowrap"
+                >
+                  <MessageCircle className="w-4 h-4" strokeWidth={1.5} />
+                  WhatsApp Us
+                </a>
+              </div>
             </div>
-            <div className="flex items-center gap-3 shrink-0">
-              <Link
-                href="/sample-request"
-                className="flex items-center gap-2 bg-navy text-primary-foreground px-6 py-3 rounded-sm hover:bg-navy/90 transition-colors text-sm font-semibold whitespace-nowrap"
-              >
-                Request Sample
-              </Link>
-              <a
-                href={`https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent(`Hi, I have a question about your ${sec.title} process.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 border-2 border-navy/25 text-navy bg-white px-6 py-3 rounded-sm hover:bg-navy/5 transition-colors text-sm font-semibold whitespace-nowrap"
-              >
-                <MessageCircle className="w-4 h-4" strokeWidth={1.5} />
-                WhatsApp Us
-              </a>
-            </div>
-          </div>
+          </Reveal>
 
         </div>
       </section>

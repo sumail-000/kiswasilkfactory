@@ -3,61 +3,41 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Layers, Factory, Package, Droplets, Printer, Scissors, MessageCircle } from "lucide-react";
+import { Layers, Package, Printer, Scissors, MessageCircle, Crown, Wind, Grid, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { SITE } from "@/lib/site";
+import { PRODUCTS } from "@/lib/products";
+import { GALLERY_ITEMS } from "@/lib/gallery-items";
 
 /* ─── filter tabs ─────────────────────────────────────────── */
-type TabId = "all" | "rolls" | "textures" | "factory" | "packing" | "dyeing" | "printing" | "embroidery";
+type TabId = "all" | "raw-silk" | "chiffon-crinkle" | "fine-silk" | "organza-net" | "prints-sublimation" | "lining";
 
 const TABS: { id: TabId; label: string; sub?: string; icon: React.ElementType }[] = [
-  { id: "all",        label: "Fabric Rolls",                icon: Package },
-  { id: "textures",   label: "White-Base",  sub: "Fabric Textures", icon: Layers },
-  { id: "factory",    label: "Factory /",   sub: "Stock",            icon: Factory },
-  { id: "packing",    label: "Packing",                    icon: Package },
-  { id: "dyeing",     label: "Dyeing",      sub: "Ready Fabric",    icon: Droplets },
-  { id: "printing",   label: "Printing",    sub: "Ready Fabric",    icon: Printer },
-  { id: "embroidery", label: "Embroidery",  sub: "Ready Fabric",    icon: Scissors },
+  { id: "all",                label: "All Fabrics",                icon: Package },
+  { id: "raw-silk",           label: "Raw Silks",    sub: "Textured & Matte", icon: Layers },
+  { id: "chiffon-crinkle",    label: "Chiffon & Crinkle", sub: "Light & Flowy",    icon: Wind },
+  { id: "fine-silk",          label: "Fine & Shiny",      sub: "Premium Silks",    icon: Crown },
+  { id: "organza-net",        label: "Organza & Net",     sub: "Sheer & Crisp",    icon: Grid },
+  { id: "prints-sublimation", label: "Prints & Sublimation", sub: "Ready for Print", icon: Printer },
+  { id: "lining",             label: "Lining & Inners",    sub: "Soft Underlayers", icon: Scissors },
 ];
 
-/* ─── all gallery items ───────────────────────────────────── */
 type GalleryItem = {
   src: string;
   label: string;
   cat: TabId[];
   ask: boolean; // show "ASK ABOUT THIS FABRIC" button
+  slug?: string; // product slug
 };
 
+const BASE_ITEMS: GalleryItem[] = [
+  { src: "/assets/silk-rolls.jpg",        label: "Premium White-Base Silk Rolls",  cat: ["all"],      ask: true  },
+  { src: "/assets/silk-swirl.jpg",        label: "White-Base Fabric Textures",      cat: ["all"],   ask: true  },
+  { src: "/assets/silk-drape.jpg",        label: "Smooth Silk Drape",               cat: ["all"],   ask: true  },
+];
+
 const ITEMS: GalleryItem[] = [
-  // Fabric Rolls
-  { src: "/assets/silk-rolls.jpg",        label: "Premium White-Base Silk Rolls",  cat: ["all", "rolls"],      ask: true  },
-  { src: "/assets/silk-warehouse.jpg",    label: "Factory Silk Roll Stock",         cat: ["all", "rolls", "factory"], ask: false },
-
-  // Textures
-  { src: "/assets/silk-swirl.jpg",        label: "White-Base Fabric Textures",      cat: ["all", "textures"],   ask: true  },
-  { src: "/assets/silk-drape.jpg",        label: "Smooth Silk Drape",               cat: ["all", "textures"],   ask: true  },
-
-  // Factory / Stock
-  { src: "/factory/step6/img3.jpeg",      label: "Factory Stock",                   cat: ["all", "factory"],    ask: false },
-  { src: "/gallery/img30.jpeg",           label: "Power Loom Weaving Floor",        cat: ["all", "factory"],    ask: false },
-  { src: "/gallery/img1.jpeg",            label: "Production Floor Overview",       cat: ["all", "factory"],    ask: false },
-
-  // Packing
-  { src: "/factory/step10/img1.jpeg",     label: "Packing & Quality Check",         cat: ["all", "packing"],    ask: false },
-  { src: "/factory/step11/img1.jpeg",     label: "Secure Packing",                  cat: ["all", "packing"],    ask: false },
-  { src: "/factory/step12/img1.jpeg",     label: "Global Dispatch Ready",           cat: ["all", "packing"],    ask: false },
-  { src: "/gallery/img60.jpeg",           label: "Bulk Orders — Ready to Ship",     cat: ["all", "packing"],    ask: false },
-
-  // Dyeing Ready
-  { src: "/factory/step8/img2.jpeg",      label: "Dyeing Ready Fabric",             cat: ["all", "dyeing"],     ask: true  },
-  { src: "/factory/step8/img1.jpeg",      label: "Fabric Washing Section",          cat: ["all", "dyeing"],     ask: false },
-
-  // Printing Ready
-  { src: "/factory/step9/img2.jpeg",      label: "Printing Ready Fabric",           cat: ["all", "printing"],   ask: true  },
-  { src: "/factory/step9/img1.jpeg",      label: "Calendering — Smooth Finish",     cat: ["all", "printing"],   ask: false },
-
-  // Embroidery Ready
-  { src: "/products/sheesha-silk/img1.jpeg",  label: "Embroidery Ready Fabric",    cat: ["all", "embroidery"], ask: true  },
-  { src: "/products/raw-silk-shine/img2.jpeg",label: "Heavy Work Base Fabric",     cat: ["all", "embroidery"], ask: true  },
+  ...BASE_ITEMS,
+  ...GALLERY_ITEMS.filter(item => !BASE_ITEMS.some(base => base.src === item.src)) as GalleryItem[]
 ];
 
 /* ─── WhatsApp ask button ─────────────────────────────────── */
@@ -76,22 +56,33 @@ function AskBtn({ label }: { label: string }) {
 }
 
 /* ─── single gallery item ─────────────────────────────────── */
-function GalleryImg({ item, className = "" }: { item: GalleryItem; className?: string }) {
+function GalleryImg({ item, onClick, className = "" }: { item: GalleryItem; onClick?: () => void; className?: string }) {
   return (
-    <div className={`relative overflow-hidden group bg-cream ${className}`}>
-      <Image
-        src={item.src}
-        alt={item.label}
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-        className="object-cover group-hover:scale-105 transition-transform duration-700"
-      />
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-      {/* Always-visible bottom label */}
-      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
-        <p className="text-white text-[0.78rem] font-semibold mb-2">{item.label}</p>
-        {item.ask && <AskBtn label={item.label} />}
+    <div 
+      onClick={onClick}
+      className={`relative overflow-hidden group bg-cream cursor-pointer border border-border/40 rounded-sm shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col ${className}`}
+      suppressHydrationWarning
+    >
+      <div className="aspect-[4/3] relative w-full overflow-hidden bg-cream">
+        <Image
+          src={item.src}
+          alt={item.label}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          className="object-cover group-hover:scale-105 transition-transform duration-700"
+        />
+      </div>
+      {/* Label and Details indicator */}
+      <div className="p-4 bg-white flex flex-col justify-between border-t border-border/30 flex-1 min-h-[96px]">
+        <p className="text-navy text-[0.82rem] font-semibold line-clamp-2 leading-tight mb-2">{item.label}</p>
+        <div className="flex items-center justify-between">
+          <span className="text-gold text-[10px] font-bold tracking-wider uppercase">View Detail</span>
+          {item.ask && (
+            <div onClick={(e) => e.stopPropagation()}>
+              <AskBtn label={item.label} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -99,9 +90,59 @@ function GalleryImg({ item, className = "" }: { item: GalleryItem; className?: s
 
 export default function GalleryPage() {
   const [active, setActive] = useState<TabId>("all");
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   // Items for current tab
   const filtered = ITEMS.filter((i) => i.cat.includes(active));
+
+  const activeItem = selectedIndex !== null ? filtered[selectedIndex] : null;
+  const product = activeItem?.slug ? PRODUCTS.find(p => p.slug === activeItem.slug) : null;
+
+  // Find suggestions (other products in the same category)
+  const suggestions = product 
+    ? PRODUCTS.filter(p => p.slug !== product.slug && p.category === product.category).slice(0, 3)
+    : [];
+
+  const finalSuggestions = suggestions.length >= 3 
+    ? suggestions 
+    : [
+        ...suggestions, 
+        ...PRODUCTS.filter(p => p.slug !== product?.slug && !suggestions.some(s => s.slug === p.slug)).slice(0, 3 - suggestions.length)
+      ];
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (selectedIndex === null) return;
+    setSelectedIndex((prevIndex) => {
+      if (prevIndex === null) return null;
+      return (prevIndex - 1 + filtered.length) % filtered.length;
+    });
+  };
+
+  const handleNext = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (selectedIndex === null) return;
+    setSelectedIndex((prevIndex) => {
+      if (prevIndex === null) return null;
+      return (prevIndex + 1) % filtered.length;
+    });
+  };
+
+  const handleSelectProduct = (slug: string) => {
+    const itemIndex = filtered.findIndex(item => item.slug === slug);
+    if (itemIndex !== -1) {
+      setSelectedIndex(itemIndex);
+    } else {
+      setActive("all");
+      // Find index in complete ITEMS (which will be filtered when active is "all")
+      setTimeout(() => {
+        const globalIndex = ITEMS.findIndex(item => item.slug === slug);
+        if (globalIndex !== -1) {
+          setSelectedIndex(globalIndex);
+        }
+      }, 50);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -123,7 +164,7 @@ export default function GalleryPage() {
               <span className="w-10 h-px bg-gold" />
             </div>
             <p className="text-foreground/70 text-[0.9rem] leading-relaxed mb-8 max-w-[420px]">
-              Explore our gallery to see the craftsmanship, quality, and consistency behind every roll. From real white-base silk fabric rolls and textures to preparation, stock, packing, and application-ready materials — this is Kiswa Silk Factory.
+              Explore our gallery to inspect the texture, drape, and premium quality of our white-base fabrics. Browse through raw silks, chiffons, crinkles, organzas, and linings — all prepared to meet the highest B2B standards.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/fabrics" className="inline-flex items-center gap-2 bg-navy text-primary-foreground px-6 py-3 rounded-sm text-sm font-semibold hover:bg-navy/90 transition-colors uppercase tracking-wide">
@@ -152,7 +193,10 @@ export default function GalleryPage() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActive(tab.id)}
+                  onClick={() => {
+                    setActive(tab.id);
+                    setSelectedIndex(null); // Reset visual selection on tab switch
+                  }}
                   className={`flex flex-col items-center gap-2 px-6 py-5 text-center shrink-0 border-b-2 transition-all ${
                     isActive
                       ? "border-gold text-gold"
@@ -180,58 +224,203 @@ export default function GalleryPage() {
       </section>
 
       {/* ── GALLERY GRID ──────────────────────────────────────── */}
-      <section className="py-1 bg-cream">
-        <div className="max-w-[1440px] mx-auto">
+      <section className="py-10 bg-cream">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
 
-          {/* DEFAULT "all/rolls" VIEW — exact mosaic from mockup */}
-          {(active === "all") && (
-            <>
-              {/* ── ROW 1: large left | center | right-2-stacked ── */}
-              <div className="grid gap-1 mb-1" style={{ gridTemplateColumns: "43fr 35fr 22fr" }}>
-                {/* Silk rolls — tall left */}
-                <GalleryImg item={ITEMS[0]} className="h-[480px]" />
-                {/* Silk swirl — center */}
-                <GalleryImg item={ITEMS[2]} className="h-[480px]" />
-                {/* Right: factory + packing stacked */}
-                <div className="flex flex-col gap-1">
-                  <GalleryImg item={ITEMS[4]} className="flex-1 h-[238px]" />
-                  <GalleryImg item={ITEMS[7]} className="flex-1 h-[238px]" />
-                </div>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filtered.map((item, idx) => (
+              <GalleryImg
+                key={item.src + item.label + idx}
+                item={item}
+                onClick={() => setSelectedIndex(idx)}
+              />
+            ))}
+          </div>
 
-              {/* ── ROW 2: 3 equal ── */}
-              <div className="grid grid-cols-3 gap-1 mb-1">
-                <GalleryImg item={ITEMS[3]} className="h-[340px]" />
-                <GalleryImg item={ITEMS[11]} className="h-[340px]" />
-                <GalleryImg item={ITEMS[13]} className="h-[340px]" />
-              </div>
-
-              {/* ── ROW 3: 4 equal ── */}
-              <div className="grid grid-cols-4 gap-1">
-                <GalleryImg item={ITEMS[15]} className="h-[260px]" />
-                <GalleryImg item={ITEMS[10]} className="h-[260px]" />
-                <GalleryImg item={ITEMS[8]} className="h-[260px]" />
-                <GalleryImg item={ITEMS[9]} className="h-[260px]" />
-              </div>
-            </>
-          )}
-
-          {/* FILTERED VIEW — simple responsive grid */}
-          {active !== "all" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 px-0">
-              {filtered.map((item) => (
-                <GalleryImg key={item.src + item.label} item={item} className="h-[320px]" />
-              ))}
-              {filtered.length === 0 && (
-                <div className="col-span-3 py-20 text-center text-foreground/40 text-sm">
-                  No images in this category.
-                </div>
-              )}
+          {filtered.length === 0 && (
+            <div className="py-20 text-center text-foreground/40 text-sm">
+              No images in this category.
             </div>
           )}
 
         </div>
       </section>
+
+      {/* ── LIGHTBOX MODAL ────────────────────────────────────── */}
+      {selectedIndex !== null && activeItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-200">
+          {/* Close Area */}
+          <div className="absolute inset-0 cursor-default" onClick={() => setSelectedIndex(null)} />
+          
+          {/* Close Button */}
+          <button 
+            onClick={() => setSelectedIndex(null)}
+            className="absolute top-4 right-4 bg-black/50 text-white hover:bg-black/75 transition-colors p-2.5 rounded-full z-50 border border-white/10"
+            title="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Modal Card */}
+          <div className="relative bg-cream rounded-sm max-w-5xl w-full max-h-[90vh] overflow-hidden grid grid-cols-1 md:grid-cols-[1.2fr_1fr] shadow-2xl z-10 border border-gold/10">
+            
+            {/* Visual Area */}
+            <div className="relative bg-black flex items-center justify-center aspect-[4/3] md:aspect-auto md:h-full min-h-[300px]">
+              <Image
+                src={activeItem.src}
+                alt={activeItem.label}
+                fill
+                sizes="(max-width: 768px) 100vw, 60vw"
+                className="object-contain"
+                priority
+              />
+
+              {/* Prev Button */}
+              <button
+                onClick={handlePrev}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white hover:bg-black/60 transition-colors p-3 rounded-full border border-white/5"
+                title="Previous Image"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              {/* Next Button */}
+              <button
+                onClick={handleNext}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white hover:bg-black/60 transition-colors p-3 rounded-full border border-white/5"
+                title="Next Image"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Details Sidebar */}
+            <div className="p-6 md:p-8 overflow-y-auto flex flex-col justify-between bg-cream border-t md:border-t-0 md:border-l border-border/40 max-h-[50vh] md:max-h-[90vh]">
+              <div>
+                {/* Product/Fabric Header */}
+                <span className="text-gold text-[10px] font-bold tracking-widest uppercase mb-1 inline-block">
+                  {product?.category ?? "Premium White-Base"}
+                </span>
+                <h2 className="text-xl md:text-2xl font-display font-bold text-navy mb-2">
+                  {product?.name ?? activeItem.label}
+                </h2>
+                
+                {/* Gold ornament divider */}
+                <div className="flex items-center gap-1.5 mb-4">
+                  <span className="w-6 h-px bg-gold" />
+                  <span className="text-gold text-[8px]">❖</span>
+                  <span className="w-6 h-px bg-gold" />
+                </div>
+
+                {/* Description */}
+                <p className="text-foreground/70 text-xs md:text-sm leading-relaxed mb-6">
+                  {product?.shortDesc ?? "High quality fabric roll ready for processing, prepared to meet standard B2B whiteness and durability specs."}
+                </p>
+
+                {/* Technical Specifications */}
+                {product && (
+                  <div className="mb-6">
+                    <h3 className="text-[10px] font-bold tracking-wider text-navy uppercase mb-2">
+                      Technical Specifications
+                    </h3>
+                    <div className="grid grid-cols-2 gap-y-2.5 gap-x-4 bg-white border border-border/40 p-4 rounded-sm text-xs">
+                      <div>
+                        <span className="text-foreground/50 block text-[10px] uppercase font-semibold">Composition</span>
+                        <strong className="text-navy">{product.composition}</strong>
+                      </div>
+                      <div>
+                        <span className="text-foreground/50 block text-[10px] uppercase font-semibold">GSM / Weight</span>
+                        <strong className="text-navy">{product.gsm}</strong>
+                      </div>
+                      <div>
+                        <span className="text-foreground/50 block text-[10px] uppercase font-semibold">Width</span>
+                        <strong className="text-navy">{product.width}</strong>
+                      </div>
+                      <div>
+                        <span className="text-foreground/50 block text-[10px] uppercase font-semibold">Finish</span>
+                        <strong className="text-navy">{product.finish}</strong>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Uses Tags */}
+                {product && (
+                  <div className="mb-6">
+                    <h3 className="text-[10px] font-bold tracking-wider text-navy uppercase mb-2">
+                      Recommended Applications
+                    </h3>
+                    <div className="flex flex-wrap gap-1.5">
+                      {product.uses.map(use => (
+                        <span key={use} className="px-2.5 py-1 rounded-sm bg-white border border-border/40 text-[10px] font-medium text-navy">
+                          {use}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Related Fabric Suggestions */}
+                {product && finalSuggestions.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="text-[10px] font-bold tracking-wider text-navy uppercase mb-2">
+                      Related Fabrics Suggestions
+                    </h3>
+                    <div className="grid grid-cols-3 gap-2">
+                      {finalSuggestions.map((sug) => (
+                        <button
+                          key={sug.slug}
+                          onClick={() => handleSelectProduct(sug.slug)}
+                          className="group text-left border border-border/40 hover:border-gold p-1 bg-white rounded-sm transition-all flex flex-col h-full"
+                          title={`Click to view ${sug.name}`}
+                        >
+                          <div className="aspect-[4/3] relative w-full overflow-hidden rounded-sm bg-cream mb-1">
+                            <Image
+                              src={sug.heroImage}
+                              alt={sug.name}
+                              fill
+                              sizes="100px"
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                          </div>
+                          <span className="text-navy text-[9px] font-semibold truncate block w-full px-0.5">
+                            {sug.name}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* B2B Call to Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-2 mt-4 shrink-0 pt-4 border-t border-border/40">
+                <a
+                  href={`https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent(`Hi, I'm viewing your Gallery and want to ask about: ${product?.name ?? activeItem.label}.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-1.5 bg-navy text-primary-foreground text-xs font-semibold py-3 px-4 rounded-sm hover:bg-navy/90 transition-colors uppercase tracking-wider text-center"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  Ask Price / Inquiry
+                </a>
+                {product && (
+                  <Link
+                    href={`/fabrics/${product.slug}`}
+                    className="flex-1 border border-navy text-navy hover:bg-navy/5 text-xs font-semibold py-3 px-4 rounded-sm transition-colors uppercase tracking-wider text-center"
+                    onClick={() => setSelectedIndex(null)}
+                  >
+                    Full Specs Sheet
+                  </Link>
+                )}
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      )}
 
       {/* ── CTA STRIP ─────────────────────────────────────────── */}
       <section className="bg-background py-10">

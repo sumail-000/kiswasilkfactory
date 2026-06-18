@@ -23,9 +23,9 @@ export default function ContactForm() {
   return (
     <div>
       {submitted && (
-        <div className="bg-cream border-gold mb-6 border p-6">
-          <h3 className="text-gold-deep mb-1">Message received.</h3>
-          <p>
+        <div className="bg-gold/10 border border-gold/40 rounded-md mb-6 p-6 transition-all duration-300">
+          <h3 className="text-gold-deep font-display font-bold text-[1.1rem] mb-1">Message received.</h3>
+          <p className="text-navy text-[0.88rem]">
             Thank you for reaching out. We will respond within one working day.
           </p>
         </div>
@@ -33,10 +33,10 @@ export default function ContactForm() {
 
       <form
         onSubmit={onSubmit}
-        className="bg-ivory border-line border p-8 md:p-12"
+        className="bg-ivory border border-gold/15 shadow-md p-8 md:p-12 rounded-md"
       >
-        <h2 className="mb-2">Send us a message</h2>
-        <p className="text-muted mb-10">
+        <h2 className="font-display font-bold text-navy text-[1.8rem] mb-2 leading-tight">Send us a message</h2>
+        <p className="text-muted text-[0.88rem] mb-10">
           For quick fabric questions, sourcing or visit requests.
         </p>
 
@@ -77,7 +77,7 @@ export default function ContactForm() {
         </div>
 
         <div className="mt-10">
-          <button type="submit" className="btn">
+          <button type="submit" className="btn w-full sm:w-auto">
             Send Message <span className="arrow">→</span>
           </button>
         </div>

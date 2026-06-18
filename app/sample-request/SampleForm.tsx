@@ -49,9 +49,9 @@ export default function SampleForm() {
   return (
     <div>
       {submitted && (
-        <div className="bg-cream border-gold mb-6 border p-6">
-          <h3 className="text-gold-deep mb-1">Request received.</h3>
-          <p>
+        <div className="bg-gold/10 border border-gold/40 rounded-md mb-6 p-6 transition-all duration-300">
+          <h3 className="text-gold-deep font-display font-bold text-[1.1rem] mb-1">Request received.</h3>
+          <p className="text-navy text-[0.88rem]">
             Thank you. Our trade desk will email you within one working day to
             confirm details and shipping.
           </p>
@@ -60,10 +60,10 @@ export default function SampleForm() {
 
       <form
         onSubmit={onSubmit}
-        className="bg-ivory border-line border p-8 md:p-12"
+        className="bg-ivory border border-gold/15 shadow-md p-8 md:p-12 rounded-md"
       >
-        <h2 className="mb-2">Swatch request</h2>
-        <p className="text-muted mb-10">
+        <h2 className="font-display font-bold text-navy text-[1.8rem] mb-2 leading-tight">Swatch request</h2>
+        <p className="text-muted text-[0.88rem] mb-10">
           Required fields are marked with an asterisk (*).
         </p>
 

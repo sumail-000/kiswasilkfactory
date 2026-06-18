@@ -41,31 +41,34 @@ export default function BulkInquiryPage() {
           </>
         }
         lede="For orders over 200 m, we open a dedicated RFQ file: shade matching, custom widths, finishing options, lead times and freight to your nearest port — all in one document."
+        imageSrc="/assets/silk-warehouse.jpg"
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Bulk Inquiry" }]}
       />
 
       <section className="section-y">
         <div className="container-x grid grid-cols-1 items-start gap-12 lg:grid-cols-[5fr_7fr]">
-          <Reveal as="aside">
-            <p className="eyebrow mb-5">What You Receive</p>
-            <h3 className="mb-2">A complete proposal.</h3>
+          <Reveal as="aside" className="space-y-6">
+            <div>
+              <p className="eyebrow mb-3">What You Receive</p>
+              <h3 className="font-display font-bold text-navy text-[1.8rem] mb-2 leading-tight">A complete proposal.</h3>
+            </div>
 
-            <ul className="mt-8 space-y-5">
+            <ul className="space-y-5">
               {PROMISES.map((p) => (
-                <li key={p.title} className="flex items-start gap-3">
-                  <span className="font-display text-gold-deep mt-1 text-[1.1rem] italic">
+                <li key={p.title} className="flex items-start gap-4">
+                  <span className="font-display text-gold-deep mt-1 text-[1.1rem] italic shrink-0">
                     →
                   </span>
                   <div>
-                    <strong>{p.title}</strong>
-                    <p className="text-muted m-0 mt-1 text-[0.92rem]">{p.body}</p>
+                    <strong className="text-navy font-semibold text-[1rem]">{p.title}</strong>
+                    <p className="text-muted m-0 mt-1 text-[0.88rem] leading-relaxed font-sans">{p.body}</p>
                   </div>
                 </li>
               ))}
             </ul>
 
-            <div className="bg-cream border-l-gold mt-10 border-l-[3px] p-5">
-              <p className="text-charcoal-soft m-0 text-[0.9rem]">
+            <div className="bg-cream border-l-gold border-l-[3px] p-5 flex items-start gap-3 rounded-r-sm shadow-sm mt-6">
+              <p className="text-charcoal-soft m-0 text-[0.88rem] leading-relaxed font-sans">
                 <strong>Response time:</strong> Our trade desk replies to every
                 RFQ within one working day. Most full proposals are returned in
                 2–4 working days.
@@ -73,7 +76,7 @@ export default function BulkInquiryPage() {
             </div>
           </Reveal>
 
-          <Suspense fallback={<div className="bg-charcoal text-ivory p-12">Loading form…</div>}>
+          <Suspense fallback={<div className="bg-charcoal border border-white/10 p-12 rounded-md shadow-sm text-ivory">Loading form…</div>}>
             <BulkForm />
           </Suspense>
         </div>

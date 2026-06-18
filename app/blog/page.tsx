@@ -87,6 +87,7 @@ export default function BlogPage() {
           </>
         }
         lede="Working notes on silk selection, weight charts, dye care and the practical knowledge our buyers ask for most often. Written by the people who run the mill."
+        imageSrc="/assets/silk-rolls.jpg"
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Fabric Guide" }]}
       />
 

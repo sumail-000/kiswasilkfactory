@@ -56,9 +56,9 @@ export default function BulkForm() {
   return (
     <div>
       {submitted && (
-        <div className="bg-gold/15 border-gold mb-6 border p-6">
-          <h3 className="text-gold-soft mb-1">RFQ received.</h3>
-          <p className="text-ivory">
+        <div className="bg-gold/10 border border-gold/40 rounded-md mb-6 p-6 transition-all duration-300">
+          <h3 className="text-gold-soft font-display font-bold text-[1.1rem] mb-1">RFQ received.</h3>
+          <p className="text-ivory text-[0.88rem] leading-relaxed">
             Thank you. Your inquiry will be reviewed by our trade desk within
             one working day.
           </p>
@@ -67,10 +67,10 @@ export default function BulkForm() {
 
       <form
         onSubmit={onSubmit}
-        className="dark-form bg-charcoal text-ivory border border-white/10 p-8 md:p-12"
+        className="dark-form bg-charcoal text-ivory border border-white/10 p-8 md:p-12 rounded-md shadow-lg"
       >
-        <h2 className="text-ivory mb-2">Request for Quotation</h2>
-        <p className="text-ivory/60 mb-10">
+        <h2 className="font-display font-bold text-ivory text-[1.8rem] mb-2 leading-tight">Request for Quotation</h2>
+        <p className="text-ivory/60 text-[0.88rem] mb-10">
           All fields marked * are required. The more detail you provide, the
           more accurate the quotation.
         </p>

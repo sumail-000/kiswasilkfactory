@@ -39,12 +39,12 @@ export default function Header() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-5">
           {NAV_LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm font-medium transition-colors relative pb-2 ${
+              className={`text-[13px] font-medium transition-colors relative pb-1 whitespace-nowrap ${
                 isActive(l.href) ? "text-gold" : "text-navy hover:text-gold"
               }`}
             >
@@ -58,10 +58,10 @@ export default function Header() {
             href={`https://wa.me/${SITE.phoneIntl}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-navy text-primary-foreground px-5 py-3 rounded-md hover:bg-navy/90 transition-colors"
+            className="flex items-center gap-2 bg-navy text-primary-foreground px-4 py-2.5 rounded-md hover:bg-navy/90 transition-colors text-[13px] font-medium shrink-0 whitespace-nowrap"
           >
-            <MessageCircle className="w-4 h-4" />
-            <span className="text-sm font-medium">WhatsApp Inquiry</span>
+            <MessageCircle className="w-3.5 h-3.5" />
+            WhatsApp Inquiry
           </a>
         </nav>
 

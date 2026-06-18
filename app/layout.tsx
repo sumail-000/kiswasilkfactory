@@ -39,8 +39,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
-      <body className="flex min-h-screen flex-col">
+    <html lang="en" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col" suppressHydrationWarning>
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

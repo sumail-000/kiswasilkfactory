@@ -49,14 +49,14 @@ const APPS = [
     title: "Bridal & Formal Wear",
     desc: "Elegant drape, luxurious feel and premium finish for bridal and occasion wear.",
     img: "/products/korean-raw-silk/img1.jpeg",
-    filter: "Printing",
+    filter: "Heavy Work",
   },
   {
     icon: PenTool,
     title: "Designer Collections",
     desc: "Versatile bases that inspire creativity and bring designer visions to life.",
     img: "/products/poly-2-tone/img1.jpeg",
-    filter: "Printing",
+    filter: "Embroidery",
   },
 ];
 
