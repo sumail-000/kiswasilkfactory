@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MessageCircle } from "lucide-react";
 import { SITE } from "@/lib/site";
 
@@ -23,17 +24,14 @@ export default function Footer() {
 
         {/* Brand */}
         <div className="col-span-1">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-14 h-14 rounded-full border-2 border-gold flex items-center justify-center bg-background shrink-0">
-              <div className="text-center leading-none">
-                <div className="font-display font-bold text-navy text-lg">KSF</div>
-                <div className="text-[5px] text-gold font-semibold tracking-wider mt-0.5">PREMIUM QUALITY</div>
-              </div>
-            </div>
-            <div>
-              <div className="font-display font-bold text-navy text-base leading-tight">KISWA SILK FACTORY</div>
-              <div className="text-[10px] text-foreground/60">{SITE.brandSubtitle}</div>
-            </div>
+          <div className="relative w-full max-w-[240px] h-16 mb-4">
+            <Image
+              src="/logos/footer_logo.png"
+              alt="Kiswa Silk Factory Logo"
+              fill
+              sizes="240px"
+              className="object-contain object-left"
+            />
           </div>
           <p className="text-foreground/70 text-xs leading-relaxed mb-5">
             Serving global clients with premium quality white-base silk fabrics for dyeing, printing, embroidery and heavy work.
@@ -115,9 +113,9 @@ export default function Footer() {
 
       {/* Copyright bar */}
       <div className="bg-navy text-primary-foreground">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-4 flex items-center justify-between text-xs">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0 text-center sm:text-left text-xs">
           <span>© {new Date().getFullYear()} Kiswa Silk Factory. All Rights Reserved.</span>
-          <span className="text-gold">❖</span>
+          <span className="text-gold hidden sm:inline">❖</span>
           <span>Design with Passion. Crafted for Excellence.</span>
         </div>
       </div>

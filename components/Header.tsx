@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MessageCircle } from "lucide-react";
@@ -21,20 +22,23 @@ export default function Header() {
 
   return (
     <header className="w-full bg-background sticky top-0 z-50 border-b border-border/40">
-      <div className="max-w-[1440px] mx-auto px-10 py-5 flex items-center justify-between">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 py-4 sm:py-5 flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center bg-cream shrink-0">
-            <div className="text-center leading-none">
-              <div className="font-display font-bold text-navy text-xl">KSF</div>
-              <div className="text-[6px] text-gold font-semibold tracking-wider mt-0.5">PREMIUM QUALITY</div>
-              <div className="text-[6px] text-gold font-semibold tracking-wider">SILK FABRIC</div>
-            </div>
+        <Link href="/" className="flex items-center gap-3 sm:gap-4">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden shrink-0 relative">
+            <Image
+              src="/logos/header_logo.jpeg"
+              alt="Kiswa Silk Factory Logo"
+              fill
+              sizes="(max-width: 640px) 48px, 64px"
+              className="object-cover"
+              priority
+            />
           </div>
           <div>
-            <h1 className="font-display font-bold text-navy text-2xl tracking-wide">KISWA SILK FACTORY</h1>
-            <p className="text-sm text-foreground/70">{SITE.brandSubtitle}</p>
+            <h1 className="font-display font-bold text-navy text-lg sm:text-xl md:text-2xl tracking-wide leading-tight">KISWA SILK FACTORY</h1>
+            <p className="text-xs text-foreground/70 hidden sm:block md:text-sm mt-0.5">{SITE.brandSubtitle}</p>
           </div>
         </Link>
 
@@ -87,11 +91,14 @@ export default function Header() {
       >
         <div className="flex items-center justify-between mb-8">
           <Link href="/" onClick={() => setDrawerOpen(false)} className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full border-2 border-gold flex items-center justify-center bg-cream">
-              <div className="text-center leading-none">
-                <div className="font-display font-bold text-navy text-base">KSF</div>
-                <div className="text-[5px] text-gold font-semibold tracking-wider">PREMIUM QUALITY</div>
-              </div>
+            <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 relative">
+              <Image
+                src="/logos/header_logo.jpeg"
+                alt="Kiswa Silk Factory Logo"
+                fill
+                sizes="48px"
+                className="object-cover"
+              />
             </div>
             <span className="font-display font-bold text-navy text-lg">KISWA SILK FACTORY</span>
           </Link>

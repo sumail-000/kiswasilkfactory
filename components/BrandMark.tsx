@@ -1,42 +1,19 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SITE } from "@/lib/site";
 
 export default function BrandMark({ light = false }: { light?: boolean }) {
   return (
     <Link href="/" className="flex items-center gap-3">
-      {/* KSF seal badge SVG */}
-      <span className={`shrink-0 ${light ? "text-white" : "text-[#1a2340]"}`}>
-        <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="46" stroke="currentColor" strokeWidth="2.5"/>
-          <circle cx="50" cy="50" r="38" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3"/>
-          <circle cx="50" cy="50" r="32" stroke="currentColor" strokeWidth="1.5"/>
-          <text 
-            x="50" 
-            y="57" 
-            textAnchor="middle" 
-            fill="currentColor" 
-            fontSize="22" 
-            fontWeight="bold" 
-            fontFamily="var(--font-serif-var), Georgia, serif"
-            letterSpacing="1"
-          >
-            KSF
-          </text>
-          {/* Simulating circular text */}
-          <path id="textPathTop" d="M 22 50 A 28 28 0 0 1 78 50" fill="none" />
-          <path id="textPathBottom" d="M 78 50 A 28 28 0 0 1 22 50" fill="none" />
-          <text fontSize="6.5" fontWeight="bold" fill="currentColor" letterSpacing="1.2">
-            <textPath href="#textPathTop" startOffset="50%" textAnchor="middle">
-              PREMIUM QUALITY
-            </textPath>
-          </text>
-          <text fontSize="6.5" fontWeight="bold" fill="currentColor" letterSpacing="1.2">
-            <textPath href="#textPathBottom" startOffset="50%" textAnchor="middle">
-              SILK FABRIC
-            </textPath>
-          </text>
-        </svg>
-      </span>
+      <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 relative">
+        <Image
+          src="/logos/header_logo.jpeg"
+          alt="Kiswa Silk Factory Logo"
+          fill
+          sizes="48px"
+          className="object-cover"
+        />
+      </div>
       <span className="leading-none">
         <span
           className={`block text-[1.2rem] font-bold tracking-wide uppercase font-serif ${

@@ -164,11 +164,11 @@ export default function AboutPage() {
             <h2 className="font-display font-bold text-navy text-[clamp(1.4rem,2.5vw,28px)] tracking-wide uppercase">What We Make</h2>
             <span className="w-12 h-px bg-gold" />
           </div>
-          <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
             {WHAT_WE_MAKE.map((f) => (
               <Link href="/fabrics" key={f.name} className="group flex flex-col gap-2">
                 <div className="relative aspect-square overflow-hidden rounded-sm bg-background">
-                  <Image src={f.img} alt={f.name} fill sizes="12.5vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <Image src={f.img} alt={f.name} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 12.5vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
                 <span className="text-center text-navy text-[0.72rem] font-semibold">{f.name}</span>
               </Link>
@@ -291,12 +291,14 @@ export default function AboutPage() {
       <section className="bg-navy py-14">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-[auto_1fr_auto] items-center gap-8">
           {/* KSF logo badge */}
-          <div className="w-20 h-20 rounded-full border-2 border-gold/60 flex items-center justify-center bg-navy shrink-0 hidden lg:flex">
-            <div className="text-center leading-none">
-              <div className="font-display font-bold text-white text-lg">KSF</div>
-              <div className="text-[5px] text-gold font-semibold tracking-wider mt-0.5">PREMIUM QUALITY</div>
-              <div className="text-[5px] text-gold font-semibold tracking-wider">SILK FABRIC</div>
-            </div>
+          <div className="w-20 h-20 rounded-full overflow-hidden shrink-0 hidden lg:flex relative">
+            <Image
+              src="/logos/header_logo.jpeg"
+              alt="Kiswa Silk Factory Logo"
+              fill
+              sizes="80px"
+              className="object-cover"
+            />
           </div>
           <div>
             <h3 className="font-display font-bold text-primary-foreground text-[1.6rem] mb-2">Let&apos;s Build Quality Together</h3>

@@ -27,6 +27,11 @@ export const metadata: Metadata = {
   description:
     "Kiswa Silk Factory is a trusted B2B manufacturer of premium white-base silk fabrics for dyeing, printing, embroidery and heavy work. Consistent quality. Reliable supply. Global trust.",
   metadataBase: new URL("https://kiswasilkfactory.com"),
+  icons: {
+    icon: "/logos/web_logo.png",
+    shortcut: "/logos/web_logo.png",
+    apple: "/logos/web_logo.png",
+  },
   openGraph: {
     title: "Kiswa Silk Factory — Premium White-Base Silk Fabric Manufacturer",
     description:
@@ -39,7 +44,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${serif.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="flex min-h-screen flex-col" suppressHydrationWarning>
         <Header />
         <main className="flex-1">{children}</main>

@@ -1,12 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import {
   MessageCircle, Mail, FileText, Settings, Package, Factory, Globe,
   Check, ArrowRight, Palette, Printer, Scissors, Dumbbell, Crown,
-  Store, PenTool, Users, Phone, MapPin,
+  Store, PenTool, Users, Phone, MapPin, ZoomIn,
 } from "lucide-react";
 import { SITE } from "@/lib/site";
 import Reveal from "@/components/Reveal";
+import ZoomableLightbox from "@/components/ZoomableLightbox";
 
 /* ─── data ───────────────────────────────────────── */
 const ABOUT_BULLETS = [
@@ -17,14 +21,14 @@ const ABOUT_BULLETS = [
 ];
 
 const FABRICS = [
-  { img: "/assets/fabric-dull-raw.jpg",     name: "Dull Raw Silk",       desc: "Natural matt finish smooth & soft feel",     slug: "special-dull-raw-silk" },
-  { img: "/assets/fabric-bright-raw.jpg",   name: "Bright Raw Silk",     desc: "Bright luster with silky smooth finish",     slug: "raw-silk-shine" },
-  { img: "/assets/fabric-dull-resham.jpg",  name: "Dull Resham Cotton",  desc: "Silk-cotton blend for soft & breathable feel",slug: "dull-resham-cotton" },
-  { img: "/assets/fabric-bright-resham.jpg",name: "Bright Resham Cotton",desc: "Silky sheen with comfortable texture",        slug: "bright-resham-cotton" },
-  { img: "/assets/fabric-bemberg.jpg",      name: "30D Bemberg",         desc: "Lightweight, smooth & premium drape",        slug: "30d-bemberg-crinkle" },
-  { img: "/assets/fabric-crinkle.jpg",      name: "40D Crinkle",         desc: "Soft crinkle texture with rich look",         slug: "40d-red-stone-crinkle" },
-  { img: "/assets/fabric-korean.jpg",       name: "Korean Raw Silk",     desc: "Premium quality sturdy & durable",            slug: "korean-raw-silk" },
-  { img: "/assets/fabric-sheesha.jpg",      name: "Sheesha Silk",        desc: "Shiny texture for luxury heavy work",         slug: "sheesha-silk" },
+  { img: "/products/special-dull-raw-silk/img1.jpeg",     name: "Dull Raw Silk",       desc: "Natural matt finish smooth & soft feel",     slug: "special-dull-raw-silk" },
+  { img: "/products/raw-silk-shine/img1.jpeg",   name: "Bright Raw Silk",     desc: "Bright luster with silky smooth finish",     slug: "raw-silk-shine" },
+  { img: "/products/dull-resham-cotton/img1.jpeg",  name: "Dull Resham Cotton",  desc: "Silk-cotton blend for soft & breathable feel",slug: "dull-resham-cotton" },
+  { img: "/products/bright-resham-cotton/img1.jpeg",name: "Bright Resham Cotton",desc: "Silky sheen with comfortable texture",        slug: "bright-resham-cotton" },
+  { img: "/products/30d-bemberg-crinkle/img1.jpeg",      name: "30D Bemberg",         desc: "Lightweight, smooth & premium drape",        slug: "30d-bemberg-crinkle" },
+  { img: "/products/40d-red-stone-crinkle/img1.jpeg",      name: "40D Crinkle",         desc: "Soft crinkle texture with rich look",         slug: "40d-red-stone-crinkle" },
+  { img: "/products/korean-raw-silk/img1.jpeg",       name: "Korean Raw Silk",     desc: "Premium quality sturdy & durable",            slug: "korean-raw-silk" },
+  { img: "/products/sheesha-silk/img1.jpeg",      name: "Sheesha Silk",        desc: "Shiny texture for luxury heavy work",         slug: "sheesha-silk" },
 ];
 
 const APPLICATIONS = [
@@ -81,6 +85,18 @@ const CONTACT_ITEMS = [
 
 /* ─── page ───────────────────────────────────────── */
 export default function Home() {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxTitle, setLightboxTitle] = useState("");
+
+  const triggerLightbox = (images: string[], index: number, title: string) => {
+    setLightboxImages(images);
+    setLightboxIndex(index);
+    setLightboxTitle(title);
+    setLightboxOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-background">
 
@@ -217,11 +233,25 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-4">
-            {FABRICS.map((f) => (
-              <Reveal key={f.name} className="bg-background rounded-sm overflow-hidden flex flex-col">
-                <div className="relative aspect-square w-full overflow-hidden bg-cream">
-                  <Image src={f.img} alt={f.name} fill sizes="(max-width: 640px) 50vw, (max-width: 1280px) 25vw, 12.5vw" className="object-cover" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8 gap-4">
+            {FABRICS.map((f, idx) => (
+              <Reveal key={f.name} className="bg-background rounded-sm overflow-hidden flex flex-col group/card">
+                <div 
+                  className="relative aspect-square w-full overflow-hidden bg-cream cursor-pointer group/img"
+                  onClick={() => triggerLightbox(FABRICS.map(x => x.img), idx, f.name)}
+                >
+                  <Image 
+                    src={f.img} 
+                    alt={f.name} 
+                    fill 
+                    sizes="(max-width: 640px) 50vw, (max-width: 1280px) 25vw, 12.5vw" 
+                    className="object-cover transition-transform duration-700 group-hover/img:scale-105" 
+                  />
+                  <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                    <span className="bg-white/95 text-navy p-2.5 rounded-full shadow-md scale-90 group-hover/img:scale-100 transition-all duration-300">
+                      <ZoomIn className="w-4 h-4 text-navy" />
+                    </span>
+                  </div>
                 </div>
                 <div className="p-4 flex flex-col items-center text-center flex-1">
                   <h3 className="font-display font-bold text-navy text-base mb-2">{f.name}</h3>
@@ -247,7 +277,7 @@ export default function Home() {
           {/* Applications */}
           <Reveal className="border border-gold/30 rounded-sm p-6 flex flex-col">
             <div className="text-center text-gold text-xs font-semibold tracking-widest mb-6">APPLICATIONS</div>
-            <div className="grid grid-cols-4 gap-2 mb-6 flex-1">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 flex-1">
               {APPLICATIONS.map(({ icon: Icon, label }) => (
                 <div key={label} className="flex flex-col items-center gap-2 text-center">
                   <Icon className="w-8 h-8 text-navy" strokeWidth={1.2} />
@@ -263,7 +293,7 @@ export default function Home() {
           {/* Who We Serve */}
           <Reveal className="border border-gold/30 rounded-sm p-6 flex flex-col">
             <div className="text-center text-gold text-xs font-semibold tracking-widest mb-6">WHO WE SERVE</div>
-            <div className="grid grid-cols-4 gap-2 mb-6 flex-1">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 flex-1">
               {WHO_WE_SERVE.map(({ icon: Icon, label }) => (
                 <div key={label} className="flex flex-col items-center gap-2 text-center">
                   <Icon className="w-8 h-8 text-navy" strokeWidth={1.2} />
@@ -297,14 +327,14 @@ export default function Home() {
           {/* Our Process */}
           <Reveal className="border border-gold/30 rounded-sm p-6 flex flex-col">
             <div className="text-center text-gold text-xs font-semibold tracking-widest mb-6">OUR PROCESS</div>
-            <div className="flex items-start justify-between mb-6 flex-1 relative">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between mb-6 flex-1 relative gap-4 sm:gap-0 w-full">
               {OUR_PROCESS.map((step, i) => (
-                <div key={step} className="flex flex-col items-center text-center flex-1 relative z-10">
-                  <div className="w-7 h-7 rounded-full border border-gold bg-background flex items-center justify-center text-gold text-xs font-bold mb-2">{i + 1}</div>
-                  <div className="text-[10px] text-navy font-medium leading-tight px-1">{step}</div>
+                <div key={step} className="flex flex-row sm:flex-col items-center text-left sm:text-center gap-3 sm:gap-0 flex-1 relative z-10 w-full sm:w-auto">
+                  <div className="w-7 h-7 rounded-full border border-gold bg-background flex items-center justify-center text-gold text-xs font-bold sm:mb-2 shrink-0">{i + 1}</div>
+                  <div className="text-xs sm:text-[10px] text-navy font-medium leading-tight px-1">{step}</div>
                 </div>
               ))}
-              <div className="absolute top-3.5 left-[10%] right-[10%] h-px bg-gold/40 -z-0" />
+              <div className="absolute top-3.5 left-[10%] right-[10%] h-px bg-gold/40 -z-0 hidden sm:block" />
             </div>
             <Link href="/quality" className="mx-auto border border-gold text-navy text-xs font-semibold px-4 py-2 rounded-sm hover:bg-gold/10 transition-colors">
               Explore Our Process
@@ -322,13 +352,27 @@ export default function Home() {
             <span className="w-12 h-px bg-gold" />
           </Reveal>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            {GALLERY.map((g) => (
-              <Reveal key={g.label} className="flex flex-col">
-                <Link href="/gallery" className="block">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-cream">
-                    <Image src={g.img} alt={g.label} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 17vw" className="object-cover hover:scale-105 transition-transform duration-700" />
+            {GALLERY.map((g, idx) => (
+              <Reveal key={g.label} className="flex flex-col group/gallery">
+                <div 
+                  className="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-cream cursor-pointer group/img"
+                  onClick={() => triggerLightbox(GALLERY.map(x => x.img), idx, g.label)}
+                >
+                  <Image 
+                    src={g.img} 
+                    alt={g.label} 
+                    fill 
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 17vw" 
+                    className="object-cover transition-transform duration-700 group-hover/img:scale-105" 
+                  />
+                  <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                    <span className="bg-white/95 text-navy p-2 rounded-full shadow-md scale-90 group-hover/img:scale-100 transition-all duration-300">
+                      <ZoomIn className="w-3.5 h-3.5 text-navy" />
+                    </span>
                   </div>
-                  <div className="text-center text-navy text-xs font-semibold mt-3">{g.label}</div>
+                </div>
+                <Link href="/gallery" className="text-center text-navy text-xs font-semibold mt-3 hover:text-gold transition-colors block">
+                  {g.label}
                 </Link>
               </Reveal>
             ))}
@@ -338,22 +382,22 @@ export default function Home() {
 
       {/* ══════════════ BULK CTA BAR ══════════════ */}
       <section className="bg-navy text-primary-foreground">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-10 flex flex-wrap items-center justify-between gap-6">
-          <div className="flex items-center gap-5">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="flex items-center gap-4 sm:gap-5">
             <span className="w-12 h-12 rounded-full border border-gold flex items-center justify-center shrink-0">
               <MapPin className="w-5 h-5 text-gold" />
             </span>
             <div>
-              <h3 className="font-display font-bold text-2xl mb-1">Looking for White-Base Silk Fabric in Bulk?</h3>
-              <p className="text-primary-foreground/70 text-sm">Get competitive pricing, consistent quality and on-time delivery for your business.</p>
+              <h3 className="font-display font-bold text-xl sm:text-2xl mb-1">Looking for White-Base Silk Fabric in Bulk?</h3>
+              <p className="text-primary-foreground/70 text-xs sm:text-sm">Get competitive pricing, consistent quality and on-time delivery for your business.</p>
             </div>
           </div>
-          <div className="flex items-center gap-4 shrink-0">
-            <Link href="/bulk-supply" className="flex items-center gap-2 bg-gold text-navy px-6 py-3 rounded-sm hover:bg-gold/90 transition-colors">
+          <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+            <Link href="/bulk-supply" className="flex-1 sm:flex-initial flex items-center justify-center gap-2 bg-gold text-navy px-6 py-3 rounded-sm hover:bg-gold/90 transition-colors">
               <FileText className="w-4 h-4" />
               <span className="text-sm font-semibold">Get Bulk Quote</span>
             </Link>
-            <Link href="/sample-request" className="flex items-center gap-2 border border-primary-foreground/50 text-primary-foreground px-6 py-3 rounded-sm hover:bg-primary-foreground/10 transition-colors">
+            <Link href="/sample-request" className="flex-1 sm:flex-initial flex items-center justify-center gap-2 border border-primary-foreground/50 text-primary-foreground px-6 py-3 rounded-sm hover:bg-primary-foreground/10 transition-colors">
               <Mail className="w-4 h-4" />
               <span className="text-sm font-semibold">Request Sample</span>
             </Link>
@@ -385,6 +429,13 @@ export default function Home() {
         </div>
       </section>
 
+      <ZoomableLightbox
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        images={lightboxImages}
+        initialIndex={lightboxIndex}
+        title={lightboxTitle}
+      />
     </div>
   );
 }

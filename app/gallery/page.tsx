@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Layers, Package, Printer, Scissors, MessageCircle, Crown, Wind, Grid, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Layers, Package, Printer, Scissors, MessageCircle, Crown, Wind, Grid, X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import { SITE } from "@/lib/site";
 import { PRODUCTS } from "@/lib/products";
 import { GALLERY_ITEMS } from "@/lib/gallery-items";
+import ZoomableVisualArea from "@/components/ZoomableVisualArea";
 
 /* ─── filter tabs ─────────────────────────────────────────── */
 type TabId = "all" | "raw-silk" | "chiffon-crinkle" | "fine-silk" | "organza-net" | "prints-sublimation" | "lining";
@@ -63,14 +64,19 @@ function GalleryImg({ item, onClick, className = "" }: { item: GalleryItem; onCl
       className={`relative overflow-hidden group bg-cream cursor-pointer border border-border/40 rounded-sm shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col ${className}`}
       suppressHydrationWarning
     >
-      <div className="aspect-[4/3] relative w-full overflow-hidden bg-cream">
+      <div className="aspect-[4/3] relative w-full overflow-hidden bg-cream group/img">
         <Image
           src={item.src}
           alt={item.label}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-700"
+          className="object-cover transition-transform duration-700 group-hover/img:scale-105"
         />
+        <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+          <span className="bg-white/95 text-navy p-2.5 rounded-full shadow-md scale-90 group-hover/img:scale-100 transition-all duration-300">
+            <ZoomIn className="w-4 h-4 text-navy" />
+          </span>
+        </div>
       </div>
       {/* Label and Details indicator */}
       <div className="p-4 bg-white flex flex-col justify-between border-t border-border/30 flex-1 min-h-[96px]">
@@ -265,33 +271,14 @@ export default function GalleryPage() {
           <div className="relative bg-cream rounded-sm max-w-5xl w-full max-h-[90vh] overflow-hidden grid grid-cols-1 md:grid-cols-[1.2fr_1fr] shadow-2xl z-10 border border-gold/10">
             
             {/* Visual Area */}
-            <div className="relative bg-black flex items-center justify-center aspect-[4/3] md:aspect-auto md:h-full min-h-[300px]">
-              <Image
+            <div className="relative bg-black aspect-[4/3] md:aspect-auto md:h-full min-h-[300px] flex flex-col justify-center">
+              <ZoomableVisualArea
                 src={activeItem.src}
                 alt={activeItem.label}
-                fill
-                sizes="(max-width: 768px) 100vw, 60vw"
-                className="object-contain"
-                priority
+                onPrev={handlePrev}
+                onNext={handleNext}
+                hasMultiple={filtered.length > 1}
               />
-
-              {/* Prev Button */}
-              <button
-                onClick={handlePrev}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white hover:bg-black/60 transition-colors p-3 rounded-full border border-white/5"
-                title="Previous Image"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-
-              {/* Next Button */}
-              <button
-                onClick={handleNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white hover:bg-black/60 transition-colors p-3 rounded-full border border-white/5"
-                title="Next Image"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
             </div>
 
             {/* Details Sidebar */}

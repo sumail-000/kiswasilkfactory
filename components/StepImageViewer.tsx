@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import ZoomableLightbox from "@/components/ZoomableLightbox";
 
 type StepImageViewerProps = {
   images: string[];
@@ -130,67 +131,13 @@ export default function StepImageViewer({
         </div>
       )}
 
-      {/* Lightbox Fullscreen Modal */}
-      {isLightboxOpen && (
-        <div className="fixed inset-0 z-[500] bg-black/95 backdrop-blur-md flex flex-col items-center justify-between p-4 sm:p-6 transition-all duration-300">
-          {/* Header */}
-          <div className="w-full flex items-center justify-between text-white max-w-5xl border-b border-white/10 pb-4">
-            <div>
-              <p className="text-gold text-[0.65rem] font-bold tracking-[0.2em] uppercase">
-                Step {stepNumber} Visual Gallery
-              </p>
-              <h3 className="font-display font-medium text-lg text-white/90">
-                {title}
-              </h3>
-            </div>
-            <button
-              onClick={() => setIsLightboxOpen(false)}
-              className="text-white/70 hover:text-white bg-white/5 hover:bg-white/10 p-2.5 rounded-full transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-
-          {/* Main Display Area */}
-          <div className="relative w-full max-w-4xl aspect-[4/3] my-auto flex items-center justify-center">
-            {/* Left Button */}
-            {hasMultiple && (
-              <button
-                onClick={handlePrev}
-                className="absolute left-2 sm:left-4 z-10 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full shadow-lg transition-all"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-            )}
-
-            {/* Image frame */}
-            <div className="relative w-full h-full max-h-[70vh] rounded-sm overflow-hidden border border-white/10">
-              <Image
-                src={activeImage}
-                alt={`${title} full size`}
-                fill
-                sizes="100vw"
-                className="object-contain"
-              />
-            </div>
-
-            {/* Right Button */}
-            {hasMultiple && (
-              <button
-                onClick={handleNext}
-                className="absolute right-2 sm:right-4 z-10 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full shadow-lg transition-all"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            )}
-          </div>
-
-          {/* Footer Counter */}
-          <div className="text-white/55 text-xs tracking-widest uppercase pb-2">
-            Image {activeIndex + 1} of {images.length}
-          </div>
-        </div>
-      )}
+      <ZoomableLightbox
+        isOpen={isLightboxOpen}
+        onClose={() => setIsLightboxOpen(false)}
+        images={images}
+        initialIndex={activeIndex}
+        title={`Step ${stepNumber} — ${title}`}
+      />
     </div>
   );
 }

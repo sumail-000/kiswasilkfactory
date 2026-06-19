@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import ZoomableLightbox from "@/components/ZoomableLightbox";
 
 export default function ClientGallery({
   images,
@@ -12,6 +13,7 @@ export default function ClientGallery({
   name: string;
 }) {
   const [active, setActive] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const prev = () => setActive((i) => (i === 0 ? images.length - 1 : i - 1));
   const next = () => setActive((i) => (i === images.length - 1 ? 0 : i + 1));
@@ -21,16 +23,24 @@ export default function ClientGallery({
     <div className="flex flex-col h-full">
 
       {/* Main image — flex-1 means it grows to fill remaining height */}
-      <div className="relative flex-1 min-h-[280px] overflow-hidden rounded-sm bg-cream">
+      <div 
+        className="relative flex-1 min-h-[280px] overflow-hidden rounded-sm bg-cream cursor-pointer group/img"
+        onClick={() => setLightboxOpen(true)}
+      >
         <Image
           key={images[active]}
           src={images[active]}
           alt={name}
           fill
           sizes="(max-width: 1024px) 100vw, 45vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-750 group-hover/img:scale-[1.03]"
           priority
         />
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+          <span className="bg-white/95 text-navy p-3 rounded-full shadow-md scale-90 group-hover/img:scale-100 transition-all duration-300">
+            <ZoomIn className="w-5 h-5" />
+          </span>
+        </div>
       </div>
 
       {/* Thumbnail tray — fixed at bottom */}
@@ -82,6 +92,14 @@ export default function ClientGallery({
           </button>
         </div>
       )}
+
+      <ZoomableLightbox
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        images={images}
+        initialIndex={active}
+        title={name}
+      />
     </div>
   );
 }

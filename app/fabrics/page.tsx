@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FileText, MessageCircle, Headphones, Check } from "lucide-react";
+import { FileText, MessageCircle, Headphones, Check, ZoomIn } from "lucide-react";
 import { PRODUCTS, type AppTag } from "@/lib/products";
 import { SITE } from "@/lib/site";
+import ZoomableLightbox from "@/components/ZoomableLightbox";
 
 /* ─── filter tabs ────────────────────────────────── */
 const FILTERS: { id: AppTag | "all"; label: string }[] = [
@@ -30,6 +31,17 @@ const TAG_STYLES: Record<string, string> = {
 
 export default function FabricsPage() {
   const [active, setActive] = useState<AppTag | "all">("all");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxTitle, setLightboxTitle] = useState("");
+
+  const triggerLightbox = (images: string[], index: number, title: string) => {
+    setLightboxImages(images);
+    setLightboxIndex(index);
+    setLightboxTitle(title);
+    setLightboxOpen(true);
+  };
 
   const visible = active === "all"
     ? PRODUCTS
@@ -153,14 +165,22 @@ export default function FabricsPage() {
                 className="bg-white rounded-sm border border-border overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow"
               >
                 {/* Product image */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-cream">
+                <div 
+                  className="relative aspect-[4/3] w-full overflow-hidden bg-cream cursor-pointer group/img"
+                  onClick={() => triggerLightbox(p.images, 0, p.name)}
+                >
                   <Image
                     src={p.heroImage}
                     alt={p.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                    className="object-cover hover:scale-105 transition-transform duration-700"
+                    className="object-cover transition-transform duration-700 group-hover/img:scale-105"
                   />
+                  <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                    <span className="bg-white/95 text-navy p-2.5 rounded-full shadow-md scale-90 group-hover/img:scale-100 transition-all duration-300">
+                      <ZoomIn className="w-4 h-4 text-navy" />
+                    </span>
+                  </div>
                 </div>
 
                 {/* Card body */}
@@ -297,6 +317,13 @@ export default function FabricsPage() {
         </div>
       </section>
 
+      <ZoomableLightbox
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        images={lightboxImages}
+        initialIndex={lightboxIndex}
+        title={lightboxTitle}
+      />
     </div>
   );
 }
