@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, Maximize2, Minimize2, Move } from "lucide-react";
 
 type ZoomableLightboxProps = {
@@ -309,7 +309,7 @@ export default function ZoomableLightbox({
             transition: isTransitioning ? "transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)" : "none",
           }}
         >
-          <Image
+          <SmartImage
             src={activeImage}
             alt={title}
             fill

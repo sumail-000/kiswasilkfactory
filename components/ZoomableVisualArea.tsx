@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";
 import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Move } from "lucide-react";
 
 type ZoomableVisualAreaProps = {
@@ -219,7 +219,7 @@ export default function ZoomableVisualArea({
           transition: isTransitioning ? "transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)" : "none",
         }}
       >
-        <Image
+        <SmartImage
           src={src}
           alt={alt}
           fill

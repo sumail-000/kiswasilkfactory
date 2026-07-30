@@ -1,5 +1,32 @@
 [
   {
+    "src": "/assets/silk-rolls.jpg",
+    "label": "Premium White-Base Silk Rolls",
+    "cat": [
+      "all"
+    ],
+    "ask": true,
+    "slug": ""
+  },
+  {
+    "src": "/assets/silk-swirl.jpg",
+    "label": "White-Base Fabric Textures",
+    "cat": [
+      "all"
+    ],
+    "ask": true,
+    "slug": ""
+  },
+  {
+    "src": "/assets/silk-drape.jpg",
+    "label": "Smooth Silk Drape",
+    "cat": [
+      "all"
+    ],
+    "ask": true,
+    "slug": ""
+  },
+  {
     "src": "/products/special-dull-raw-silk/img1.jpeg",
     "label": "Dull Raw Silk — Premium Fabric Roll",
     "cat": [

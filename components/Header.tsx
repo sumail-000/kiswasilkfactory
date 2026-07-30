@@ -5,10 +5,12 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MessageCircle } from "lucide-react";
-import { NAV_LINKS, SITE } from "@/lib/site";
+import { NAV_LINKS } from "@/lib/site";
+import { useSite } from "@/components/SiteProvider";
 
 export default function Header() {
   const pathname = usePathname();
+  const site = useSite();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -37,8 +39,8 @@ export default function Header() {
             />
           </div>
           <div>
-            <h1 className="font-display font-bold text-navy text-lg sm:text-xl md:text-2xl tracking-wide leading-tight">KISWA SILK FACTORY</h1>
-            <p className="text-xs text-foreground/70 hidden sm:block md:text-sm mt-0.5">{SITE.brandSubtitle}</p>
+            <h1 className="font-display font-bold text-navy text-lg sm:text-xl md:text-2xl tracking-wide leading-tight">{site.brand.toUpperCase()}</h1>
+            <p className="text-xs text-foreground/70 hidden sm:block md:text-sm mt-0.5">{site.brandSubtitle}</p>
           </div>
         </Link>
 
@@ -59,7 +61,7 @@ export default function Header() {
             </Link>
           ))}
           <a
-            href={`https://wa.me/${SITE.phoneIntl}`}
+            href={`https://wa.me/${site.phoneIntl}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-navy text-primary-foreground px-4 py-2.5 rounded-md hover:bg-navy/90 transition-colors text-[13px] font-medium shrink-0 whitespace-nowrap"
@@ -100,7 +102,7 @@ export default function Header() {
                 className="object-cover"
               />
             </div>
-            <span className="font-display font-bold text-navy text-lg">KISWA SILK FACTORY</span>
+            <span className="font-display font-bold text-navy text-lg">{site.brand.toUpperCase()}</span>
           </Link>
           <button
             type="button"
@@ -134,7 +136,7 @@ export default function Header() {
             Get Bulk Quote
           </Link>
           <a
-            href={`https://wa.me/${SITE.phoneIntl}`}
+            href={`https://wa.me/${site.phoneIntl}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex w-full items-center justify-center gap-2 rounded-md bg-whatsapp text-white py-3 text-sm font-semibold"

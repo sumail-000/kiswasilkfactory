@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import WhatsAppFab from "@/components/WhatsAppFab";
+import { SiteProvider } from "@/components/SiteProvider";
+import { getSite } from "@/lib/content";
 
 const sans = Inter({
   variable: "--font-sans-var",
@@ -19,37 +18,43 @@ const serif = Playfair_Display({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Kiswa Silk Factory — Premium White-Base Silk Fabric Manufacturer",
-    template: "%s | Kiswa Silk Factory",
-  },
-  description:
-    "Kiswa Silk Factory is a trusted B2B manufacturer of premium white-base silk fabrics for dyeing, printing, embroidery and heavy work. Consistent quality. Reliable supply. Global trust.",
-  metadataBase: new URL("https://kiswasilkfactory.com"),
-  icons: {
-    icon: "/logos/web_logo.png",
-    shortcut: "/logos/web_logo.png",
-    apple: "/logos/web_logo.png",
-  },
-  openGraph: {
-    title: "Kiswa Silk Factory — Premium White-Base Silk Fabric Manufacturer",
-    description:
-      "B2B manufacturer of premium white-base silk fabrics. Dyeing, printing, embroidery & heavy work ready. Wholesale factory prices.",
-    type: "website",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite();
+  const title = `${site.brand} — ${site.brandSubtitle}`;
 
-export default function RootLayout({
+  return {
+    title: { default: title, template: `%s | ${site.brand}` },
+    description: `${site.brand} is a trusted B2B manufacturer of premium white-base silk fabrics for dyeing, printing, embroidery and heavy work. Consistent quality. Reliable supply. Global trust.`,
+    metadataBase: new URL("https://kiswasilkfactory.com"),
+    icons: {
+      icon: "/logos/web_logo.png",
+      shortcut: "/logos/web_logo.png",
+      apple: "/logos/web_logo.png",
+    },
+    openGraph: {
+      title,
+      description:
+        "B2B manufacturer of premium white-base silk fabrics. Dyeing, printing, embroidery & heavy work ready. Wholesale factory prices.",
+      type: "website",
+    },
+  };
+}
+
+/**
+ * Root layout — document shell only.
+ *
+ * The public site's header and footer live in `app/(public)/layout.tsx` so that
+ * `/admin` can render its own chrome instead of inheriting the marketing one.
+ */
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const site = await getSite();
+
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="flex min-h-screen flex-col" suppressHydrationWarning>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppFab />
+        <SiteProvider value={site}>{children}</SiteProvider>
       </body>
     </html>
   );

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SITE } from "@/lib/site";
+import { getSite } from "@/lib/content";
 
-export default function BrandMark({ light = false }: { light?: boolean }) {
+export default async function BrandMark({ light = false }: { light?: boolean }) {
+  const site = await getSite();
   return (
     <Link href="/" className="flex items-center gap-3">
       <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 relative">
@@ -21,14 +22,14 @@ export default function BrandMark({ light = false }: { light?: boolean }) {
           }`}
           style={{ fontFamily: "var(--font-serif-var), Georgia, serif" }}
         >
-          {SITE.brand}
+          {site.brand}
         </span>
         <span
           className={`mt-1.5 block text-[0.62rem] font-medium tracking-[0.05em] ${
             light ? "text-white/60" : "text-gray-500"
           }`}
         >
-          {SITE.brandSubtitle}
+          {site.brandSubtitle}
         </span>
       </span>
     </Link>

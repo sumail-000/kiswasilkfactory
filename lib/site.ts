@@ -1,20 +1,11 @@
-export const SITE = {
-  brand: "Kiswa Silk Factory",
-  brandShort: "KSF",
-  brandSubtitle: "Premium White-Base Silk Fabric Manufacturer",
-  tagline: "Trusted B2B Manufacturer of Premium White-Base Silk Fabrics",
-  phone: "+91 70300 74215",
-  phoneIntl: "917030074215",
-  email: "kiswasilkfactory@gmail.com",
-  instagram: "@Kiswa_Silk_Factory",
-  location: "Ludhiana, Punjab, India",
-  address: {
-    line1: "Ludhiana, Punjab",
-    line2: "India",
-    full: "Ludhiana, Punjab, India",
-  },
-  year: 2025,
-};
+/**
+ * Static site structure.
+ *
+ * Navigation is part of the site's information architecture, not editable
+ * content, so it stays in code. Everything the admin panel can change —
+ * brand, phone, email, Instagram, address — now lives in `content/site.json`
+ * and is read via `getSite()` from `@/lib/content`.
+ */
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -34,17 +25,6 @@ export const FOOTER_QUICK_LINKS = [
   { href: "/gallery", label: "Gallery" },
   { href: "/bulk-supply", label: "Bulk Supply" },
   { href: "/contact", label: "Contact Us" },
-];
-
-export const FOOTER_FABRIC_LINKS = [
-  { href: "/fabrics/dull-resham-cotton", label: "Dull Resham Cotton" },
-  { href: "/fabrics/bright-resham-cotton", label: "Bright Resham Cotton" },
-  { href: "/fabrics/korean-raw-silk", label: "Korean Raw Silk" },
-  { href: "/fabrics/sheesha-silk", label: "Sheesha Silk" },
-  { href: "/fabrics/30d-bemberg-crinkle", label: "30D Bemberg" },
-  { href: "/fabrics/40d-red-stone-crinkle", label: "40D Crinkle" },
-  { href: "/fabrics/poly-organza", label: "Poly Organza" },
-  { href: "/fabrics/oxe-silk", label: "Oxe Silk" },
 ];
 
 export const FOOTER_USEFUL_LINKS = [

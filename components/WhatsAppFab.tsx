@@ -1,12 +1,12 @@
-import { SITE } from "@/lib/site";
+import type { SiteInfo } from "@/lib/content";
 
-export default function WhatsAppFab() {
+export default function WhatsAppFab({ site }: { site: SiteInfo }) {
   const text = encodeURIComponent(
-    "Hello Kiswa Silk, I would like to inquire about your fabrics."
+    `Hello ${site.brand}, I would like to inquire about your fabrics.`
   );
   return (
     <a
-      href={`https://wa.me/${SITE.phoneIntl}?text=${text}`}
+      href={`https://wa.me/${site.phoneIntl}?text=${text}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
