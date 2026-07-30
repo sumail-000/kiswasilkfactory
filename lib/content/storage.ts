@@ -15,14 +15,8 @@
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { copy, del, head, list, put } from "@vercel/blob";
+import { copy, del, get, list, put } from "@vercel/blob";
 import type { BackupEntry, ContentKind } from "./types";
-
-/** Cache tag shared by every content fetch; invalidated on save. */
-export const CONTENT_TAG = "kiswa-content";
-
-/** How long a cached read may live before Next revalidates it anyway. */
-const REVALIDATE_SECONDS = 300;
 
 /** Blob CDN cache. 60s is the documented minimum accepted by the API. */
 const BLOB_CACHE_SECONDS = 60;
@@ -35,6 +29,59 @@ const LOCAL_BACKUP_DIR = path.join(CONTENT_DIR, ".backups");
 const blobPath = (kind: ContentKind) => `content/${kind}.json`;
 
 export const usingBlob = (): boolean => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+
+/* ─── store access mode ────────────────────────────────────── */
+
+type BlobAccess = "public" | "private";
+
+/**
+ * A Vercel Blob store is created as either public or private, and every call
+ * must declare the matching access level — passing the wrong one is a hard
+ * error, not a default. Rather than make the operator configure this, the mode
+ * is discovered on first use and remembered for the life of the instance.
+ *
+ * `BLOB_ACCESS` skips the discovery round-trip if you want to be explicit.
+ */
+let accessMode: BlobAccess | null =
+  process.env.BLOB_ACCESS === "private" || process.env.BLOB_ACCESS === "public"
+    ? process.env.BLOB_ACCESS
+    : null;
+
+const isAccessMismatch = (error: unknown): boolean =>
+  error instanceof Error && /access on a (private|public) store/i.test(error.message);
+
+/**
+ * Run a Blob operation with the correct access level, learning it if unknown.
+ * Both modes are always attempted so a remembered value can never strand us.
+ */
+async function withAccess<T>(operation: (access: BlobAccess) => Promise<T>): Promise<T> {
+  const order: BlobAccess[] =
+    accessMode === "private" ? ["private", "public"] : ["public", "private"];
+
+  let lastError: unknown;
+  for (const access of order) {
+    try {
+      const result = await operation(access);
+      accessMode = access;
+      return result;
+    } catch (error) {
+      if (!isAccessMismatch(error)) throw error;
+      lastError = error;
+    }
+  }
+  throw lastError;
+}
+
+/** Read and parse a JSON blob, or `null` if it does not exist. */
+async function readBlobJson(pathname: string): Promise<unknown | null> {
+  const result = await withAccess((access) =>
+    // `useCache: false` reads from origin rather than the CDN, so a save is
+    // visible on the very next read instead of waiting out the cache TTL.
+    get(pathname, { access, useCache: false }),
+  );
+  if (!result) return null;
+  return new Response(result.stream).json();
+}
 
 /** Human-readable description of the active backend, shown on the dashboard. */
 export function storageBackend(): { name: string; writable: boolean; detail: string } {
@@ -65,21 +112,11 @@ export function storageBackend(): { name: string; writable: boolean; detail: str
 /**
  * Read a stored document. Returns `null` if it has never been saved or if the
  * backend is unreachable — callers fall back to seed content in both cases.
- *
- * On Blob, `head()` supplies a fresh `uploadedAt` which is appended as a cache
- * buster, so a save is visible immediately rather than waiting out the CDN TTL.
- * The body fetch itself is cached by Next under CONTENT_TAG.
  */
 export async function readDocument(kind: ContentKind): Promise<unknown | null> {
   if (usingBlob()) {
     try {
-      const meta = await head(blobPath(kind));
-      const version = meta.uploadedAt instanceof Date ? meta.uploadedAt.getTime() : Date.now();
-      const res = await fetch(`${meta.url}?v=${version}`, {
-        next: { tags: [CONTENT_TAG], revalidate: REVALIDATE_SECONDS },
-      });
-      if (!res.ok) return null;
-      return await res.json();
+      return await readBlobJson(blobPath(kind));
     } catch {
       // Not found, no store, network failure — all mean "use the seed".
       return null;
@@ -108,22 +145,26 @@ export async function writeDocument(kind: ContentKind, data: unknown): Promise<v
 
   if (usingBlob()) {
     try {
-      await copy(blobPath(kind), `backups/${kind}-${stamp}.json`, {
-        access: "public",
-        addRandomSuffix: false,
-        cacheControlMaxAge: BLOB_CACHE_SECONDS,
-      });
+      await withAccess((access) =>
+        copy(blobPath(kind), `backups/${kind}-${stamp}.json`, {
+          access,
+          addRandomSuffix: false,
+          cacheControlMaxAge: BLOB_CACHE_SECONDS,
+        }),
+      );
     } catch {
       // No previous version to back up (first save), or copy unavailable.
     }
 
-    await put(blobPath(kind), body, {
-      access: "public",
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      contentType: "application/json",
-      cacheControlMaxAge: BLOB_CACHE_SECONDS,
-    });
+    await withAccess((access) =>
+      put(blobPath(kind), body, {
+        access,
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        contentType: "application/json",
+        cacheControlMaxAge: BLOB_CACHE_SECONDS,
+      }),
+    );
 
     await pruneBackups(kind);
     return;
@@ -189,9 +230,7 @@ export async function listBackups(kind?: ContentKind): Promise<BackupEntry[]> {
 export async function readBackup(pathname: string): Promise<unknown | null> {
   if (usingBlob()) {
     try {
-      const meta = await head(pathname);
-      const res = await fetch(meta.url, { cache: "no-store" });
-      return res.ok ? await res.json() : null;
+      return await readBlobJson(pathname);
     } catch {
       return null;
     }

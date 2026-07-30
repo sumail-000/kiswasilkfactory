@@ -27,14 +27,21 @@ export default function HistoryList({ backups }: { backups: BackupEntry[] }) {
     }
 
     setBusy(entry.pathname);
-    const result = await restoreBackupAction(entry.pathname, entry.kind);
-    setBusy(null);
-
-    setNotice(
-      result.ok
-        ? { tone: "ok", text: result.message ?? "Restored." }
-        : { tone: "error", text: result.errors.join(" ") },
-    );
+    try {
+      const result = await restoreBackupAction(entry.pathname, entry.kind);
+      setNotice(
+        result.ok
+          ? { tone: "ok", text: result.message ?? "Restored." }
+          : { tone: "error", text: result.errors.join(" ") },
+      );
+    } catch (error) {
+      setNotice({
+        tone: "error",
+        text: `Restore failed: ${error instanceof Error ? error.message : "unexpected server error"}.`,
+      });
+    } finally {
+      setBusy(null);
+    }
   };
 
   return (

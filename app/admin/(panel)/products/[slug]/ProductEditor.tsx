@@ -66,22 +66,32 @@ export default function ProductEditor({
       heroImage: draft.images[0] ?? draft.heroImage,
     };
 
-    const result = await saveProductAction(originalSlug, payload);
-    setSaving(false);
+    try {
+      const result = await saveProductAction(originalSlug, payload);
 
-    if (!result.ok) {
-      setNotice({ tone: "error", text: result.errors.join(" ") });
-      return;
+      if (!result.ok) {
+        setNotice({ tone: "error", text: result.errors.join(" ") });
+        return;
+      }
+
+      setDirty(false);
+      setNotice({ tone: "ok", text: result.message ?? "Saved." });
+
+      // A new fabric, or a renamed slug, lives at a different URL now.
+      if (payload.slug !== originalSlug) {
+        router.replace(`/admin/products/${payload.slug}`);
+      }
+      router.refresh();
+    } catch (error) {
+      setNotice({
+        tone: "error",
+        text: `Save failed: ${error instanceof Error ? error.message : "unexpected server error"}. Your changes are still on screen — try again.`,
+      });
+    } finally {
+      // In `finally` so an unexpected throw can never strand the button on
+      // "Saving…" with no way to retry.
+      setSaving(false);
     }
-
-    setDirty(false);
-    setNotice({ tone: "ok", text: result.message ?? "Saved." });
-
-    // A new fabric, or a renamed slug, lives at a different URL now.
-    if (payload.slug !== originalSlug) {
-      router.replace(`/admin/products/${payload.slug}`);
-    }
-    router.refresh();
   };
 
   return (

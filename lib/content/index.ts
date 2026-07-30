@@ -13,10 +13,10 @@
  * components should import from `./types` (types and `APP_TAGS`) instead.
  */
 
-import { revalidatePath, updateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { SEED_GALLERY, SEED_PRODUCTS, SEED_SITE } from "./seed";
-import { CONTENT_TAG, readDocument, writeDocument } from "./storage";
-import type { GalleryItem, Product, SiteInfo } from "./types";
+import { readDocument, writeDocument } from "./storage";
+import type { ContentKind, GalleryItem, Product, SiteInfo } from "./types";
 import { validateGallery, validateProducts, validateSite } from "./validate";
 
 export type { AppTag, GalleryItem, Product, SiteInfo } from "./types";
@@ -59,41 +59,44 @@ export async function getSite(): Promise<SiteInfo> {
 export type SaveResult = { ok: true } | { ok: false; errors: string[] };
 
 /**
- * Refresh every cached read so the operator immediately sees what they saved.
+ * Write a validated document and refresh every page that renders it.
  *
- * `updateTag` (not `revalidateTag`) is deliberate: it expires the tag straight
- * away, whereas `revalidateTag` serves stale content while refreshing in the
- * background — which would mean saving a change and still seeing the old one.
- * It is only callable from a Server Action, which is the only way saves happen.
+ * Storage failures are returned, never thrown: an uncaught error here becomes
+ * an opaque 500 with a digest, leaving the operator staring at a spinner with
+ * no idea what went wrong. The message is surfaced in the admin UI and logged
+ * for the server-side record.
  *
- * `revalidatePath` additionally covers the local-file backend, whose reads are
- * filesystem calls and therefore carry no fetch tag.
+ * Content reads are not `fetch` calls, so they carry no cache tag; the pages
+ * that render them are refreshed with `revalidatePath` on the root layout,
+ * which covers every route beneath it.
  */
-function refreshContentCaches(): void {
-  updateTag(CONTENT_TAG);
+async function persist(kind: ContentKind, data: unknown): Promise<SaveResult> {
+  try {
+    await writeDocument(kind, data);
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    console.error(`[content] failed to save ${kind}:`, error);
+    return { ok: false, errors: [`Could not save to storage. ${detail}`] };
+  }
+
   revalidatePath("/", "layout");
+  return { ok: true };
 }
 
 export async function saveProducts(input: unknown): Promise<SaveResult> {
   const result = validateProducts(input);
   if (!result.ok) return result;
-  await writeDocument("products", result.data);
-  refreshContentCaches();
-  return { ok: true };
+  return persist("products", result.data);
 }
 
 export async function saveGallery(input: unknown): Promise<SaveResult> {
   const result = validateGallery(input);
   if (!result.ok) return result;
-  await writeDocument("gallery", result.data);
-  refreshContentCaches();
-  return { ok: true };
+  return persist("gallery", result.data);
 }
 
 export async function saveSite(input: unknown): Promise<SaveResult> {
   const result = validateSite(input);
   if (!result.ok) return result;
-  await writeDocument("site", result.data);
-  refreshContentCaches();
-  return { ok: true };
+  return persist("site", result.data);
 }

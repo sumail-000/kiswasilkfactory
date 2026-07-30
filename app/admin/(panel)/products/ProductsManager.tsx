@@ -37,14 +37,22 @@ export default function ProductsManager({ initial }: { initial: Product[] }) {
     const previous = products;
     setProducts(next); // optimistic
     setBusy(true);
-    const result = await reorderProductsAction(next.map((p) => p.slug));
-    setBusy(false);
-
-    if (!result.ok) {
-      setProducts(previous);
-      setNotice({ tone: "error", text: result.errors.join(" ") });
-    } else {
-      setNotice(null);
+    try {
+      const result = await reorderProductsAction(next.map((p) => p.slug));
+      if (!result.ok) {
+        setProducts(previous);
+        setNotice({ tone: "error", text: result.errors.join(" ") });
+      } else {
+        setNotice(null);
+      }
+    } catch (error) {
+      setProducts(previous); // the server rejected it; don't show a false order
+      setNotice({
+        tone: "error",
+        text: `Could not save the new order: ${error instanceof Error ? error.message : "unexpected server error"}.`,
+      });
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -54,14 +62,21 @@ export default function ProductsManager({ initial }: { initial: Product[] }) {
     }
 
     setBusy(true);
-    const result = await deleteProductAction(product.slug);
-    setBusy(false);
-
-    if (result.ok) {
-      setProducts((current) => current.filter((p) => p.slug !== product.slug));
-      setNotice({ tone: "ok", text: result.message ?? "Deleted." });
-    } else {
-      setNotice({ tone: "error", text: result.errors.join(" ") });
+    try {
+      const result = await deleteProductAction(product.slug);
+      if (result.ok) {
+        setProducts((current) => current.filter((p) => p.slug !== product.slug));
+        setNotice({ tone: "ok", text: result.message ?? "Deleted." });
+      } else {
+        setNotice({ tone: "error", text: result.errors.join(" ") });
+      }
+    } catch (error) {
+      setNotice({
+        tone: "error",
+        text: `Could not delete: ${error instanceof Error ? error.message : "unexpected server error"}.`,
+      });
+    } finally {
+      setBusy(false);
     }
   };
 

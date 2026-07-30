@@ -62,14 +62,21 @@ export default function GalleryManager({
   const save = async () => {
     setSaving(true);
     setNotice(null);
-    const result = await saveGalleryAction(items);
-    setSaving(false);
-
-    if (result.ok) {
-      setDirty(false);
-      setNotice({ tone: "ok", text: result.message ?? "Saved." });
-    } else {
-      setNotice({ tone: "error", text: result.errors.join(" ") });
+    try {
+      const result = await saveGalleryAction(items);
+      if (result.ok) {
+        setDirty(false);
+        setNotice({ tone: "ok", text: result.message ?? "Saved." });
+      } else {
+        setNotice({ tone: "error", text: result.errors.join(" ") });
+      }
+    } catch (error) {
+      setNotice({
+        tone: "error",
+        text: `Save failed: ${error instanceof Error ? error.message : "unexpected server error"}. Your changes are still on screen — try again.`,
+      });
+    } finally {
+      setSaving(false);
     }
   };
 
