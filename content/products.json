@@ -1,0 +1,816 @@
+[
+  {
+    "slug": "special-dull-raw-silk",
+    "name": "Dull Raw Silk",
+    "cardDesc": "Soft, luxurious and breathable fabric with a natural matte finish.",
+    "shortDesc": "Soft, breathable matte-finish 100% viscose for dyeing, printing, embroidery and designer garment production.",
+    "composition": "100% Viscose",
+    "width": "43\" – 62\"",
+    "gsm": "90 GSM",
+    "category": "Mid Range / Premium Designer",
+    "finish": "Dull / Matte Finish",
+    "dyeable": true,
+    "uses": [
+      "Printed Shirts",
+      "Embroidered Shirts",
+      "Blouses",
+      "Waistcoats",
+      "Sarees"
+    ],
+    "features": [
+      "Soft Matte Finish",
+      "Lightweight",
+      "Breathable",
+      "Smooth Drape",
+      "Easy to Stitch"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Embroidery"
+    ],
+    "heroImage": "/products/special-dull-raw-silk/img1.jpeg",
+    "images": [
+      "/products/special-dull-raw-silk/img1.jpeg",
+      "/products/special-dull-raw-silk/img2.jpeg",
+      "/products/special-dull-raw-silk/img3.jpeg",
+      "/products/special-dull-raw-silk/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "raw-silk-shine",
+    "name": "Bright Raw Silk",
+    "cardDesc": "Glossy and smooth silk fabric with excellent finish and strength.",
+    "shortDesc": "Premium dyeable fabric with slight shiny finish after dye. Suitable for heavy embroidery and stonework.",
+    "composition": "Viscose Based",
+    "width": "40\"",
+    "gsm": "80 GSM",
+    "category": "Premium",
+    "finish": "Slight Shiny After Dye",
+    "dyeable": true,
+    "uses": [
+      "Shirts",
+      "Blouses",
+      "Shararas",
+      "Sarees",
+      "Evening Wear"
+    ],
+    "features": [
+      "Flawless Finish",
+      "Eco-Friendly",
+      "Smooth Resistance",
+      "Heavy Embroidery Ready"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/raw-silk-shine/img1.jpeg",
+    "images": [
+      "/products/raw-silk-shine/img1.jpeg",
+      "/products/raw-silk-shine/img2.jpeg",
+      "/products/raw-silk-shine/img3.jpeg",
+      "/products/raw-silk-shine/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "dull-resham-cotton",
+    "name": "Dull Resham Cotton",
+    "cardDesc": "Durable silk-cotton blend with a soft matte texture.",
+    "shortDesc": "Lightweight, soft, breathable dull-finish 100% viscose fabric ideal for linings and inner garments.",
+    "composition": "100% Viscose",
+    "width": "42\" – 62\"",
+    "gsm": "80 GSM",
+    "category": "Lining / Innerwear Fabric",
+    "finish": "Dull / Non-Shiny Finish",
+    "dyeable": true,
+    "uses": [
+      "Linings",
+      "Inner Garments",
+      "Underlayers",
+      "Suit Linings"
+    ],
+    "features": [
+      "Lightweight",
+      "Soft Touch",
+      "Smooth Non-Shiny",
+      "Breathable",
+      "Easy to Stitch"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Embroidery"
+    ],
+    "heroImage": "/products/dull-resham-cotton/img1.jpeg",
+    "images": [
+      "/products/dull-resham-cotton/img1.jpeg",
+      "/products/dull-resham-cotton/img2.jpeg",
+      "/products/dull-resham-cotton/img3.jpeg",
+      "/products/dull-resham-cotton/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "bright-resham-cotton",
+    "name": "Bright Resham Cotton",
+    "cardDesc": "Silk-cotton blend with a subtle sheen and excellent workability.",
+    "shortDesc": "Lightweight 100% viscose with slight shiny finish for linings, inner layers and premium garment finishing.",
+    "composition": "100% Viscose",
+    "width": "42\" – 62\"",
+    "gsm": "80 GSM",
+    "category": "Lining / Innerwear Fabric",
+    "finish": "Bright / Slight Shiny Finish",
+    "dyeable": true,
+    "uses": [
+      "Linings",
+      "Innerwear",
+      "Underlayers",
+      "Shirt Linings"
+    ],
+    "features": [
+      "Slight Shiny Finish",
+      "Lightweight",
+      "Soft Touch",
+      "Breathable",
+      "Flawless Finish"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/bright-resham-cotton/img1.jpeg",
+    "images": [
+      "/products/bright-resham-cotton/img1.jpeg",
+      "/products/bright-resham-cotton/img2.jpeg",
+      "/products/bright-resham-cotton/img3.jpeg",
+      "/products/bright-resham-cotton/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "30d-bemberg-crinkle",
+    "name": "30D Bemberg",
+    "cardDesc": "Lightweight, smooth and flowy fabric with elegant drape.",
+    "shortDesc": "Ultra-lightweight 100% viscose crinkle fabric with soft airy texture and beautiful fall for shirts and dupattas.",
+    "composition": "100% Viscose",
+    "width": "44\"",
+    "gsm": "30 GSM",
+    "category": "Crinkle / Lightweight Designer",
+    "finish": "Soft, Airy, Flowy Finish",
+    "dyeable": true,
+    "uses": [
+      "Dyed Shirts",
+      "Printed Shirts",
+      "Dupattas",
+      "Casual Wear",
+      "Festive Wear"
+    ],
+    "features": [
+      "Ultra-Lightweight",
+      "Soft Airy Texture",
+      "Beautiful Fall",
+      "Breathable",
+      "Elegant Drape"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Embroidery"
+    ],
+    "heroImage": "/products/30d-bemberg-crinkle/img1.jpeg",
+    "images": [
+      "/products/30d-bemberg-crinkle/img1.jpeg",
+      "/products/30d-bemberg-crinkle/img2.jpeg",
+      "/products/30d-bemberg-crinkle/img3.jpeg",
+      "/products/30d-bemberg-crinkle/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "40d-red-stone-crinkle",
+    "name": "40D Crinkle",
+    "cardDesc": "Textured crinkle fabric with a stylish look and soft feel.",
+    "shortDesc": "Lightweight flowy 100% viscose crinkle with soft textured surface and elegant drape for designer outfits.",
+    "composition": "100% Viscose",
+    "width": "44\"",
+    "gsm": "40 GSM",
+    "category": "Crinkle / Designer Fabric",
+    "finish": "Soft Textured Finish",
+    "dyeable": true,
+    "uses": [
+      "Printed Shirts",
+      "Embroidered Shirts",
+      "Dupattas",
+      "Formal Wear"
+    ],
+    "features": [
+      "Lightweight",
+      "Soft Drape",
+      "Crinkle Texture",
+      "Elegant Fall",
+      "Breathable"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/40d-red-stone-crinkle/img1.jpeg",
+    "images": [
+      "/products/40d-red-stone-crinkle/img1.jpeg",
+      "/products/40d-red-stone-crinkle/img2.jpeg",
+      "/products/40d-red-stone-crinkle/img3.jpeg",
+      "/products/40d-red-stone-crinkle/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "tussel-or-indian-silk",
+    "name": "Indian Tussel Silk",
+    "cardDesc": "Naturally textured silk with slub effect for premium appeal.",
+    "shortDesc": "Elegant, soft and shiny silk-look 100% viscose with rich fall for printed shirts and formal designer collections.",
+    "composition": "100% Viscose",
+    "width": "41\" – 62\"",
+    "gsm": "85 GSM",
+    "category": "Shiny Silk-Look / Premium Shirt",
+    "finish": "Smooth with Elegant Shine",
+    "dyeable": true,
+    "uses": [
+      "Printed Shirts",
+      "Adda Work Shirts",
+      "Formal Wear",
+      "Luxury Shirts"
+    ],
+    "features": [
+      "Shiny Silk-Look",
+      "Soft Touch",
+      "Rich Fall",
+      "Elegant Appearance",
+      "Premium Grip"
+    ],
+    "tags": [
+      "Dyeing",
+      "Embroidery",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/tussel-or-indian-silk/img1.jpeg",
+    "images": [
+      "/products/tussel-or-indian-silk/img1.jpeg",
+      "/products/tussel-or-indian-silk/img2.jpeg",
+      "/products/tussel-or-indian-silk/img3.jpeg",
+      "/products/tussel-or-indian-silk/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "korean-raw-silk",
+    "name": "Korean Raw Silk",
+    "cardDesc": "High-quality raw silk with fine texture and excellent strength.",
+    "shortDesc": "Premium raw silk-look 100% viscose with rich textured finish and graceful drape for printing and embroidery.",
+    "composition": "100% Viscose",
+    "width": "43\" – 62\"",
+    "gsm": "100 GSM",
+    "category": "Premium Raw Silk / Designer",
+    "finish": "Rich Textured with Slight Shine",
+    "dyeable": true,
+    "uses": [
+      "Printed Shirts",
+      "Embroidered Shirts",
+      "Formal Wear",
+      "Designer Outfits"
+    ],
+    "features": [
+      "Slight Shine",
+      "Rich Textured",
+      "Graceful Drape",
+      "Soft Touch",
+      "Durable Quality"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Embroidery"
+    ],
+    "heroImage": "/products/korean-raw-silk/img1.jpeg",
+    "images": [
+      "/products/korean-raw-silk/img1.jpeg",
+      "/products/korean-raw-silk/img2.jpeg",
+      "/products/korean-raw-silk/img3.jpeg",
+      "/products/korean-raw-silk/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "75d-medium-silk",
+    "name": "Muslin",
+    "cardDesc": "Light, breathable and versatile fabric for multiple applications.",
+    "shortDesc": "Versatile, smooth, medium-weight 100% viscose ideal for printed and embroidered shirts and designer garments.",
+    "composition": "100% Viscose",
+    "width": "40\" – 62\"",
+    "gsm": "70 GSM",
+    "category": "Medium Silk / Designer Fabric",
+    "finish": "Soft Medium-Weight Finish",
+    "dyeable": true,
+    "uses": [
+      "Printed Shirts",
+      "Embroidered Shirts",
+      "Trousers",
+      "Casual Wear"
+    ],
+    "features": [
+      "Smooth Texture",
+      "Soft Feel",
+      "Neat Fall",
+      "Easy to Stitch",
+      "Premium Appearance"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Embroidery"
+    ],
+    "heroImage": "/products/75d-medium-silk/img1.jpeg",
+    "images": [
+      "/products/75d-medium-silk/img1.jpeg",
+      "/products/75d-medium-silk/img2.jpeg",
+      "/products/75d-medium-silk/img3.jpeg",
+      "/products/75d-medium-silk/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "75d-bright-russian-grip",
+    "name": "Russian Grip",
+    "cardDesc": "Strong and durable fabric with a firm grip and smooth finish.",
+    "shortDesc": "Smooth bright-finish 100% viscose for premium shirts, trousers and designer outfits with elegant shine.",
+    "composition": "100% Viscose",
+    "width": "40\" – 62\"",
+    "gsm": "75 GSM",
+    "category": "Bright Russian Grip / Premium Designer",
+    "finish": "Bright / Slight Shiny Finish",
+    "dyeable": true,
+    "uses": [
+      "Printed Shirts",
+      "Embroidered Shirts",
+      "Trousers",
+      "Co-ord Sets"
+    ],
+    "features": [
+      "Bright Finish",
+      "Smooth Texture",
+      "Soft Feel",
+      "Fine Grip",
+      "Neat Fall"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/75d-bright-russian-grip/img1.jpeg",
+    "images": [
+      "/products/75d-bright-russian-grip/img1.jpeg",
+      "/products/75d-bright-russian-grip/img2.jpeg",
+      "/products/75d-bright-russian-grip/img3.jpeg",
+      "/products/75d-bright-russian-grip/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "sheesha-silk",
+    "name": "Sheesha Silk",
+    "cardDesc": "Elegant silk fabric perfect for intricate embroidery and heavy work.",
+    "shortDesc": "Premium shiny fabric with smooth texture and rich sheesha-like finish for bridal wear and luxury collections.",
+    "composition": "Viscose Based",
+    "width": "42\"",
+    "gsm": "90 GSM",
+    "category": "Premium Shiny Silk / Designer",
+    "finish": "Shiny / Sheesha-Look Finish",
+    "dyeable": true,
+    "uses": [
+      "Bridal Wear",
+      "Adda Work Shirts",
+      "Stone Work Outfits",
+      "Formal Wear"
+    ],
+    "features": [
+      "Shiny Finish",
+      "Smooth Texture",
+      "Sheesha-Look",
+      "Elegant Fall",
+      "Premium Feel"
+    ],
+    "tags": [
+      "Embroidery",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/sheesha-silk/img1.jpeg",
+    "images": [
+      "/products/sheesha-silk/img1.jpeg",
+      "/products/sheesha-silk/img2.jpeg",
+      "/products/sheesha-silk/img3.jpeg",
+      "/products/sheesha-silk/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "moseleen-or-thai-silk",
+    "name": "Moseleen / Thai Silk",
+    "cardDesc": "Very soft, smooth fabric with subtle sheen and refined texture.",
+    "shortDesc": "Very soft, smooth, lightweight 100% viscose with subtle sheen for designer collections and premium shirts.",
+    "composition": "100% Viscose",
+    "width": "40\" – 62\"",
+    "gsm": "80 GSM",
+    "category": "Thai Silk / Premium Shirt",
+    "finish": "Smooth with Slight Lustrous Finish",
+    "dyeable": true,
+    "uses": [
+      "Printed Shirts",
+      "Embroidered Shirts",
+      "Casual Wear",
+      "Semi-Formal Wear"
+    ],
+    "features": [
+      "Very Soft Touch",
+      "Beautiful Fall",
+      "Slight Sheen",
+      "Lightweight",
+      "Durable Quality"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Embroidery"
+    ],
+    "heroImage": "/products/moseleen-or-thai-silk/img1.jpeg",
+    "images": [
+      "/products/moseleen-or-thai-silk/img1.jpeg",
+      "/products/moseleen-or-thai-silk/img2.jpeg",
+      "/products/moseleen-or-thai-silk/img3.jpeg",
+      "/products/moseleen-or-thai-silk/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "oxe-silk",
+    "name": "Oxe Silk",
+    "cardDesc": "Premium winter fabric with warm feel and smooth textured finish.",
+    "shortDesc": "Premium winter 100% viscose with soft textured finish. Warm, durable, and ideal for winter designer outfits.",
+    "composition": "100% Viscose",
+    "width": "42\" – 62\"",
+    "gsm": "120 GSM",
+    "category": "Winter Silk / Premium Winter",
+    "finish": "Soft and Slightly Textured",
+    "dyeable": true,
+    "uses": [
+      "Dyed Shirts",
+      "Embroidered Shirts",
+      "Winter Suits",
+      "Semi-Formal Wear"
+    ],
+    "features": [
+      "Warm Feel",
+      "Soft Texture",
+      "Durable Quality",
+      "Smooth Fall",
+      "Comfortable Wear"
+    ],
+    "tags": [
+      "Dyeing",
+      "Embroidery",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/oxe-silk/img1.jpeg",
+    "images": [
+      "/products/oxe-silk/img1.jpeg",
+      "/products/oxe-silk/img2.jpeg",
+      "/products/oxe-silk/img3.jpeg",
+      "/products/oxe-silk/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "50d-georgette-chiffon",
+    "name": "50D Georgette Chiffon",
+    "cardDesc": "Lightweight, soft and sheer fabric with graceful drape for dupattas.",
+    "shortDesc": "Lightweight, soft and sheer 100% viscose with graceful drape — perfect for stylish dupattas and digital printing.",
+    "composition": "100% Viscose",
+    "width": "40\" – 50\"",
+    "gsm": "45 GSM",
+    "category": "Georgette Chiffon / Dupatta",
+    "finish": "Semi-Transparent Elegant Sheer",
+    "dyeable": true,
+    "uses": [
+      "Digital Printed Dupattas",
+      "Embroidered Dupattas",
+      "Fancy Dupattas",
+      "Festive Wear"
+    ],
+    "features": [
+      "Lightweight",
+      "Soft Flow",
+      "Graceful Drape",
+      "Sheer Finish",
+      "Elegant Fall"
+    ],
+    "tags": [
+      "Printing",
+      "Embroidery"
+    ],
+    "heroImage": "/products/50d-georgette-chiffon/img1.jpeg",
+    "images": [
+      "/products/50d-georgette-chiffon/img1.jpeg",
+      "/products/50d-georgette-chiffon/img2.jpeg",
+      "/products/50d-georgette-chiffon/img3.jpeg",
+      "/products/50d-georgette-chiffon/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "dull-pk-lining",
+    "name": "Dull PK Lining",
+    "cardDesc": "Premium matte lining fabric — soft, breathable and comfortable.",
+    "shortDesc": "Premium 100% viscose lining with soft matte finish. Ideal for inner slips, undergarments and linings.",
+    "composition": "100% Viscose",
+    "width": "40\" – 62\"",
+    "gsm": "80 GSM",
+    "category": "Premium Lining / Innerwear",
+    "finish": "Dull / Matte Finish",
+    "dyeable": true,
+    "uses": [
+      "Inner Slips",
+      "Undergarments",
+      "Dress Linings",
+      "Underlayers"
+    ],
+    "features": [
+      "Soft Matte Finish",
+      "Lightweight",
+      "Breathable",
+      "Comfortable Wear"
+    ],
+    "tags": [
+      "Dyeing",
+      "Lining"
+    ],
+    "heroImage": "/products/dull-pk-lining/img1.jpeg",
+    "images": [
+      "/products/dull-pk-lining/img1.jpeg",
+      "/products/dull-pk-lining/img2.jpeg",
+      "/products/dull-pk-lining/img3.jpeg",
+      "/products/dull-pk-lining/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "bright-pk-lining",
+    "name": "Bright PK Lining",
+    "cardDesc": "Premium shiny lining fabric — smooth, soft and lightweight.",
+    "shortDesc": "Premium 100% viscose lining with smooth texture and slight shiny finish for premium garment finishing.",
+    "composition": "100% Viscose",
+    "width": "40\" – 62\"",
+    "gsm": "80 GSM",
+    "category": "Premium Lining / Innerwear",
+    "finish": "Bright / Slight Shiny Finish",
+    "dyeable": true,
+    "uses": [
+      "Inner Slips",
+      "Undergarments",
+      "Dress Linings",
+      "Garment Finishing"
+    ],
+    "features": [
+      "Slight Shiny Finish",
+      "Lightweight",
+      "Breathable",
+      "Smooth Touch"
+    ],
+    "tags": [
+      "Dyeing",
+      "Lining"
+    ],
+    "heroImage": "/products/bright-pk-lining/img1.jpeg",
+    "images": [
+      "/products/bright-pk-lining/img1.jpeg",
+      "/products/bright-pk-lining/img2.jpeg",
+      "/products/bright-pk-lining/img3.jpeg",
+      "/products/bright-pk-lining/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "apple-silk-poly",
+    "name": "Apple Silk (Poly)",
+    "cardDesc": "Lightweight polyester with soft feel and slight shine for fashion wear.",
+    "shortDesc": "Lightweight polyester with soft feel and slight shine. Suitable for sublimation, dyeing and heavy embroidery.",
+    "composition": "100% Polyester",
+    "width": "45\"",
+    "gsm": "Lightweight",
+    "category": "Low Range",
+    "finish": "Slight Shiny Look",
+    "dyeable": true,
+    "uses": [
+      "Shirts",
+      "Dupattas",
+      "Anarkali Gowns",
+      "Lehenga Cholis",
+      "Sarees"
+    ],
+    "features": [
+      "Slight Shiny Finish",
+      "Lightweight",
+      "Breathable",
+      "Flowy Look",
+      "Sublimation Ready"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/apple-silk-poly/img1.jpeg",
+    "images": [
+      "/products/apple-silk-poly/img1.jpeg",
+      "/products/apple-silk-poly/img2.jpeg",
+      "/products/apple-silk-poly/img3.jpeg",
+      "/products/apple-silk-poly/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "poly-2-tone",
+    "name": "Poly 2 Tone",
+    "cardDesc": "Premium two-tone polyester with stunning color shift and elegant fall.",
+    "shortDesc": "Premium polyester with beautiful two-tone shade effect, smooth texture and elegant fall for designer collections.",
+    "composition": "Polyester Based",
+    "width": "Variable",
+    "gsm": "Lightweight",
+    "category": "Premium / Designer Fabric",
+    "finish": "Two-Tone Shiny Finish",
+    "dyeable": true,
+    "uses": [
+      "Shirts",
+      "Dupattas",
+      "Abayas",
+      "Shararas",
+      "Sarees",
+      "Kaftans"
+    ],
+    "features": [
+      "Two-Tone Effect",
+      "Smooth Texture",
+      "Elegant Shine",
+      "Premium Fall",
+      "Easy to Stitch"
+    ],
+    "tags": [
+      "Printing",
+      "Embroidery",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/poly-2-tone/img1.jpeg",
+    "images": [
+      "/products/poly-2-tone/img1.jpeg",
+      "/products/poly-2-tone/img2.jpeg",
+      "/products/poly-2-tone/img3.jpeg",
+      "/products/poly-2-tone/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "poly-munar",
+    "name": "Poly Munar",
+    "cardDesc": "Premium polyester with soft matte look, graceful fall and no shrinkage.",
+    "shortDesc": "Premium polyester with soft matte look, smooth texture and graceful fall. Wrinkle-free and sublimation-ready.",
+    "composition": "100% Polyester",
+    "width": "45\"",
+    "gsm": "Lightweight",
+    "category": "Premium",
+    "finish": "Matte Look",
+    "dyeable": true,
+    "uses": [
+      "Dupattas",
+      "Shirts",
+      "Abayas",
+      "Shararas",
+      "Sarees",
+      "Maxis"
+    ],
+    "features": [
+      "Wrinkle-Free",
+      "Great Fall",
+      "Soft Smooth Texture",
+      "Matte Look",
+      "No Shrinkage"
+    ],
+    "tags": [
+      "Printing",
+      "Embroidery",
+      "Heavy Work"
+    ],
+    "heroImage": "/products/poly-munar/img1.jpeg",
+    "images": [
+      "/products/poly-munar/img1.jpeg",
+      "/products/poly-munar/img2.jpeg",
+      "/products/poly-munar/img3.jpeg",
+      "/products/poly-munar/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "poly-organza",
+    "name": "Poly Organza",
+    "cardDesc": "Crisp transparent organza — ideal for bridal overlays and dupattas.",
+    "shortDesc": "Crisp, transparent polyester organza with elegant structure. Ideal for bridal overlays, dupattas and embroidery.",
+    "composition": "100% Polyester",
+    "width": "45\"",
+    "gsm": "Lightweight",
+    "category": "Organza / Designer",
+    "finish": "Crisp Transparent Finish",
+    "dyeable": true,
+    "uses": [
+      "Bridal Overlays",
+      "Dupattas",
+      "Embroidered Dresses",
+      "Formal Wear"
+    ],
+    "features": [
+      "Crisp Structure",
+      "Transparent",
+      "Elegant Drape",
+      "Embroidery Ready",
+      "Dyeable"
+    ],
+    "tags": [
+      "Dyeing",
+      "Printing",
+      "Embroidery"
+    ],
+    "heroImage": "/products/poly-organza/img1.jpeg",
+    "images": [
+      "/products/poly-organza/img1.jpeg",
+      "/products/poly-organza/img2.jpeg",
+      "/products/poly-organza/img3.jpeg",
+      "/products/poly-organza/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "jaweria-net-fabric",
+    "name": "Jaweria Net Fabric",
+    "cardDesc": "Premium polyester net — sleek, colorfast and sublimation-friendly.",
+    "shortDesc": "Premium polyester net with sleek smooth finish. Dyeable, colorfast and sublimation-friendly for fashion garments.",
+    "composition": "Polyester Base",
+    "width": "46\"",
+    "gsm": "Lightweight",
+    "category": "Premium Net / Designer",
+    "finish": "Sleek and Smooth Finish",
+    "dyeable": true,
+    "uses": [
+      "Dupattas",
+      "Net Shirts",
+      "Overlays",
+      "Embroidered Dresses",
+      "Formal Wear"
+    ],
+    "features": [
+      "Sleek Finish",
+      "Dyeable",
+      "Colorfast",
+      "Sublimation Friendly",
+      "Lightweight"
+    ],
+    "tags": [
+      "Printing",
+      "Embroidery",
+      "Sublimation"
+    ],
+    "heroImage": "/products/jaweria-net-fabric/img1.jpeg",
+    "images": [
+      "/products/jaweria-net-fabric/img1.jpeg",
+      "/products/jaweria-net-fabric/img2.jpeg",
+      "/products/jaweria-net-fabric/img3.jpeg",
+      "/products/jaweria-net-fabric/img4.jpeg"
+    ]
+  },
+  {
+    "slug": "poly-lawn-for-sublimation-print",
+    "name": "Poly Lawn",
+    "cardDesc": "RFD white-base polyester lawn purpose-built for sublimation printing.",
+    "shortDesc": "Lightweight smooth polyester specially prepared for sublimation printing with RFD white base for sharp print results.",
+    "composition": "100% Polyester",
+    "width": "42\"",
+    "gsm": "Lightweight",
+    "category": "Sublimation Print / Poly Lawn",
+    "finish": "Smooth and Clean (RFD White Base)",
+    "dyeable": true,
+    "uses": [
+      "Printed Shirts",
+      "Dupattas",
+      "2-Piece Suits",
+      "3-Piece Suits",
+      "Summer Wear"
+    ],
+    "features": [
+      "Sublimation Ready",
+      "Smooth Surface",
+      "RFD White Base",
+      "Fine Print Result",
+      "Lightweight"
+    ],
+    "tags": [
+      "Printing",
+      "Sublimation"
+    ],
+    "heroImage": "/products/poly-lawn-for-sublimation-print/img1.jpeg",
+    "images": [
+      "/products/poly-lawn-for-sublimation-print/img1.jpeg",
+      "/products/poly-lawn-for-sublimation-print/img2.jpeg"
+    ]
+  }
+]
